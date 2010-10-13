@@ -20,6 +20,8 @@
 
 			orbium.Tile.prototype.construct.call(this, "verttile"+x, null,
 				null, count, xnr, ynr);
+
+			this.inducesTopPath = true;
 		};
 
 		this.fallMarble = function(marble) {

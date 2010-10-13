@@ -213,7 +213,7 @@
 			block.style.top = ""+offset+"px";
 			block.style.width = ""+orbium.width+"px";
 			block.style.height = ""+orbium.height+"px";
-			window.onorientationchange=function() {setTimeout(function() {window.scrollTo(0, 1);}, 1000);};
+			window.onorientationchange = function() {setTimeout(function() {window.scrollTo(0, 1);}, 1000);};
 		}
 
 		orbium.loader = new orbium.Loader();

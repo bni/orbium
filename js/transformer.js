@@ -8,7 +8,16 @@
 
 			orbium.Tile.prototype.construct.call(this, "modtile0", null,
 				"transformer"+color, count, xnr, ynr);
+
+			this.inducesTopPath = true;
+			this.inducesRightPath = true;
+			this.inducesBottomPath = true;
+			this.inducesLeftPath = true;
 		};
+
+		this.setBase = function() {
+			orbium.Tile.prototype.setBase.call(this, "modtile");
+		}
 
 		this.transformMarble = function(marble) {
 			if (marble.color != color &&

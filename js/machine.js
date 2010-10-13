@@ -115,27 +115,8 @@
 			var middle = symbol.substring(1, 2);
 			var suffix = symbol.substring(2, 3);
 
-			var variant = null;
-			if (middle == "0") {
-				variant = 0;
-			} else if (middle == "1") {
-				variant = 1;
-			} else if (middle == "2") {
-				variant = 2;
-			} else if (middle == "3") {
-				variant = 3;
-			}
-
-			var color = null;
-			if (suffix == "0") {
-				color = 0;
-			} else if (suffix == "1") {
-				color = 1;
-			} else if (suffix == "2") {
-				color = 2;
-			} else if (suffix == "3") {
-				color = 3;
-			}
+			var variant = parseInt(middle);
+			var color = parseInt(suffix);
 
 			if (prefix == "E") {
 				var emptytile = new orbium.EmptyTile();
@@ -207,16 +188,7 @@
 		this.calculateBases = function() {
 			// Set the correct base for tiles
 			for (var n=0;n<this.tiles.length;n++) {
-				if (this.tiles[n] instanceof orbium.Rotator) {
-					this.tiles[n].setBase("rotatile");
-				}
-
-				if (this.tiles[n] instanceof orbium.Teleporter ||
-					this.tiles[n] instanceof orbium.Inspector ||
-					this.tiles[n] instanceof orbium.Transformer ||
-					this.tiles[n] instanceof orbium.Director) {
-					this.tiles[n].setBase("modtile");
-				}
+				this.tiles[n].setBase();
 			}
 		};
 

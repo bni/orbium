@@ -4,6 +4,15 @@
 			this.variant = vari;
 
 			orbium.Tile.prototype.construct.call(this, "modtile0", null, "teleporter"+this.variant, count, xnr, ynr);
+
+			this.inducesTopPath = true;
+			this.inducesRightPath = true;
+			this.inducesBottomPath = true;
+			this.inducesLeftPath = true;
+		}
+
+		this.setBase = function() {
+			orbium.Tile.prototype.setBase.call(this, "modtile");
 		}
 
 		this.teleportMarble = function(marble) {

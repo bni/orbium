@@ -7,7 +7,16 @@
 
 			orbium.Tile.prototype.construct.call(this, "modtile0", null,
 				"director"+direction, count, xnr, ynr);
+
+			this.inducesTopPath = true;
+			this.inducesRightPath = true;
+			this.inducesBottomPath = true;
+			this.inducesLeftPath = true;
 		};
+
+		this.setBase = function() {
+			orbium.Tile.prototype.setBase.call(this, "modtile");
+		}
 
 		this.directMarble = function(marble) {
 			if (marble.direction != direction &&

@@ -19,6 +19,11 @@
 
 			orbium.Tile.prototype.construct.call(this, "rotatile14", "rotator0",
 				null, count, xnr, ynr);
+
+			this.inducesTopPath = true;
+			this.inducesRightPath = true;
+			this.inducesBottomPath = true;
+			this.inducesLeftPath = true;
 		};
 
 		this.destruct = function() {
@@ -28,6 +33,10 @@
 
 			orbium.Tile.prototype.destruct.call(this);
 		};
+
+		this.setBase = function() {
+			orbium.Tile.prototype.setBase.call(this, "rotatile");
+		}
 
 		this.invalidate = function() {
 			orbium.Tile.prototype.invalidate.call(this);
@@ -200,19 +209,19 @@
 
 			var proceed = false;
 
-			if (dir == 0 && this.above && this.count >= orbium.Machine.horizTiles) {
+			if (dir == 0 && this.hasTopPath && this.count >= orbium.Machine.horizTiles) {
 				proceed = true;
 			}
 
-			if (dir == 1 && this.right) {
+			if (dir == 1 && this.hasRightPath) {
 				proceed = true;
 			}
 
-			if (dir == 2 && this.below) {
+			if (dir == 2 && this.hasBottomPath) {
 				proceed = true;
 			}
 
-			if (dir == 3 && this.left) {
+			if (dir == 3 && this.hasLeftPath) {
 				proceed = true;
 			}
 

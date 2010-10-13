@@ -20,6 +20,9 @@
 
 			orbium.Tile.prototype.construct.call(this, "verttile"+x, null, null,
 				count, xnr, ynr);
+
+			this.inducesTopPath = true;
+			this.inducesBottomPath = true;
 		};
 	}; orbium.VertTile.prototype = new orbium.Tile();
 }(window.orbium = window.orbium || {}));
