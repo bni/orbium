@@ -9,45 +9,34 @@
 
 		this.framec = null;
 
-		this.construct = function(xpos, ypos, color, frame, direction, fresh) {
-			if (xpos == -1) {
+		this.construct = function(xpos, ypos, color, frame, direction) {
+			this.fresh = false;
+
+			if (xpos == undefined) {
 				xpos = orbium.width;
+
+				this.fresh = true; // It is a fresh marble if it didnt get xpos
 			}
 
-			if (ypos == -1) {
+			if (ypos == undefined) {
 				ypos = orbium.Bar.height/2-orbium.Marble.size/2;
 			}
 
 			this.color = color;
-			if (this.color == -1) {
+			if (this.color == undefined) {
 				this.color = orbium.machine.nextColor;
 			}
 
 			this.frame = frame;
-			if (this.frame == -1) {
-				var rand = Math.random();
-				if (rand < 1/6) {
-					this.frame = 0;
-				} else if (rand < 2/6) {
-					this.frame = 1;
-				} else if (rand < 3/6) {
-					this.frame = 2;
-				} else if (rand < 4/6) {
-					this.frame = 3;
-				} else if (rand < 5/6) {
-					this.frame = 4;
-				} else {
-					this.frame = 5;
-				}
+			if (this.frame == undefined) {
+				this.frame = orbium.Util.generateRandomIndex(5);
 			}
 
-			if (direction == -1) {
+			if (direction == undefined) {
 				this.direction = 3;
 			} else {
 				this.direction = direction;
 			}
-
-			this.fresh = fresh;
 
 			this.lastDockTry = null;
 			this.lastTeleportDest = null;

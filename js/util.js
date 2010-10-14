@@ -31,6 +31,18 @@
 		}
 	};
 
+	orbium.Util.generateRandomIndex = function(max) {
+		var rand = Math.random();
+
+		for (var i=0; i<max; i++) {
+			if (rand < (i+1)/(max+1)) {
+				return i;
+			}
+		}
+
+		return max;
+	};
+
 	orbium.Util.isPG = function() {
 		if (typeof Media == "function") {
 			return true;

@@ -29,20 +29,7 @@
 		};
 
 		this.randColor = function() {
-			var x = null;
-
-			var rand = Math.random();
-			if (rand < 1/4) {
-				x = 0;
-			} else if (rand < 2/4) {
-				x = 1;
-			} else if (rand < 3/4) {
-				x = 2;
-			} else {
-				x = 3;
-			}
-
-			return x;
+			return orbium.Util.generateRandomIndex(3);
 		};
 
 		this.fill = function() {

@@ -9,11 +9,11 @@
 			this.inducesRightPath = true;
 			this.inducesBottomPath = true;
 			this.inducesLeftPath = true;
-		}
+		};
 
 		this.setBase = function() {
 			orbium.Tile.prototype.setBase.call(this, "modtile");
-		}
+		};
 
 		this.teleportMarble = function(marble) {
 			var teleport = false;
@@ -39,10 +39,10 @@
 						type = 1;
 					}
 
-					if (orbium.machine.tiles[j] instanceof orbium.Teleporter &&
+					if (orbium.machine.tiles[j].teleportMarble &&
 						orbium.machine.tiles[j] != this &&
-						(orbium.machine.tiles[j].variant == type || orbium.machine.tiles[j].variant == 2)
-					) {
+						(orbium.machine.tiles[j].variant == type ||
+						orbium.machine.tiles[j].variant == 2)) {
 						dest = orbium.machine.tiles[j];
 					}
 				}
@@ -53,6 +53,6 @@
 				marble.ypos = dest.ypos+orbium.Tile.size/2-orbium.Marble.size/2;
 				dest.invalidate();
 			}
-		}
+		};
 	}; orbium.Teleporter.prototype = new orbium.Tile();
 }(window.orbium = window.orbium || {}));

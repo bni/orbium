@@ -20,6 +20,8 @@
 			orbium.Tile.prototype.construct.call(this, "rotatile14", "rotator0",
 				null, count, xnr, ynr);
 
+			this.inducesSink = true;
+
 			this.inducesTopPath = true;
 			this.inducesRightPath = true;
 			this.inducesBottomPath = true;
@@ -36,7 +38,7 @@
 
 		this.setBase = function() {
 			orbium.Tile.prototype.setBase.call(this, "rotatile");
-		}
+		};
 
 		this.invalidate = function() {
 			orbium.Tile.prototype.invalidate.call(this);

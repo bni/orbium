@@ -287,5 +287,5 @@
 		orbium.editor.construct();
 
 		setInterval(function() {orbium.machine.run();}, 1000/30);
-	}
+	};
 }(window.orbium = window.orbium || {}));

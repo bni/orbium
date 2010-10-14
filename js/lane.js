@@ -34,8 +34,7 @@
 
 		this.calculateSinks = function() {
 			for (var m=0;m<bars.length;m++) {
-				if (orbium.machine.tiles[m] instanceof orbium.Rotator ||
-					orbium.machine.tiles[m] instanceof orbium.FallTile) {
+				if (orbium.machine.tiles[m].inducesSink) {
 					bars[m].makeSink();
 				}
 			}
@@ -89,7 +88,7 @@
 			}
 
 			var marble = new orbium.Marble();
-			marble.construct(-1, -1, -1, -1, -1, true);
+			marble.construct();
 			orbium.Util.addArrayElement(orbium.machine.marbles, marble);
 			orbium.machine.randomizeNextColor();
 		};

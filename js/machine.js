@@ -238,16 +238,7 @@
 		};
 
 		this.randomizeNextColor = function() {
-			var rand = Math.random();
-			if (rand < 0.25) {
-				this.nextColor = 0;
-			} else if (rand >= 0.25 && rand < 0.5) {
-				this.nextColor = 1;
-			} else if (rand >= 0.5 && rand < 0.75) {
-				this.nextColor = 2;
-			} else if (rand >= 0.75) {
-				this.nextColor = 3;
-			}
+			this.nextColor = orbium.Util.generateRandomIndex(3);
 
 			if (this.announcer != null) {
 				this.announcer.announceNextColor(this.nextColor);

@@ -6,6 +6,8 @@
 
 		this.variant = null;
 
+		this.inducesSink = null;
+
 		this.inducesTopPath = null;
 		this.inducesRightPath = null;
 		this.inducesBottomPath = null;
@@ -20,6 +22,8 @@
 			this.count = count;
 			this.xnr = xnr;
 			this.ynr = ynr;
+
+			this.inducesSink = false;
 
 			this.inducesTopPath = false;
 			this.inducesRightPath = false;
