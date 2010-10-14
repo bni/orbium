@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Announcer Tests</title>
+
+	<script src="../js/sprite.js"></script>
+	<script src="../js/tile.js"></script>
+	<script src="../js/announcer.js"></script>
+
+	<script>
+		orbium.has_canvas = true;
+
+		orbium.Bar = {};
+		orbium.Bar.height = 26;
+
+		orbium.loader = {};
+		orbium.loader["announcer2"] = new Image();
+		orbium.loader["announcer2"].src = "../gfx/464x316/announcer2.png";
+
+		var announcer = new orbium.Announcer();
+		announcer.construct(0, 0, 0);
+
+		announcer.announceNextColor(2);
+
+		fireunit.reCompare(/announcer2.png/, announcer.image1.src,
+			"The correct image src was set.");
+
+		fireunit.testDone();
+	</script>
+</head>
+<body/>
+</html>

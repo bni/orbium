@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Counter Tests</title>
+
+	<script src="../js/sprite.js"></script>
+	<script src="../js/tile.js"></script>
+	<script src="../js/counter.js"></script>
+
+	<script>
+		orbium.has_canvas = true;
+
+		orbium.Bar = {};
+		orbium.Bar.height = 26;
+
+		orbium.loader = {};
+		orbium.loader["counter0"] = new Image();
+		orbium.loader["counter0"].src = "../gfx/464x316/counter0.png";
+
+		orbium.machine = {};
+		orbium.machine.marbles = [
+			{fresh: false},
+			{fresh: false},
+			{fresh: true}];
+
+		var counter0 = new orbium.Counter();
+		counter0.construct(0, 0, 0);
+
+		counter0.countActiveMarbles();
+
+		fireunit.ok(counter0.isLaunchAllowed(),
+			"Launch is allowed with 2 moving marbles.");
+
+		fireunit.ok(counter0.isFallAllowed(),
+			"Fall is allowed with 2 moving marbles.");
+
+		orbium.machine = {};
+		orbium.machine.marbles = [
+			{fresh: false},
+			{fresh: false},
+			{fresh: false},
+			{fresh: true}];
+
+		var counter1 = new orbium.Counter();
+		counter1.construct(0, 0, 0);
+
+		counter1.countActiveMarbles();
+
+		fireunit.ok(counter1.isLaunchAllowed(),
+			"Launch is allowed with 3 moving marbles.");
+
+		fireunit.ok(!counter1.isFallAllowed(),
+			"Fall is NOT allowed with 3 moving marbles.");
+
+		orbium.machine = {};
+		orbium.machine.marbles = [
+			{fresh: false},
+			{fresh: false},
+			{fresh: false},
+			{fresh: false},
+			{fresh: true}];
+
+		var counter2 = new orbium.Counter();
+		counter2.construct(0, 0, 0);
+
+		counter2.countActiveMarbles();
+
+		fireunit.ok(!counter2.isLaunchAllowed(),
+			"Launch is NOT allowed with 4 moving marbles.");
+
+		fireunit.ok(!counter1.isFallAllowed(),
+			"Fall is NOT allowed with 4 moving marbles.");
+
+		fireunit.testDone();
+	</script>
+</head>
+<body/>
+</html>
