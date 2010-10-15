@@ -11,5 +11,7 @@
 			orbium.Sprite.prototype.construct.call(this, "marble"+f, null, null,
 				xpos, ypos, orbium.Marble.size, orbium.Marble.size, 4);
 		};
+
+		this.construct.apply(this, arguments);
 	}; orbium.Indicator.prototype = new orbium.Sprite();
 }(window.orbium = window.orbium || {}));

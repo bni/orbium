@@ -66,5 +66,7 @@
 				}
 			}
 		}
+
+		this.construct.apply(this, arguments);
 	}; orbium.Timer.prototype = new orbium.Sprite();
 }(window.orbium = window.orbium || {}));

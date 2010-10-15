@@ -164,5 +164,7 @@
 
 			this.selected = type;
 		};
+
+		this.construct.apply(this, arguments);
 	};
 }(window.orbium = window.orbium || {}));

@@ -225,5 +225,7 @@
 				orbium.Util.addArrayElement(this.props, images[i].code);
 			}
 		};
+
+		this.construct.apply(this, arguments);
 	};
 }(window.orbium = window.orbium || {}));

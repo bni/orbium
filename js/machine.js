@@ -42,7 +42,6 @@
 			}
 
 			// If not set start at level -1, else decr level with one
-			// -1 is becouse of nextLevel call below
 			if (this.levnr == null) {
 				this.levnr = -1;
 			} else if (this.levnr > orbium.level.length-1) {
@@ -50,8 +49,6 @@
 			} else {
 				this.levnr--;
 			}
-
-			this.nextLevel();
 		};
 
 		this.prevLevel = function() {
@@ -101,9 +98,7 @@
 				// Set the correct base for tiles
 				this.calculateBases();
 
-				// Add lane
 				this.lane = new orbium.Lane();
-				this.lane.construct();
 
 				// Save level progress
 				this.saveLevel(this.levnr);
@@ -119,68 +114,55 @@
 			var color = parseInt(suffix);
 
 			if (prefix == "E") {
-				var emptytile = new orbium.EmptyTile();
-				emptytile.construct(count, xnr, ynr);
+				var emptytile = new orbium.EmptyTile(count, xnr, ynr);
 				orbium.Util.setArrayElement(count, this.tiles, emptytile);
 			} else if (prefix == "R") {
-				var rotator = new orbium.Rotator();
-				rotator.construct(count, xnr, ynr);
+				var rotator = new orbium.Rotator(count, xnr, ynr);
 				orbium.Util.setArrayElement(count, this.tiles, rotator);
 			} else if (prefix == "H") {
-				var horiztile = new orbium.HorizTile();
-				horiztile.construct(count, xnr, ynr);
+				var horiztile = new orbium.HorizTile(count, xnr, ynr);
 				orbium.Util.setArrayElement(count, this.tiles, horiztile);
 			} else if (prefix == "V") {
-				var verttile = new orbium.VertTile();
-				verttile.construct(count, xnr, ynr);
+				var verttile = new orbium.VertTile(count, xnr, ynr);
 				orbium.Util.setArrayElement(count, this.tiles, verttile);
 			} else if (prefix == "X") {
-				var crosstile = new orbium.CrossTile();
-				crosstile.construct(count, xnr, ynr);
+				var crosstile = new orbium.CrossTile(count, xnr, ynr);
 				orbium.Util.setArrayElement(count, this.tiles, crosstile);
 			} else if (prefix == "I") {
-				var inspector = new orbium.Inspector();
-				inspector.construct(count, xnr, ynr, variant, color);
+				var inspector = new orbium.Inspector(count, xnr, ynr,
+					variant, color);
 				orbium.Util.setArrayElement(count, this.tiles, inspector);
 			} else if (prefix == "P") {
-				var teleporter = new orbium.Teleporter();
-				teleporter.construct(count, xnr, ynr, variant);
+				var teleporter = new orbium.Teleporter(count, xnr, ynr,
+					variant);
 				orbium.Util.setArrayElement(count, this.tiles, teleporter);
 			} else if (prefix == "T") {
-				var transformer = new orbium.Transformer();
-				transformer.construct(count, xnr, ynr, variant, color);
+				var transformer = new orbium.Transformer(count, xnr, ynr,
+					variant, color);
 				orbium.Util.setArrayElement(count, this.tiles, transformer);
 			} else if (prefix == "D") {
-				var director = new orbium.Director();
-				director.construct(count, xnr, ynr, variant);
+				var director = new orbium.Director(count, xnr, ynr, variant);
 				orbium.Util.setArrayElement(count, this.tiles, director);
 			} else if (prefix == "N") {
-				this.counter = new orbium.Counter();
-				this.counter.construct(count, xnr, ynr);
+				this.counter = new orbium.Counter(count, xnr, ynr);
 				orbium.Util.setArrayElement(count, this.tiles, this.counter);
 			} else if (prefix == "C") {
-				this.clock = new orbium.Clock();
-				this.clock.construct(count, xnr, ynr);
+				this.clock = new orbium.Clock(count, xnr, ynr);
 				orbium.Util.setArrayElement(count, this.tiles, this.clock);
 			} else if (prefix == "M") {
-				this.matcher = new orbium.Matcher();
-				this.matcher.construct(count, xnr, ynr);
+				this.matcher = new orbium.Matcher(count, xnr, ynr);
 				orbium.Util.setArrayElement(count, this.tiles, this.matcher);
 			} else if (prefix == "S") {
-				this.sequencer = new orbium.Sequencer();
-				this.sequencer.construct(count, xnr, ynr, color);
+				this.sequencer = new orbium.Sequencer(count, xnr, ynr, color);
 				orbium.Util.setArrayElement(count, this.tiles, this.sequencer);
 			} else if (prefix == "F") {
-				var falltile = new orbium.FallTile();
-				falltile.construct(count, xnr, ynr);
+				var falltile = new orbium.FallTile(count, xnr, ynr);
 				orbium.Util.setArrayElement(count, this.tiles, falltile);
 			} else if (prefix == "A") {
-				this.announcer = new orbium.Announcer();
-				this.announcer.construct(count, xnr, ynr);
+				this.announcer = new orbium.Announcer(count, xnr, ynr);
 				orbium.Util.setArrayElement(count, this.tiles, this.announcer);
 			} else {
-				var unknown = new orbium.EmptyTile();
-				unknown.construct(count, xnr, ynr);
+				var unknown = new orbium.EmptyTile(count, xnr, ynr);
 				orbium.Util.setArrayElement(count, this.tiles, unknown);
 			}
 		};
@@ -812,5 +794,7 @@
 				}
 			}
 		};
+
+		this.construct.apply(this, arguments);
 	};
 }(window.orbium = window.orbium || {}));

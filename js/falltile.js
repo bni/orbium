@@ -1,6 +1,6 @@
 (function(orbium) {
-	orbium.FallTile = function() {
-		this.construct = function(count, xnr, ynr) {
+	orbium.FallTile = function(count, xnr, ynr) {
+		this.construct = function() {
 			var x = orbium.Util.generateRandomIndex(5);
 
 			orbium.Tile.prototype.construct.call(this, "verttile"+x, null,
@@ -29,5 +29,7 @@
 				marble.bounce();
 			}
 		};
+
+		this.construct.apply(this, arguments);
 	}; orbium.FallTile.prototype = new orbium.Tile();
 }(window.orbium = window.orbium || {}));

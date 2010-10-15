@@ -1,10 +1,10 @@
 (function(orbium) {
-	orbium.Matcher = function() {
+	orbium.Matcher = function(count, xnr, ynr) {
 		var indicators = null;
 		var t = null;
 		var refillSeconds = null;
 
-		this.construct = function(count, xnr, ynr) {
+		this.construct = function() {
 			indicators = [];
 			t = 0;
 			refillSeconds = 30;
@@ -48,28 +48,24 @@
 
 			var xpos1 = Math.round(this.xpos+orbium.Tile.size/2-orbium.Marble.size/2);
 			var ypos1 = Math.round(this.ypos+orbium.Tile.size*0.046);
-			var indicator1 = new orbium.Indicator();
-			indicator1.construct(xpos1, ypos1, col1);
+			var indicator1 = new orbium.Indicator(xpos1, ypos1, col1);
 			orbium.Util.addArrayElement(indicators, indicator1);
 
 			var xpos2 = Math.round(this.xpos+orbium.Tile.size*0.636);
 			var ypos2 = Math.round(this.ypos+orbium.Tile.size*0.345);
-			var indicator2 = new orbium.Indicator();
-			indicator2.construct(xpos2, ypos2, col2);
+			var indicator2 = new orbium.Indicator(xpos2, ypos2, col2);
 			orbium.Util.addArrayElement(indicators, indicator2);
 
 			var xpos3 = Math.round(this.xpos+orbium.Tile.size/2-orbium.Marble.size/2);
 			var offset = orbium.Tile.size*0.642;
 			if (orbium.Tile.size == 144) { offset = orbium.Tile.size*0.645 } // Fix for rounding bug?
 			var ypos3 = Math.round(this.ypos+offset);
-			var indicator3 = new orbium.Indicator();
-			indicator3.construct(xpos3, ypos3, col3);
+			var indicator3 = new orbium.Indicator(xpos3, ypos3, col3);
 			orbium.Util.addArrayElement(indicators, indicator3);
 
 			var xpos4 = Math.round(this.xpos+orbium.Tile.size*0.054);
 			var ypos4 = Math.round(this.ypos+orbium.Tile.size*0.345);
-			var indicator4 = new orbium.Indicator();
-			indicator4.construct(xpos4, ypos4, col4);
+			var indicator4 = new orbium.Indicator(xpos4, ypos4, col4);
 			orbium.Util.addArrayElement(indicators, indicator4);
 
 			this.invalidate();
@@ -112,5 +108,7 @@
 				indicators[i].draw1();
 			}
 		};
+
+		this.construct.apply(this, arguments);
 	}; orbium.Matcher.prototype = new orbium.Tile();
 }(window.orbium = window.orbium || {}));

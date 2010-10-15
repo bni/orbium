@@ -217,25 +217,13 @@
 		}
 
 		orbium.loader = new orbium.Loader();
-		orbium.loader.construct();
-
 		orbium.player = new orbium.Player();
-		orbium.player.construct();
-
 		orbium.storage = new orbium.Storage();
-		orbium.storage.construct();
-
 		orbium.menu = new orbium.Menu();
-		orbium.menu.construct();
-
 		orbium.sign = new orbium.Sign();
-		orbium.sign.construct();
-
 		orbium.tutorial = new orbium.Tutorial();
-		orbium.tutorial.construct();
-
 		orbium.machine = new orbium.Machine();
-		orbium.machine.construct();
+		orbium.machine.nextLevel();
 
 		if (orbium.has_touch_screen) {
 			// Check if device has touch API. Some browsers like Chrome implement
@@ -284,7 +272,6 @@
 		orbium.menu.updateLimits();
 
 		orbium.editor = new orbium.Editor();
-		orbium.editor.construct();
 
 		setInterval(function() {orbium.machine.run();}, 1000/30);
 	};

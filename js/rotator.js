@@ -1,5 +1,5 @@
 (function(orbium) {
-	orbium.Rotator = function() {
+	orbium.Rotator = function(count, xnr, ynr) {
 		this.dockees = null;
 		this.orientation = null;
 		this.judderc = null;
@@ -8,7 +8,7 @@
 		this.stage = null;
 		this.broken = null;
 
-		this.construct = function(count, xnr, ynr) {
+		this.construct = function() {
 			this.dockees = [];
 			this.orientation = 0;
 			this.judderc = -1;
@@ -166,8 +166,7 @@
 				return false;
 			}
 
-			var dockee = new orbium.Dockee();
-			dockee.construct(this, pos, color, frame);
+			var dockee = new orbium.Dockee(this, pos, color, frame);
 			orbium.Util.addArrayElement(this.dockees, dockee);
 
 			orbium.player.play("dock");
@@ -323,15 +322,14 @@
 				dockee.destruct();
 				orbium.Util.removeArrayElement(this.dockees, dockee);
 
-				var marble = new orbium.Marble();
-				marble.construct(
+				var marble = new orbium.Marble(
 					dockee.xpos,
 					dockee.ypos,
 					dockee.color,
 					dockee.frame,
 					dir,
-					false
-				);
+					false);
+
 				orbium.Util.addArrayElement(orbium.machine.marbles, marble);
 			}
 
@@ -489,5 +487,7 @@
 				this.dockees[j].draw1();
 			}
 		};
+
+		this.construct.apply(this, arguments);
 	}; orbium.Rotator.prototype = new orbium.Tile();
 }(window.orbium = window.orbium || {}));

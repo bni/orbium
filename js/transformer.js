@@ -1,8 +1,8 @@
 (function(orbium) {
-	orbium.Transformer = function() {
+	orbium.Transformer = function(count, xnr, ynr, vari, col) {
 		var color = null;
 
-		this.construct = function(count, xnr, ynr, vari, col) {
+		this.construct = function() {
 			this.variant = vari;
 			color = col;
 
@@ -17,7 +17,7 @@
 
 		this.setBase = function() {
 			orbium.Tile.prototype.setBase.call(this, "modtile");
-		}
+		};
 
 		this.transformMarble = function(marble) {
 			if (marble.color != color &&
@@ -31,5 +31,7 @@
 				marble.color = color;
 			}
 		};
+
+		this.construct.apply(this, arguments);
 	}; orbium.Transformer.prototype = new orbium.Tile();
 }(window.orbium = window.orbium || {}));

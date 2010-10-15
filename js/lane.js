@@ -7,18 +7,15 @@
 			bars = [];
 
 			// Add bars
-			for (var l=0; l<orbium.Machine.horizTiles; l++) {
-				var bar = new orbium.Bar();
-				bar.construct(l);
+			for (var i=0; i<orbium.Machine.horizTiles; i++) {
+				var bar = new orbium.Bar(i);
 				orbium.Util.addArrayElement(bars, bar);
 			}
 
 			// Make bar sink if rotator or falltile below
 			this.calculateSinks();
 
-			// Create timer
 			timer = new orbium.Timer();
-			timer.construct();
 
 			orbium.machine.randomizeNextColor();
 		};
@@ -88,7 +85,6 @@
 			}
 
 			var marble = new orbium.Marble();
-			marble.construct();
 			orbium.Util.addArrayElement(orbium.machine.marbles, marble);
 			orbium.machine.randomizeNextColor();
 		};
@@ -123,5 +119,7 @@
 
 			timer.draw1();
 		};
+
+		this.construct.apply(this, arguments);
 	};
 }(window.orbium = window.orbium || {}));

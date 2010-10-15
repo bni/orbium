@@ -71,5 +71,7 @@
 				window.localStorage.removeItem(name);
 			}
 		};
+
+		this.construct.apply(this, arguments);
 	};
 }(window.orbium = window.orbium || {}));

@@ -1,11 +1,11 @@
 (function(orbium) {
-	orbium.Dockee = function() {
+	orbium.Dockee = function(parent, pos, color, frame) {
 		this.parent = null;
 		this.pos = null;
 		this.color = null;
 		this.frame = null;
 
-		this.construct = function(parent, pos, color, frame) {
+		this.construct = function() {
 			this.parent = parent;
 			this.pos = pos;
 			this.color = color;
@@ -171,5 +171,7 @@
 
 			return false;
 		};
+
+		this.construct.apply(this, arguments);
 	}; orbium.Dockee.prototype = new orbium.Sprite();
 }(window.orbium = window.orbium || {}));

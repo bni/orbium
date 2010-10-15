@@ -1,9 +1,9 @@
 (function(orbium) {
-	orbium.Sequencer = function() {
+	orbium.Sequencer = function(count, xnr, ynr, col) {
 		var color = null;
 		var indicators = null;
 
-		this.construct = function(count, xnr, ynr, col) {
+		this.construct = function() {
 			color = col;
 			indicators = [];
 
@@ -33,8 +33,7 @@
 			var col1 = color;
 			var xpos1 = Math.round(this.xpos+orbium.Tile.size/2-orbium.Marble.size/2);
 			var ypos1 = Math.round(this.ypos+orbium.Tile.size*0.046);
-			var indicator1 = new orbium.Indicator();
-			indicator1.construct(xpos1, ypos1, col1);
+			var indicator1 = new orbium.Indicator(xpos1, ypos1, col1);
 			orbium.Util.addArrayElement(indicators, indicator1);
 
 			var col2 = color+1;
@@ -43,8 +42,7 @@
 			}
 			var xpos2 = Math.round(this.xpos+orbium.Tile.size/2-orbium.Marble.size/2);
 			var ypos2 = Math.round(this.ypos+orbium.Tile.size*0.344);
-			var indicator2 = new orbium.Indicator();
-			indicator2.construct(xpos2, ypos2, col2);
+			var indicator2 = new orbium.Indicator(xpos2, ypos2, col2);
 			orbium.Util.addArrayElement(indicators, indicator2);
 
 			var col3 = color+2;
@@ -58,8 +56,7 @@
 			var offset = orbium.Tile.size*0.642;
 			if (orbium.Tile.size == 144) { offset = orbium.Tile.size*0.643 } // Fix for rounding bug?
 			var ypos3 = Math.round(this.ypos+offset);
-			var indicator3 = new orbium.Indicator();
-			indicator3.construct(xpos3, ypos3, col3);
+			var indicator3 = new orbium.Indicator(xpos3, ypos3, col3);
 			orbium.Util.addArrayElement(indicators, indicator3);
 		};
 
@@ -95,5 +92,7 @@
 				indicators[i].draw1();
 			}
 		};
+
+		this.construct.apply(this, arguments);
 	}; orbium.Sequencer.prototype = new orbium.Tile();
 }(window.orbium = window.orbium || {}));

@@ -1,14 +1,15 @@
 (function(orbium) {
-	orbium.Clock = function() {
+	orbium.Clock = function(count, xnr, ynr) {
 		var t = null;
 		var frame = null;
 		var maxSeconds = null;
 
-		this.construct = function(count, xnr, ynr) {
+		this.construct = function() {
 			t = 0;
 			frame = 0;
 
-			var units = orbium.level[orbium.machine.levnr][orbium.Machine.horizTiles*orbium.Machine.vertTiles+2];
+			var idx = orbium.Machine.horizTiles*orbium.Machine.vertTiles+2;
+			var units = orbium.level[orbium.machine.levnr][idx];
 			maxSeconds = (units+1)*90;
 
 			orbium.Tile.prototype.construct.call(this, "clock0", null, null,
@@ -32,5 +33,7 @@
 				orbium.machine.failLevel("LEVEL TIME EXPIRED!");
 			}
 		};
+
+		this.construct.apply(this, arguments);
 	}; orbium.Clock.prototype = new orbium.Tile();
 }(window.orbium = window.orbium || {}));

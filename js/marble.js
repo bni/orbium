@@ -1,5 +1,5 @@
 (function(orbium) {
-	orbium.Marble = function() {
+	orbium.Marble = function(xpos, ypos, color, frame, direction) {
 		this.color = null;
 		this.frame = null;
 		this.direction = null;
@@ -9,7 +9,7 @@
 
 		this.framec = null;
 
-		this.construct = function(xpos, ypos, color, frame, direction) {
+		this.construct = function() {
 			this.fresh = false;
 
 			if (xpos == undefined) {
@@ -144,5 +144,7 @@
 
 			this.framec += orbium.Marble.speed*dt;
 		};
+
+		this.construct.apply(this, arguments);
 	}; orbium.Marble.prototype = new orbium.Sprite();
 }(window.orbium = window.orbium || {}));

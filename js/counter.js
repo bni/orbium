@@ -1,8 +1,8 @@
 (function(orbium) {
-	orbium.Counter = function() {
+	orbium.Counter = function(count, xnr, ynr) {
 		var activeMarbles = null;
 
-		this.construct = function(count, xnr, ynr) {
+		this.construct = function() {
 			activeMarbles = 0;
 
 			orbium.Tile.prototype.construct.call(this, "counter0", null, null,
@@ -43,5 +43,7 @@
 
 			return false;
 		};
+
+		this.construct.apply(this, arguments);
 	}; orbium.Counter.prototype = new orbium.Tile();
 }(window.orbium = window.orbium || {}));

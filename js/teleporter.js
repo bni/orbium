@@ -1,6 +1,6 @@
 (function(orbium) {
-	orbium.Teleporter = function() {
-		this.construct = function(count, xnr, ynr, vari) {
+	orbium.Teleporter = function(count, xnr, ynr, vari) {
+		this.construct = function() {
 			this.variant = vari;
 
 			orbium.Tile.prototype.construct.call(this, "modtile0", null, "teleporter"+this.variant, count, xnr, ynr);
@@ -54,5 +54,7 @@
 				dest.invalidate();
 			}
 		};
+
+		this.construct.apply(this, arguments);
 	}; orbium.Teleporter.prototype = new orbium.Tile();
 }(window.orbium = window.orbium || {}));

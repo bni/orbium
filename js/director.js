@@ -1,8 +1,8 @@
 (function(orbium) {
-	orbium.Director = function() {
+	orbium.Director = function(count, xnr, ynr, dir) {
 		var direction = null;
 
-		this.construct = function(count, xnr, ynr, dir) {
+		this.construct = function() {
 			direction = dir;
 
 			orbium.Tile.prototype.construct.call(this, "modtile0", null,
@@ -33,5 +33,7 @@
 				marble.lastTeleportDest = null;
 			}
 		};
+
+		this.construct.apply(this, arguments);
 	}; orbium.Director.prototype = new orbium.Tile();
 }(window.orbium = window.orbium || {}));

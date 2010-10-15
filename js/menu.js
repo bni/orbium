@@ -938,5 +938,7 @@
 
 			orbium.machine.resetLevel();
 		};
+
+		this.construct.apply(this, arguments);
 	};
 }(window.orbium = window.orbium || {}));
