@@ -278,14 +278,10 @@
 
 			// Check if a dockee should be launched
 			for (var i=0;i<this.tiles.length;i++) {
-				if (this.tiles[i] instanceof orbium.Rotator) {
-					for (var j=0;j<this.tiles[i].dockees.length;j++) {
-						if (this.tiles[i].dockees[j].withinTrigger(
-							xtap,
-							ytap)) {
-							launched = this.tiles[i].launchPosition(
-								this.tiles[i].dockees[j].pos);
-						}
+				var tile = this.tiles[i];
+				if (tile instanceof orbium.Rotator) {
+					if (tile.checkLaunch(xtap, ytap)) {
+						launched = true;
 					}
 				}
 			}
@@ -492,229 +488,46 @@
 					var tile = this.tiles[i];
 
 					if (tile instanceof orbium.Rotator) {
-						// Only bother to check if not exploding and 4 is docked
-						if (tile.fullc == -1 && tile.dockees.length == 4) {
-							if (this.matcher != null && this.matcher.active()) {
-								if (this.matcher.matches(tile.pattern())) {
-									tile.explode();
-
-									again = true;
-								}
-							} else {
-								var matchColor = tile.dockees[0].color;
-
-								var same = 0;
-								for (var j=0; j<tile.dockees.length; j++) {
-									if (tile.dockees[j].color == matchColor) {
-										same++;
-									}
-								}
-
-								if (same == 4) {
-									if (this.sequencer != null && this.sequencer.active()) {
-										if (this.sequencer.matches(matchColor)) {
-											this.sequencer.advance();
-
-											tile.explode();
-
-											again = true;
-										}
-									} else {
-										tile.explode();
-
-										again = true;
-									}
-								}
-							}
-						}
+						again = tile.checkFull();
 					}
 				}
 			}
 		};
 
 		this.checkTile = function(tile) {
-			var collectables = [];
 			for (var i=0; i<this.marbles.length; i++) {
-				if (tile instanceof orbium.VertTile ||
-					tile instanceof orbium.HorizTile ||
-					tile instanceof orbium.CrossTile ||
-					tile instanceof orbium.Inspector ||
-					tile instanceof orbium.Teleporter ||
-					tile instanceof orbium.Transformer ||
-					tile instanceof orbium.Director ||
-					tile instanceof orbium.FallTile ||
-					tile instanceof orbium.Rotator) {
-					// Check if marble is above tile and we should invalidate it
-					if (orbium.Util.withinRect(
-						this.marbles[i].xpos,
-						this.marbles[i].ypos,
-						tile.xpos,
-						tile.ypos,
-						orbium.Tile.size,
-						orbium.Tile.size) ||
-					orbium.Util.withinRect(
-						this.marbles[i].xpos+orbium.Marble.size,
-						this.marbles[i].ypos+orbium.Marble.size,
-						tile.xpos,
-						tile.ypos,
-						orbium.Tile.size,
-						orbium.Tile.size)) {
-						tile.invalidate();
-					}
+				var marble = this.marbles[i];
+
+				// Check if marble is above tile and we should invalidate it
+				if (orbium.Util.withinRect(
+					marble.xpos,
+					marble.ypos,
+					tile.xpos,
+					tile.ypos,
+					orbium.Tile.size,
+					orbium.Tile.size) ||
+				orbium.Util.withinRect(
+					marble.xpos+orbium.Marble.size,
+					marble.ypos+orbium.Marble.size,
+					tile.xpos,
+					tile.ypos,
+					orbium.Tile.size,
+					orbium.Tile.size)) {
+					tile.invalidate();
 				}
 
-				if (tile instanceof orbium.Rotator) {
-					// Check if marble should dock or bounce
-					var within = false;
-
-					if (this.marbles[i].direction == 0) {
-						if (orbium.Util.withinRect(
-							this.marbles[i].xpos+orbium.Marble.size/2,
-							this.marbles[i].ypos,
-							tile.xpos+orbium.Tile.size/2-orbium.Marble.size/2,
-							tile.ypos+orbium.Tile.size-orbium.Marble.size-orbium.Marble.size/6,
-							orbium.Marble.size,
-							orbium.Marble.size)) {
-								within = true;
-						}
-					} else if (this.marbles[i].direction == 1) {
-						if (orbium.Util.withinRect(
-							this.marbles[i].xpos+orbium.Marble.size,
-							this.marbles[i].ypos+orbium.Marble.size/2,
-							tile.xpos+orbium.Marble.size/6,
-							tile.ypos+orbium.Tile.size/2-orbium.Marble.size/2,
-							orbium.Marble.size,
-							orbium.Marble.size)) {
-								within = true;
-						}
-					} else if (this.marbles[i].direction == 2) {
-						if (orbium.Util.withinRect(
-							this.marbles[i].xpos+orbium.Marble.size/2,
-							this.marbles[i].ypos+orbium.Marble.size,
-							tile.xpos+orbium.Tile.size/2-orbium.Marble.size/2,
-							tile.ypos+orbium.Marble.size/6,
-							orbium.Marble.size,
-							orbium.Marble.size)) {
-								within = true;
-						}
-					} else if (this.marbles[i].direction == 3) {
-						if (orbium.Util.withinRect(
-							this.marbles[i].xpos,
-							this.marbles[i].ypos+orbium.Marble.size/2,
-							tile.xpos+orbium.Tile.size-orbium.Marble.size-orbium.Marble.size/6,
-							tile.ypos+orbium.Tile.size/2-orbium.Marble.size/2,
-							orbium.Marble.size,
-							orbium.Marble.size)) {
-								within = true;
-						}
-					}
-
-					if (within) {
-						var success = tile.dockMarble(this.marbles[i].direction, this.marbles[i].color, this.marbles[i].frame, false);
-						if (success) {
-							orbium.Util.addArrayElement(collectables, this.marbles[i]);
-
-							// If direction is left we need to invalidate
-							// tile rightof this rotator
-							if (this.marbles[i].direction == 3) {
-								var idx = tile.count+1;
-								if (this.tiles[idx] != undefined) {
-									this.tiles[idx].invalidate();
-								}
-							}
-
-							// If direction is up we need to invalidate
-							// tile below this rotator
-							if (this.marbles[i].direction == 0) {
-								var idz = tile.count+orbium.Machine.horizTiles;
-								if (this.tiles[idz] != undefined) {
-									this.tiles[idz].invalidate();
-								}
-							}
-
-							this.checkRotatorsFull();
-						} else {
-							this.marbles[i].bounce();
-						}
-					}
-
-					// Rotator falldown
-					if (tile.count < orbium.Machine.horizTiles && this.marbles[i].fresh) {
-						if (this.marbles[i].lastDockTry != tile &&
-							orbium.Util.withinRect(
-							this.marbles[i].xpos+orbium.Marble.size/2,
-							this.marbles[i].ypos+orbium.Marble.size/2,
-							tile.xpos+orbium.Tile.size/2-orbium.Marble.size/4,
-							tile.ypos-orbium.Bar.height,
-							orbium.Marble.size/2,
-							orbium.Bar.height)) {
-							var falldown = tile.dockMarble(2, this.marbles[i].color, this.marbles[i].frame, true);
-
-							if (falldown) {
-								this.marbles[i].destruct();
-								orbium.Util.removeArrayElement(this.marbles, this.marbles[i]);
-								tile.invalidate();
-
-								this.checkRotatorsFull();
-
-								this.lane.resetTimer();
-								this.lane.injectMarble();
-							} else {
-								this.marbles[i].lastDockTry = tile;
-							}
-						}
-					}
-				}
-
-				// FallTile
-				if (tile instanceof orbium.FallTile) {
-					// FallTile falldown
-					if (tile.count < orbium.Machine.horizTiles && this.marbles[i].fresh) {
-						if (orbium.Util.withinRect(
-							this.marbles[i].xpos+orbium.Marble.size/2,
-							this.marbles[i].ypos+orbium.Marble.size/2,
-							tile.xpos+orbium.Tile.size/2-orbium.Marble.size/4,
-							tile.ypos-orbium.Bar.height,
-							orbium.Marble.size/2,
-							orbium.Bar.height) &&
-							this.counter.isFallAllowed()) {
-							tile.fallMarble(this.marbles[i]);
-							this.marbles[i].fresh = false;
-							this.lane.resetTimer();
-							this.lane.injectMarble();
-							this.counter.countActiveMarbles();
-						}
-					}
-
-					// Check if marble should bounce back
-					tile.bounceBackMarble(this.marbles[i]);
-				}
-
-				// Teleport
-				if (tile instanceof orbium.Teleporter) {
-					tile.teleportMarble(this.marbles[i]);
-				}
-
-				// Inspect
-				if (tile instanceof orbium.Inspector) {
-					tile.inspectMarble(this.marbles[i]);
-				}
-
-				// Transformer
-				if (tile instanceof orbium.Transformer) {
-					tile.transformMarble(this.marbles[i]);
-				}
-
-				// Director
-				if (tile instanceof orbium.Director) {
-					tile.directMarble(this.marbles[i]);
-				}
+				// Perform action on marble
+				tile.influenceMarble(marble);
 			}
 
-			for (var o=0; o<collectables.length; o++) {
-				collectables[o].destruct();
-				orbium.Util.removeArrayElement(this.marbles, collectables[o]);
-				this.counter.countActiveMarbles();
+			for (var j=0; j<this.marbles.length; j++) {
+				var checkMarble = this.marbles[j];
+
+				if (checkMarble.stale) {
+					checkMarble.destruct();
+					orbium.Util.removeArrayElement(this.marbles, checkMarble);
+					this.counter.countActiveMarbles();
+				}
 			}
 		};
 

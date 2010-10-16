@@ -15,7 +15,7 @@
 			orbium.Tile.prototype.setBase.call(this, "modtile");
 		};
 
-		this.teleportMarble = function(marble) {
+		this.influenceMarble = function(marble) {
 			var teleport = false;
 
 			if (marble.lastTeleportDest != this &&
@@ -39,7 +39,7 @@
 						type = 1;
 					}
 
-					if (orbium.machine.tiles[j].teleportMarble &&
+					if (orbium.machine.tiles[j] instanceof orbium.Teleporter &&
 						orbium.machine.tiles[j] != this &&
 						(orbium.machine.tiles[j].variant == type ||
 						orbium.machine.tiles[j].variant == 2)) {

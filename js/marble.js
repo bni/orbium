@@ -6,6 +6,7 @@
 		this.fresh = null;
 		this.lastDockTry = null;
 		this.lastTeleportDest = null;
+		this.stale = null;
 
 		this.framec = null;
 
@@ -40,6 +41,8 @@
 
 			this.lastDockTry = null;
 			this.lastTeleportDest = null;
+
+			this.stale = false;
 
 			var f = this.color*12+this.frame;
 			orbium.Sprite.prototype.construct.call(this, "marble"+f, null, null,

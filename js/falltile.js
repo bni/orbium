@@ -17,7 +17,26 @@
 			marble.direction = 2;
 		};
 
-		this.bounceBackMarble = function(marble) {
+		this.influenceMarble = function(marble) {
+			// Falldown
+			if (this.count < orbium.Machine.horizTiles && marble.fresh) {
+				if (orbium.Util.withinRect(
+					marble.xpos+orbium.Marble.size/2,
+					marble.ypos+orbium.Marble.size/2,
+					this.xpos+orbium.Tile.size/2-orbium.Marble.size/4,
+					this.ypos-orbium.Bar.height,
+					orbium.Marble.size/2,
+					orbium.Bar.height) &&
+					orbium.machine.counter.isFallAllowed()) {
+					this.fallMarble(marble);
+					marble.fresh = false;
+					orbium.machine.lane.resetTimer();
+					orbium.machine.lane.injectMarble();
+					orbium.machine.counter.countActiveMarbles();
+				}
+			}
+
+			// Bounceback
 			if (marble.direction == 0 &&
 				orbium.Util.withinRect(
 				marble.xpos+orbium.Marble.size/2,

@@ -48,7 +48,7 @@
 
 				// First row rotators
 				if (this.count < orbium.Machine.horizTiles &&
-					baseName == "rotatile") {
+					this instanceof orbium.Rotator) {
 					this.hasTopPath = true;
 				}
 
@@ -152,5 +152,9 @@
 				this.invalidate();
 			}
 		}; orbium.Tile.prototype.setBase = this.setBase;
+
+		this.influenceMarble = function(marble) {
+			return false; // Default implementation, do nothing
+		}; orbium.Tile.prototype.influenceMarble = this.influenceMarble;
 	}; orbium.Tile.prototype = new orbium.Sprite();
 }(window.orbium = window.orbium || {}));

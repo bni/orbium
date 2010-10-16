@@ -18,7 +18,7 @@
 			orbium.Tile.prototype.setBase.call(this, "modtile");
 		};
 
-		this.directMarble = function(marble) {
+		this.influenceMarble = function(marble) {
 			if (marble.direction != direction &&
 				orbium.Util.withinRect(
 				marble.xpos+orbium.Marble.size/2,
