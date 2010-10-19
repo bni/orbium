@@ -481,7 +481,9 @@
 					var tile = this.tiles[i];
 
 					if (tile instanceof orbium.Rotator) {
-						again = tile.checkFull();
+						if (tile.checkFull()) {
+							again = true;
+						}
 					}
 				}
 			}
