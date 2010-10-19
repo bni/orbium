@@ -50,7 +50,7 @@
 			}
 		};
 
-		this.slotFree = function(pos) {
+		var slotFree = function(pos) {
 			for (var i=0; i<dockees.length; i++) {
 				if (dockees[i].pos == pos) {
 					return false;
@@ -60,11 +60,11 @@
 			return true;
 		};
 
-		this.pattern = function() {
+		var pattern = function() {
 			var pat = [];
 
 			for (var i=0; i<dockees.length; i++) {
-				if (this.orientation == 0) {
+				if (that.orientation == 0) {
 					if (dockees[i].pos == 0) {
 						pat[0] = dockees[i].color;
 					} else if (dockees[i].pos == 1) {
@@ -74,7 +74,7 @@
 					} else if (dockees[i].pos == 3) {
 						pat[3] = dockees[i].color;
 					}
-				} else if (this.orientation == 1) {
+				} else if (that.orientation == 1) {
 					if (dockees[i].pos == 0) {
 						pat[1] = dockees[i].color;
 					} else if (dockees[i].pos == 1) {
@@ -84,7 +84,7 @@
 					} else if (dockees[i].pos == 3) {
 						pat[0] = dockees[i].color;
 					}
-				} else if (this.orientation == 2) {
+				} else if (that.orientation == 2) {
 					if (dockees[i].pos == 0) {
 						pat[2] = dockees[i].color;
 					} else if (dockees[i].pos == 1) {
@@ -94,7 +94,7 @@
 					} else if (dockees[i].pos == 3) {
 						pat[1] = dockees[i].color;
 					}
-				} else if (this.orientation == 3) {
+				} else if (that.orientation == 3) {
 					if (dockees[i].pos == 0) {
 						pat[3] = dockees[i].color;
 					} else if (dockees[i].pos == 1) {
@@ -110,7 +110,7 @@
 			return pat;
 		};
 
-		this.dockMarble = function(dir, color, frame, fresh) {
+		var dockMarble = function(dir, color, frame, fresh) {
 			if (blockc != -1) {
 				if (!fresh) {
 					orbium.player.play("clank");
@@ -120,47 +120,47 @@
 			}
 
 			var pos = 0;
-			if (dir == 0 && this.orientation == 0) {
+			if (dir == 0 && that.orientation == 0) {
 				pos = 2;
-			} else if (dir == 0 && this.orientation == 1) {
+			} else if (dir == 0 && that.orientation == 1) {
 				pos = 1;
-			} else if (dir == 0 && this.orientation == 2) {
+			} else if (dir == 0 && that.orientation == 2) {
 				pos = 0;
-			} else if (dir == 0 && this.orientation == 3) {
+			} else if (dir == 0 && that.orientation == 3) {
 				pos = 3;
 			}
 
-			if (dir == 1 && this.orientation == 0) {
+			if (dir == 1 && that.orientation == 0) {
 				pos = 3;
-			} else if (dir == 1 && this.orientation == 1) {
+			} else if (dir == 1 && that.orientation == 1) {
 				pos = 2;
-			} else if (dir == 1 && this.orientation == 2) {
+			} else if (dir == 1 && that.orientation == 2) {
 				pos = 1;
-			} else if (dir == 1 && this.orientation == 3) {
+			} else if (dir == 1 && that.orientation == 3) {
 				pos = 0;
 			}
 
-			if (dir == 2 && this.orientation == 0) {
+			if (dir == 2 && that.orientation == 0) {
 				pos = 0;
-			} else if (dir == 2 && this.orientation == 1) {
+			} else if (dir == 2 && that.orientation == 1) {
 				pos = 3;
-			} else if (dir == 2 && this.orientation == 2) {
+			} else if (dir == 2 && that.orientation == 2) {
 				pos = 2;
-			} else if (dir == 2 && this.orientation == 3) {
+			} else if (dir == 2 && that.orientation == 3) {
 				pos = 1;
 			}
 
-			if (dir == 3 && this.orientation == 0) {
+			if (dir == 3 && that.orientation == 0) {
 				pos = 1;
-			} else if (dir == 3 && this.orientation == 1) {
+			} else if (dir == 3 && that.orientation == 1) {
 				pos = 0;
-			} else if (dir == 3 && this.orientation == 2) {
+			} else if (dir == 3 && that.orientation == 2) {
 				pos = 3;
-			} else if (dir == 3 && this.orientation == 3) {
+			} else if (dir == 3 && that.orientation == 3) {
 				pos = 2;
 			}
 
-			if (!this.slotFree(pos)) {
+			if (!slotFree(pos)) {
 				if (!fresh) {
 					orbium.player.play("bounce");
 				}
@@ -168,7 +168,7 @@
 				return false;
 			}
 
-			var dockee = new orbium.Dockee(this, pos, color, frame);
+			var dockee = new orbium.Dockee(that, pos, color, frame);
 			orbium.Util.addArrayElement(dockees, dockee);
 
 			orbium.player.play("dock");
@@ -176,7 +176,19 @@
 			return true;
 		};
 
-		this.rotate = function() {
+		this.triggerRotate = function(xtap, ytap) {
+			if (orbium.Util.withinRect(
+				xtap,
+				ytap,
+				this.xpos,
+				this.ypos,
+				orbium.Tile.size,
+				orbium.Tile.size)) {
+				rotate();
+			}
+		};
+
+		var rotate = function() {
 			if (judderc == -1 && fullc == -1) {
 				orbium.player.play("rotate");
 
@@ -185,10 +197,10 @@
 			}
 		};
 
-		this.explode = function() {
+		var explode = function() {
 			orbium.player.play("explode");
 
-			this.broken = true;
+			that.broken = true;
 			fullc = 0;
 		};
 
@@ -213,8 +225,8 @@
 			if (fullc == -1 && dockees.length == 4) {
 				if (orbium.machine.matcher != null &&
 					orbium.machine.matcher.active()) {
-					if (orbium.machine.matcher.matches(this.pattern())) {
-						this.explode();
+					if (orbium.machine.matcher.matches(pattern())) {
+						explode();
 
 						again = true;
 					}
@@ -227,12 +239,12 @@
 							if (orbium.machine.sequencer.matches(matchColor)) {
 								orbium.machine.sequencer.advance();
 
-								this.explode();
+								explode();
 
 								again = true;
 							}
 						} else {
-							this.explode();
+							explode();
 
 							again = true;
 						}
@@ -243,20 +255,34 @@
 			return again;
 		};
 
-		this.checkLaunch = function(xtap, ytap) {
+		this.triggerLaunchPosition = function(xtap, ytap) {
 			var launched = false;
 
 			for (var j=0;j<dockees.length;j++) {
 				if (dockees[j].withinTrigger(xtap, ytap)) {
-					launched = this.launchPosition(dockees[j].pos);
+					launched = launchPosition(dockees[j].pos);
 				}
 			}
 
 			return launched;
 		}
 
-		this.launchPosition = function(pos) {
-			var dir = pos + this.orientation;
+		this.triggerLaunchDirection = function(xtap, ytap, dir) {
+			if (orbium.Util.withinRect(
+				xtap,
+				ytap,
+				this.xpos,
+				this.ypos,
+				orbium.Tile.size,
+				orbium.Tile.size)) {
+				return launchDirection(dir);
+			}
+
+			return false;
+		}
+
+		var launchPosition = function(pos) {
+			var dir = pos + that.orientation;
 			if (dir == 4) {
 				dir = 0;
 			} else if (dir == 5) {
@@ -265,30 +291,30 @@
 				dir = 2;
 			}
 
-			return this.launchDirection(dir);
+			return launchDirection(dir);
 		};
 
-		this.launchDirection = function(dir) {
+		var launchDirection = function(dir) {
 			if (judderc != -1) {
 				return false;
 			}
 
 			var proceed = false;
 
-			if (dir == 0 && this.hasTopPath &&
-				this.count >= orbium.Machine.horizTiles) {
+			if (dir == 0 && that.hasTopPath &&
+				that.count >= orbium.Machine.horizTiles) {
 				proceed = true;
 			}
 
-			if (dir == 1 && this.hasRightPath) {
+			if (dir == 1 && that.hasRightPath) {
 				proceed = true;
 			}
 
-			if (dir == 2 && this.hasBottomPath) {
+			if (dir == 2 && that.hasBottomPath) {
 				proceed = true;
 			}
 
-			if (dir == 3 && this.hasLeftPath) {
+			if (dir == 3 && that.hasLeftPath) {
 				proceed = true;
 			}
 
@@ -299,74 +325,50 @@
 
 			var pos = -1;
 
-			if (this.orientation == 0) {
+			if (that.orientation == 0) {
 				if (dir == 0) {
 					pos = 0;
-				}
-
-				if (dir == 1) {
+				} else if (dir == 1) {
 					pos = 1;
-				}
-
-				if (dir == 2) {
+				} else if (dir == 2) {
 					pos = 2;
-				}
-
-				if (dir == 3) {
+				} else if (dir == 3) {
 					pos = 3;
 				}
 			}
 
-			if (this.orientation == 3) {
+			if (that.orientation == 3) {
 				if (dir == 0) {
 					pos = 1;
-				}
-
-				if (dir == 1) {
+				} else if (dir == 1) {
 					pos = 2;
-				}
-
-				if (dir == 2) {
+				} else if (dir == 2) {
 					pos = 3;
-				}
-
-				if (dir == 3) {
+				} else if (dir == 3) {
 					pos = 0;
 				}
 			}
 
-			if (this.orientation == 2) {
+			if (that.orientation == 2) {
 				if (dir == 0) {
 					pos = 2;
-				}
-
-				if (dir == 1) {
+				} else if (dir == 1) {
 					pos = 3;
-				}
-
-				if (dir == 2) {
+				} else if (dir == 2) {
 					pos = 0;
-				}
-
-				if (dir == 3) {
+				} else if (dir == 3) {
 					pos = 1;
 				}
 			}
 
-			if (this.orientation == 1) {
+			if (that.orientation == 1) {
 				if (dir == 0) {
 					pos = 3;
-				}
-
-				if (dir == 1) {
+				} else if (dir == 1) {
 					pos = 0;
-				}
-
-				if (dir == 2) {
+				} else if (dir == 2) {
 					pos = 1;
-				}
-
-				if (dir == 3) {
+				} else if (dir == 3) {
 					pos = 2;
 				}
 			}
@@ -451,7 +453,7 @@
 
 			// Check if marble should dock or bounce
 			if (within) {
-				var success = this.dockMarble(marble.direction,	marble.color,
+				var success = dockMarble(marble.direction,	marble.color,
 					marble.frame, false);
 
 				if (success) {
@@ -491,7 +493,7 @@
 					this.ypos-orbium.Bar.height,
 					orbium.Marble.size/2,
 					orbium.Bar.height)) {
-					var falldown = this.dockMarble(2, marble.color,
+					var falldown = dockMarble(2, marble.color,
 						marble.frame, true);
 
 					if (falldown) {
@@ -660,6 +662,6 @@
 			}
 		};
 
-		this.construct.apply(this, arguments);
+		var that = this; this.construct.apply(this, arguments);
 	}; orbium.Rotator.prototype = new orbium.Tile();
 }(window.orbium = window.orbium || {}));

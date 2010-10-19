@@ -66,13 +66,13 @@
 					this.lane.destruct();
 				}
 
-				for (var j=0; j<this.tiles.length; j++) {
-					this.tiles[j].destruct();
+				for (var i=0; i<this.tiles.length; i++) {
+					this.tiles[i].destruct();
 				}
 				this.tiles.length = 0;
 
-				for (var k=0; k<this.marbles.length; k++) {
-					this.marbles[k].destruct();
+				for (var j=0; j<this.marbles.length; j++) {
+					this.marbles[j].destruct();
 				}
 				this.marbles.length = 0;
 
@@ -169,8 +169,8 @@
 
 		this.calculateBases = function() {
 			// Set the correct base for tiles
-			for (var n=0;n<this.tiles.length;n++) {
-				this.tiles[n].setBase();
+			for (var i=0;i<this.tiles.length;i++) {
+				this.tiles[i].setBase();
 			}
 		};
 
@@ -231,9 +231,10 @@
 			var complete = true;
 
 			for (var i=0;i<this.tiles.length;i++) {
-				if (this.tiles[i] instanceof orbium.Rotator) {
-					var rotator = this.tiles[i];
-					if (!rotator.broken) {
+				var tile = this.tiles[i];
+
+				if (tile instanceof orbium.Rotator) {
+					if (!tile.broken) {
 						complete = false;
 					}
 				}
@@ -279,8 +280,9 @@
 			// Check if a dockee should be launched
 			for (var i=0;i<this.tiles.length;i++) {
 				var tile = this.tiles[i];
+
 				if (tile instanceof orbium.Rotator) {
-					if (tile.checkLaunch(xtap, ytap)) {
+					if (tile.triggerLaunchPosition(xtap, ytap)) {
 						launched = true;
 					}
 				}
@@ -294,23 +296,17 @@
 
 		this.checkTap = function(xtap, ytap) {
 			if (!this.paused) {
-				for (var k=0;k<this.tiles.length;k++) {
-					if (this.tiles[k] instanceof orbium.Rotator) {
+				for (var i=0;i<this.tiles.length;i++) {
+					var tile = this.tiles[i];
+
+					if (tile instanceof orbium.Rotator) {
+						tile.triggerRotate(xtap, ytap);
+					} else if (tile instanceof orbium.Counter) {
 						if (orbium.Util.withinRect(
 							xtap,
 							ytap,
-							this.tiles[k].xpos,
-							this.tiles[k].ypos,
-							orbium.Tile.size,
-							orbium.Tile.size)) {
-							this.tiles[k].rotate();
-						}
-					} else if (this.tiles[k] instanceof orbium.Counter) {
-						if (orbium.Util.withinRect(
-							xtap,
-							ytap,
-							this.tiles[k].xpos,
-							this.tiles[k].ypos,
+							tile.xpos,
+							tile.ypos,
 							orbium.Tile.size,
 							orbium.Tile.size)) {
 							orbium.menu.pause();
@@ -322,13 +318,15 @@
 			if (orbium.editor.selected != null) {
 				//console.log("selected: "+orbium.editor.selected);
 
-				for (var l=0;l<this.tiles.length;l++) {
-					if (this.tiles[l] instanceof orbium.Counter) {
+				for (var j=0;j<this.tiles.length;j++) {
+					var target = this.tiles[j];
+
+					if (target instanceof orbium.Counter) {
 						if (orbium.Util.withinRect(
 							xtap,
 							ytap,
-							this.tiles[l].xpos,
-							this.tiles[l].ypos,
+							target.xpos,
+							target.ypos,
 							orbium.Tile.size,
 							orbium.Tile.size)) {
 							orbium.menu.pause();
@@ -337,15 +335,15 @@
 						if (orbium.Util.withinRect(
 							xtap,
 							ytap,
-							this.tiles[l].xpos,
-							this.tiles[l].ypos,
+							target.xpos,
+							target.ypos,
 							orbium.Tile.size,
 							orbium.Tile.size)) {
-								var xnr = this.tiles[l].xpos/orbium.Tile.size;
-								var ynr = (this.tiles[l].ypos-orbium.Bar.height)/orbium.Tile.size;
+								var xnr = target.xpos/orbium.Tile.size;
+								var ynr = (target.ypos-orbium.Bar.height)/orbium.Tile.size;
 								var idx = ynr*orbium.Machine.horizTiles+xnr;
 
-								this.tiles[l].destruct();
+								target.destruct();
 								this.createTile(orbium.editor.selected, idx, xnr, ynr);
 								this.calculateBases();
 								this.lane.calculateSinks();
@@ -356,16 +354,11 @@
 		};
 
 		this.checkDrag = function(xtap, ytap, dir) {
-			for (var k=0;k<this.tiles.length;k++) {
-				if (this.tiles[k] instanceof orbium.Rotator) {
-					if (orbium.Util.withinRect(
-						xtap,
-						ytap,
-						this.tiles[k].xpos,
-						this.tiles[k].ypos,
-						orbium.Tile.size,
-						orbium.Tile.size)) {
-						return this.tiles[k].launchDirection(dir);
+			for (var i=0;i<this.tiles.length;i++) {
+				var tile = this.tiles[i];
+				if (tile instanceof orbium.Rotator) {
+					if (tile.triggerLaunchDirection(xtap, ytap, dir)) {
+						return true;
 					}
 				}
 			}
