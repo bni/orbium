@@ -221,6 +221,7 @@
 		orbium.storage = new orbium.Storage();
 		orbium.menu = new orbium.Menu();
 		orbium.sign = new orbium.Sign();
+		orbium.perf = new orbium.Perf();
 		orbium.tutorial = new orbium.Tutorial();
 		orbium.machine = new orbium.Machine();
 		orbium.machine.nextLevel();
@@ -239,9 +240,9 @@
 
 			// Set touch events if avalable, otherwise fall back on mouse events
 			if (orbium.has_touch_api) {
-				orbium.div.ontouchstart = function(e) {orbium.machine.startDrag(e);};
-				orbium.div.ontouchend = function(e) {orbium.machine.endDrag(e);};
-				orbium.div.ontouchmove = function(e) {orbium.machine.moveDrag(e);};
+				orbium.div.addEventListener("touchstart", function(e) {orbium.machine.startDrag(e);}, true);
+				orbium.div.addEventListener("touchend", function(e) {orbium.machine.endDrag(e);}, true);
+				orbium.div.addEventListener("touchmove", function(e) {orbium.machine.moveDrag(e);}, true);
 
 				orbium.menu.setupTouchEvents();
 			} else {
@@ -273,6 +274,6 @@
 
 		orbium.editor = new orbium.Editor();
 
-		setInterval(function() {orbium.machine.run();}, 1000/30);
+		setInterval(function() {orbium.machine.run();}, 15);
 	};
 }(window.orbium = window.orbium || {}));

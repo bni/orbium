@@ -378,6 +378,9 @@
 		};
 
 		this.startDrag = function(e) {
+			e.preventDefault();
+			e.cancelBubble = true;
+
 			if (this.xorg == null && this.yorg == null) {
 				this.xorg = this.findXPos(e);
 				this.yorg = this.findYPos(e);
@@ -385,6 +388,9 @@
 		};
 
 		this.moveDrag = function(e) {
+			e.preventDefault();
+			e.cancelBubble = true;
+
 			if (this.xorg != null && this.yorg != null) {
 				var xcur = this.findXPos(e);
 				var ycur = this.findYPos(e);
@@ -418,6 +424,9 @@
 		};
 
 		this.endDrag = function(e) {
+			e.preventDefault();
+			e.cancelBubble = true;
+
 			if (this.xorg != null && this.yorg != null) {
 				this.checkTap(this.xorg, this.yorg);
 				this.xorg = null;
@@ -553,11 +562,10 @@
 						this.marbles[k].update(dt);
 					}
 
-					// Update sign
+					// Update overlays
 					orbium.sign.update(dt);
-
-					// Update tutorial
 					orbium.tutorial.update(dt);
+					orbium.perf.update(dt);
 				}
 
 				// Draw lane

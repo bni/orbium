@@ -66,3 +66,11 @@ body {
 	-webkit-border-radius: 3px;
 	z-index: 97;
 }
+
+#perf0 {
+	position: absolute;
+	background-color: black;
+	visibility: hidden;
+	color: #cccccc;
+	z-index: 120;
+}
