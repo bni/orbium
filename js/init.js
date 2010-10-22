@@ -1,4 +1,5 @@
 (function(orbium) {
+	orbium.has_translate = false;
 	orbium.has_canvas = false;
 	orbium.has_touch_screen = false;
 	orbium.has_touch_api = false;
@@ -182,27 +183,30 @@
 		orbium.ypos = Math.round(avail_height/2-orbium.height/2);
 
 		orbium.div = document.getElementById("div0");
-		orbium.div.style.left = ""+orbium.xpos+"px";
-		orbium.div.style.top = ""+orbium.ypos+"px";
 		orbium.div.style.width = ""+orbium.width+"px";
 		orbium.div.style.height = ""+orbium.height+"px";
 
-		// Try to create a canvas element to determine if device has
-		// canvas capability
-		if (!!document.createElement("canvas").getContext) {
-			if (orbium.Util.hasDrawImageScalingBug()) {
-				orbium.has_canvas = false;
-			} else {
+		// Use translate3d if on 4th gen iOS device
+		if (orbium.Util.isUA("iPhone") && orbium.Util.getDevicePixelRatio() == 2) {
+			orbium.has_translate = true;
+
+			orbium.div.style.webkitTransform = "translate3d("+orbium.xpos+"px,"+orbium.ypos+"px,0px)";
+		} else {
+			orbium.div.style.left = ""+orbium.xpos+"px";
+			orbium.div.style.top = ""+orbium.ypos+"px";
+
+			// Try to create a canvas element to determine if device has
+			// canvas capability
+			if (!!document.createElement("canvas").getContext &&
+				!orbium.Util.hasDrawImageScalingBug()) {
 				orbium.has_canvas = true;
 
 				orbium.canvas = document.getElementById("canvas0");
+				orbium.canvas.style.visibility = "visible";
 				orbium.canvas.width = orbium.width;
 				orbium.canvas.height = orbium.height;
 
 				orbium.ctx = orbium.canvas.getContext("2d");
-
-				var div0 = document.getElementById("div0");
-				div0.style.visibility = "visible";
 			}
 		}
 
@@ -274,6 +278,6 @@
 
 		orbium.editor = new orbium.Editor();
 
-		setInterval(function() {orbium.machine.run();}, 15);
+		setInterval(function() {orbium.machine.run();}, Math.round(1000/30));
 	};
 }(window.orbium = window.orbium || {}));

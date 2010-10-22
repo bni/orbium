@@ -64,9 +64,9 @@
 	<script src="phonegap.js"></script>
 </head>
 <body onload="orbium.init();" scroll="no">
-	<div id="screen0">
+	<div id="screen0" ontouchmove="orbium.Util.preventPanning(event);" ontouchstart="orbium.Util.preventPanning(event);">
 		<div id="div0">
-			<canvas id="canvas0"></canvas>
+			<canvas id="canvas0" style="position: absolute; visibility: hidden;"></canvas>
 		</div>
 
 		<div id="menu0">

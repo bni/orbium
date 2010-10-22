@@ -61,8 +61,14 @@
 
 			var sprite = document.createElement("div");
 			sprite.id = id;
-			sprite.style.left = this.xpos+"px";
-			sprite.style.top = this.ypos+"px";
+
+			if (orbium.has_translate) {
+				sprite.style.webkitTransform = "translate3d("+this.xpos+"px,"+this.ypos+"px,0px)";
+			} else {
+				sprite.style.left = this.xpos+"px";
+				sprite.style.top = this.ypos+"px";
+			}
+
 			sprite.style.position = "absolute";
 			sprite.style.padding = "0px";
 			sprite.style.margin = "0px";
@@ -125,8 +131,12 @@
 			if (this.dirty) {
 				if (!orbium.has_canvas) {
 					if (this.element1 != null) {
-						this.element1.style.left = Math.round(this.xpos)+"px";
-						this.element1.style.top = Math.round(this.ypos)+"px";
+						if (orbium.has_translate) {
+							this.element1.style.webkitTransform = "translate3d("+Math.round(this.xpos)+"px,"+Math.round(this.ypos)+"px,0px)";
+						} else {
+							this.element1.style.left = Math.round(this.xpos)+"px";
+							this.element1.style.top = Math.round(this.ypos)+"px";
+						}
 					}
 				} else {
 					if (this.image1 != null) {
@@ -144,8 +154,12 @@
 			if (this.dirty) {
 				if (!orbium.has_canvas) {
 					if (this.element2 != null) {
-						this.element2.style.left = Math.round(this.xpos)+"px";
-						this.element2.style.top = Math.round(this.ypos)+"px";
+						if (orbium.has_translate) {
+							this.element2.style.webkitTransform = "translate3d("+Math.round(this.xpos)+"px,"+Math.round(this.ypos)+"px,0px)";
+						} else {
+							this.element2.style.left = Math.round(this.xpos)+"px";
+							this.element2.style.top = Math.round(this.ypos)+"px";
+						}
 					}
 				} else {
 					if (this.image2 != null) {
@@ -163,8 +177,12 @@
 			if (this.dirty) {
 				if (!orbium.has_canvas) {
 					if (this.element3 != null) {
-						this.element3.style.left = Math.round(this.xpos)+"px";
-						this.element3.style.top = Math.round(this.ypos)+"px";
+						if (orbium.has_translate) {
+							this.element3.style.webkitTransform = "translate3d("+Math.round(this.xpos)+"px,"+Math.round(this.ypos)+"px,0px)";
+						} else {
+							this.element3.style.left = Math.round(this.xpos)+"px";
+							this.element3.style.top = Math.round(this.ypos)+"px";
+						}
 					}
 				} else {
 					if (this.image3 != null) {

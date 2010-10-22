@@ -21,7 +21,7 @@
 		this.show = function() {
 			var left = orbium.xpos;
 			var top = orbium.ypos+orbium.height-orbium.Marble.size;
-			var width = Math.round(orbium.Marble.size*2.8);
+			var width = Math.round(orbium.Marble.size*3.0);
 			var height = orbium.Marble.size;
 
 			perf0.style.left = ""+left+"px";
@@ -39,10 +39,9 @@
 			t += dt;
 
 			if (t > updateInterval && showing) {
-				var rate = dt*1000;
-				rate = ""+rate+" ms";
+				var fps = Math.round(1/dt);
 
-				perf0.innerHTML = ""+rate;
+				perf0.innerHTML = ""+fps+" fps";
 
 				t = 0;
 			}

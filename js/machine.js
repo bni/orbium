@@ -474,10 +474,8 @@
 				progress1.style.visibility = "hidden";
 			}
 
-			if (!orbium.has_canvas) {
-				var div0 = document.getElementById("div0");
-				div0.style.visibility = "visible";
-			}
+			var div0 = document.getElementById("div0");
+			div0.style.visibility = "visible";
 		};
 
 		this.checkRotatorsFull = function() {

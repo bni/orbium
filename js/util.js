@@ -1,6 +1,10 @@
 (function(orbium) {
 	orbium.Util = {};
 
+	orbium.Util.preventPanning = function(event) {
+		event.preventDefault();
+	};
+
 	orbium.Util.withinRect = function(xcheck, ycheck, xpos, ypos, width, height) {
 		if (xcheck >= xpos && xcheck <= xpos+width) {
 			if (ycheck >= ypos && ycheck <= ypos+height) {
