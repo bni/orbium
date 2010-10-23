@@ -1,5 +1,5 @@
 (function(orbium) {
-	orbium.has_translate = false;
+	orbium.has_hwaccel = false;
 	orbium.has_canvas = false;
 	orbium.has_touch_screen = false;
 	orbium.has_touch_api = false;
@@ -186,10 +186,17 @@
 		orbium.div.style.width = ""+orbium.width+"px";
 		orbium.div.style.height = ""+orbium.height+"px";
 
-		// Use translate3d if on 4th gen iOS device
-		if (orbium.Util.isUA("iPhone") && orbium.Util.getDevicePixelRatio() == 2) {
-			orbium.has_translate = true;
+		// Use translate3d if hardware acceleration is available
+		if ("WebKitCSSMatrix" in window && "m11" in new WebKitCSSMatrix()) {
+			orbium.has_hwaccel = true;
+		}
 
+		// Disable use of translate3d on older (pre 4th gen) iOS devices
+		if (orbium.Util.isUA("iPhone") && orbium.Util.getDevicePixelRatio() == 1) {
+			orbium.has_hwaccel = false;
+		}
+
+		if (orbium.has_hwaccel) {
 			orbium.div.style.webkitTransform = "translate3d("+orbium.xpos+"px,"+orbium.ypos+"px,0px)";
 		} else {
 			orbium.div.style.left = ""+orbium.xpos+"px";
@@ -278,6 +285,11 @@
 
 		orbium.editor = new orbium.Editor();
 
-		setInterval(function() {orbium.machine.run();}, Math.round(1000/30));
+		var target_fps = 60;
+		if (orbium.has_touch_screen) {
+			target_fps = 30;
+		}
+
+		setInterval(function() {orbium.machine.run();}, Math.round(1000/target_fps));
 	};
 }(window.orbium = window.orbium || {}));
