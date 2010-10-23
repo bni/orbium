@@ -85,11 +85,13 @@
 			}
 		};
 
-		this.draw2 = function() {
-			orbium.Tile.prototype.draw2.call(this);
+		this.draw = function(idx) {
+			if (idx == 0) {
+				orbium.Tile.prototype.draw.call(this, 0);
 
-			for (var i=0; i<indicators.length; i++) {
-				indicators[i].draw1();
+				for (var i=0; i<indicators.length; i++) {
+					indicators[i].draw(0);
+				}
 			}
 		};
 

@@ -16,21 +16,21 @@
 
 		this.makeSink = function() {
 			var n = this.nr+8;
-			this.setImage1("bar"+n);
+			this.setImage(0, "bar"+n);
 			this.invalidate();
 		};
 
 		this.makePassed = function() {
 			if (!passed) {
 				passed = true;
-				this.setImage2("timer1");
+				this.setImage(1, "timer1");
 				this.invalidate();
 			}
 		};
 
 		this.clearPassed = function() {
 			passed = false;
-			this.setImage2(null);
+			this.setImage(1, null);
 			this.invalidate();
 		};
 

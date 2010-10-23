@@ -543,10 +543,8 @@
 
 				// Only update if not paused
 				if (!this.paused) {
-					// Update the lane
 					this.lane.update(dt);
 
-					// Update and check tiles
 					for (var j=0; j<this.tiles.length; j++) {
 						if (this.tiles[j].update != undefined) {
 							this.tiles[j].update(dt);
@@ -555,34 +553,28 @@
 						this.checkTile(this.tiles[j]);
 					}
 
-					// Update marbles
 					for (var k=0; k<this.marbles.length; k++) {
 						this.marbles[k].update(dt);
 					}
 
-					// Update overlays
 					orbium.sign.update(dt);
 					orbium.tutorial.update(dt);
 					orbium.perf.update(dt);
 				}
 
-				// Draw lane
 				this.lane.draw();
 
-				// Draw tiles layer 1 and 2
 				for (var m=0; m<this.tiles.length; m++) {
-					this.tiles[m].draw1();
-					this.tiles[m].draw2();
+					this.tiles[m].draw(0);
+					this.tiles[m].draw(1);
 				}
 
-				// Draw marbles
 				for (var n=0; n<this.marbles.length; n++) {
-					this.marbles[n].draw1();
+					this.marbles[n].draw(0);
 				}
 
-				// Draw tiles layer 3
 				for (var l=0; l<this.tiles.length; l++) {
-					this.tiles[l].draw3();
+					this.tiles[l].draw(2);
 				}
 
 				if (this.first) {

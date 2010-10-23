@@ -102,7 +102,7 @@
 
 				var f = this.color*12+this.frame;
 
-				this.setImage1("marble"+f);
+				this.setImage(0, "marble"+f);
 
 				this.framec = 0;
 			}

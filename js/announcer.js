@@ -6,7 +6,7 @@
 		};
 
 		this.announceNextColor = function(nextColor) {
-			this.setImage1("announcer"+nextColor);
+			this.setImage(0, "announcer"+nextColor);
 			this.invalidate();
 		};
 

@@ -113,11 +113,11 @@
 
 		this.draw = function() {
 			for (var i=0; i<bars.length; i++) {
-				bars[i].draw1();
-				bars[i].draw2();
+				bars[i].draw(0);
+				bars[i].draw(1);
 			}
 
-			timer.draw1();
+			timer.draw(0);
 		};
 
 		this.construct.apply(this, arguments);

@@ -43,14 +43,12 @@
 			this.invalidate();
 		};
 
-		this.draw1 = function() {
-			// We override draw1 here, first we call the base class implementation
-			orbium.Sprite.prototype.draw1.call(this);
+		this.draw = function(idx) {
+			// We override draw here, first we call the base class implementation
+			orbium.Sprite.prototype.draw.call(this, idx);
 
 			// We need to fill the gap here
-			if (!orbium.has_canvas) {
-				// TODO
-			} else {
+			if (orbium.has_canvas) {
 				var trailBegin = this.xpos+orbium.Tile.size;
 
 				for (var i=orbium.Machine.horizTiles; i>=0; i--) {
@@ -64,6 +62,8 @@
 				if (w > 0) {
 					orbium.ctx.drawImage(orbium.loader["timer1"], Math.round(trailBegin), Math.round(this.ypos), Math.round(w), orbium.Bar.height);
 				}
+			} else {
+				// TODO
 			}
 		}
 

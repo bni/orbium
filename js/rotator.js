@@ -533,7 +533,7 @@
 				if (this.broken) {
 					frame += 16;
 				}
-				this.setImage2("rotator"+frame);
+				this.setImage(1, "rotator"+frame);
 
 				stage = 1;
 
@@ -548,7 +548,7 @@
 				if (this.broken) {
 					frame += 16;
 				}
-				this.setImage2("rotator"+frame);
+				this.setImage(1, "rotator"+frame);
 
 				stage = 2;
 
@@ -563,7 +563,7 @@
 				if (this.broken) {
 					frame += 16;
 				}
-				this.setImage2("rotator"+frame);
+				this.setImage(1, "rotator"+frame);
 
 				stage = 3;
 
@@ -581,7 +581,7 @@
 				if (this.broken) {
 					frame += 16;
 				}
-				this.setImage2("rotator"+frame);
+				this.setImage(1, "rotator"+frame);
 
 				stage = 0;
 
@@ -613,27 +613,27 @@
 					dockees[k].destruct();
 				}
 				dockees.length = 0;
-				this.setImage3("explosion0");
+				this.setImage(2, "explosion0");
 				stage = 1;
 				this.invalidate();
 			} else if (fullc > 4 && stage == 1) {
-				this.setImage3("explosion1");
+				this.setImage(2, "explosion1");
 				stage = 2;
 				this.invalidate();
 			} else if (fullc > 6 && stage == 2) {
-				this.setImage3("explosion2");
+				this.setImage(2, "explosion2");
 				stage = 3;
 				this.invalidate();
 			} else if (fullc > 8 && stage == 3) {
-				this.setImage3("explosion3");
+				this.setImage(2, "explosion3");
 				stage = 4;
 				this.invalidate();
 			} else if (fullc > 10 && stage == 4) {
 				fullc = -1;
 				this.setBase("rotatile");
 				frame = offset+16;
-				this.setImage2("rotator"+frame);
-				this.setImage3(null);
+				this.setImage(1, "rotator"+frame);
+				this.setImage(2, null);
 
 				stage = 0;
 				this.invalidate();
@@ -654,11 +654,17 @@
 			}
 		};
 
-		this.draw2 = function() {
-			orbium.Tile.prototype.draw2.call(this);
+		this.draw = function(idx) {
+			if (idx == 0) {
+				orbium.Tile.prototype.draw.call(this, 0);
+			} else if (idx == 1) {
+				orbium.Tile.prototype.draw.call(this, 1);
+			} else if (idx == 2) {
+				for (var j=0; j<dockees.length; j++) {
+					dockees[j].draw(0);
+				}
 
-			for (var j=0; j<dockees.length; j++) {
-				dockees[j].draw1();
+				orbium.Tile.prototype.draw.call(this, 2);
 			}
 		};
 

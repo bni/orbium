@@ -18,7 +18,7 @@
 		this.hasBottomPath = null;
 		this.hasLeftPath = null;
 
-		this.construct = function(image1, image2, image3, count, xnr, ynr) {
+		this.construct = function(image0, image1, image2, count, xnr, ynr) {
 			this.count = count;
 			this.xnr = xnr;
 			this.ynr = ynr;
@@ -38,7 +38,7 @@
 			var xpos = orbium.Tile.size*this.xnr;
 			var ypos = orbium.Tile.size*this.ynr+orbium.Bar.height;
 
-			orbium.Sprite.prototype.construct.call(this, image1, image2, image3,
+			orbium.Sprite.prototype.construct.call(this, image0, image1, image2,
 				xpos, ypos, orbium.Tile.size, orbium.Tile.size, 3);
 		}; orbium.Tile.prototype.construct = this.construct;
 
@@ -147,7 +147,7 @@
 					frame += 15;
 				}
 
-				this.setImage1(baseName+frame);
+				this.setImage(0, baseName+frame);
 
 				this.invalidate();
 			}

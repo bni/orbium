@@ -24,7 +24,7 @@
 				activeMarbles = 4;
 			}
 
-			this.setImage1("counter"+activeMarbles);
+			this.setImage(0, "counter"+activeMarbles);
 			this.invalidate();
 		};
 
