@@ -1,5 +1,5 @@
 (function(orbium) {
-	orbium.has_hwaccel = false;
+	orbium.has_transform = false;
 	orbium.has_canvas = false;
 	orbium.has_touch_screen = false;
 	orbium.has_touch_api = false;
@@ -186,17 +186,13 @@
 		orbium.div.style.width = ""+orbium.width+"px";
 		orbium.div.style.height = ""+orbium.height+"px";
 
-		// Use translate3d if hardware acceleration is available
-		if ("WebKitCSSMatrix" in window && "m11" in new WebKitCSSMatrix()) {
-			orbium.has_hwaccel = true;
-		}
+		// Use translate3d if webkitTransform is available
+		// Do not use it for older pre 4th gen iOS devices
+		if (orbium.div.style.webkitTransform != undefined &&
+			!(orbium.Util.isUA("iPhone") &&
+			orbium.Util.getDevicePixelRatio() == 1)) {
+			orbium.has_transform = true;
 
-		// Disable use of translate3d on older (pre 4th gen) iOS devices
-		if (orbium.Util.isUA("iPhone") && orbium.Util.getDevicePixelRatio() == 1) {
-			orbium.has_hwaccel = false;
-		}
-
-		if (orbium.has_hwaccel) {
 			orbium.div.style.webkitTransform = "translate3d("+orbium.xpos+"px,"+orbium.ypos+"px,0px)";
 		} else {
 			orbium.div.style.left = ""+orbium.xpos+"px";
@@ -224,6 +220,7 @@
 			block.style.top = ""+offset+"px";
 			block.style.width = ""+orbium.width+"px";
 			block.style.height = ""+orbium.height+"px";
+			block.style.visibility = "visible";
 			window.onorientationchange = function() {setTimeout(function() {window.scrollTo(0, 1);}, 1000);};
 		}
 

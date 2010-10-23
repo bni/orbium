@@ -37,14 +37,15 @@
 			this.setImage(2, null);
 		}; orbium.Sprite.prototype.destruct = this.destruct;
 
-		this.createLayer = function(name, offset) {
+		this.createLayer = function(name, idx) {
 			var id = ""+name+"_"+orbium.Util.generateUniqeString();
 
 			var sprite = document.createElement("div");
 			sprite.id = id;
 
-			if (orbium.has_hwaccel) {
-				sprite.style.webkitTransform = "translate3d("+this.xpos+"px,"+this.ypos+"px,0px)";
+			if (orbium.has_transform) {
+				sprite.style.webkitTransform = "translate3d("+this.xpos+"px,"+
+					this.ypos+"px,0px)";
 			} else {
 				sprite.style.left = this.xpos+"px";
 				sprite.style.top = this.ypos+"px";
@@ -56,7 +57,15 @@
 			sprite.style.backgroundRepeat = "no-repeat";
 			sprite.style.width = this.width+"px";
 			sprite.style.height = this.height+"px";
+
+			var offset = 0;
+			if (idx == 1) {
+				offset = 1;
+			} else if (idx == 2) {
+				offset = 9;
+			}
 			sprite.style.zIndex = this.zindex+offset;
+
 			orbium.div.appendChild(sprite);
 
 			return document.getElementById(id);
@@ -72,10 +81,11 @@
 			} else {
 				if (image != null) {
 					if (this.elements[idx] == null) {
-						this.elements[idx] = this.createLayer(image, 0);
+						this.elements[idx] = this.createLayer(image, idx);
 					}
 
-					this.elements[idx].style.backgroundImage = "url("+orbium.gfx_path+image+".png)";
+					this.elements[idx].style.backgroundImage = "url("+
+						orbium.gfx_path+image+".png)";
 				} else {
 					if (this.elements[idx] != null) {
 						orbium.div.removeChild(this.elements[idx]);
@@ -93,15 +103,23 @@
 			if (this.dirty) {
 				if (orbium.has_canvas) {
 					if (this.images[idx] != null) {
-						orbium.ctx.drawImage(this.images[idx], Math.round(this.xpos), Math.round(this.ypos), this.width, this.height);
+						orbium.ctx.drawImage(
+							this.images[idx],
+							Math.round(this.xpos),
+							Math.round(this.ypos),
+							this.width, this.height);
 					}
 				} else {
 					if (this.elements[idx] != null) {
-						if (orbium.has_hwaccel) {
-							this.elements[idx].style.webkitTransform = "translate3d("+Math.round(this.xpos)+"px,"+Math.round(this.ypos)+"px,0px)";
+						if (orbium.has_transform) {
+							this.elements[idx].style.webkitTransform = 
+								"translate3d("+Math.round(this.xpos)+
+								"px,"+Math.round(this.ypos)+"px,0px)";
 						} else {
-							this.elements[idx].style.left = Math.round(this.xpos)+"px";
-							this.elements[idx].style.top = Math.round(this.ypos)+"px";
+							this.elements[idx].style.left =
+								Math.round(this.xpos)+"px";
+							this.elements[idx].style.top =
+								Math.round(this.ypos)+"px";
 						}
 					}
 				}
