@@ -20,7 +20,7 @@
 		};
 
 		this.influenceMarble = function(marble) {
-			if (marble.color != color &&
+			if (marble.color !== color &&
 				orbium.Util.withinRect(
 				marble.xpos+orbium.Marble.size/2,
 				marble.ypos+orbium.Marble.size/2,

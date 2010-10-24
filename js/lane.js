@@ -7,7 +7,7 @@
 			bars = [];
 
 			// Add bars
-			for (var i=0; i<orbium.Machine.horizTiles; i++) {
+			for (var i = 0, j = orbium.Machine.horizTiles; i < j; i++) {
 				var bar = new orbium.Bar(i);
 				orbium.Util.addArrayElement(bars, bar);
 			}
@@ -21,7 +21,7 @@
 		};
 
 		this.destruct = function() {
-			for (var i=0; i<bars.length; i++) {
+			for (var i = 0, j = bars.length; i < j; i++) {
 				bars[i].destruct();
 			}
 			bars.length = 0;
@@ -30,25 +30,27 @@
 		};
 
 		this.calculateSinks = function() {
-			for (var m=0;m<bars.length;m++) {
-				if (orbium.machine.tiles[m].inducesSink) {
-					bars[m].makeSink();
+			for (var i = 0, j = bars.length; i < j; i++) {
+				if (orbium.machine.tiles[i].inducesSink) {
+					bars[i].makeSink();
 				}
 			}
 		};
 
 		var checkBar = function(bar) {
-			for (var i=0; i<orbium.machine.marbles.length; i++) {
+			for (var i = 0, j = orbium.machine.marbles.length; i < j; i++) {
+				var marble = orbium.machine.marbles[i];
+
 				if (orbium.Util.withinRect(
-					orbium.machine.marbles[i].xpos,
-					orbium.machine.marbles[i].ypos,
+					marble.xpos,
+					marble.ypos,
 					bar.xpos,
 					bar.ypos,
 					orbium.Tile.size,
 					orbium.Tile.size) ||
 				orbium.Util.withinRect(
-					orbium.machine.marbles[i].xpos+orbium.Marble.size,
-					orbium.machine.marbles[i].ypos+orbium.Marble.size,
+					marble.xpos+orbium.Marble.size,
+					marble.ypos+orbium.Marble.size,
 					bar.xpos,
 					bar.ypos,
 					orbium.Tile.size,
@@ -78,7 +80,7 @@
 		this.injectMarble = function() {
 			// Check that there does not already exist a fresh marble in the lane
 			// This should never happen, but check for it anyway
-			for (var i=0; i<orbium.machine.marbles.length; i++) {
+			for (var i = 0, j = orbium.machine.marbles.length; i < j; i++) {
 				if (orbium.machine.marbles[i].fresh) {
 					return;
 				}
@@ -96,7 +98,7 @@
 		};
 
 		this.resetTimer = function() {
-			for (var i=0; i<bars.length; i++) {
+			for (var i = 0, j = bars.length; i < j; i++) {
 				bars[i].clearPassed();
 			}
 
@@ -104,7 +106,7 @@
 		};
 
 		this.update = function(dt) {
-			for (var i=0; i<bars.length; i++) {
+			for (var i = 0, j = bars.length; i < j; i++) {
 				checkBar(bars[i]);
 			}
 
@@ -112,9 +114,11 @@
 		};
 
 		this.draw = function() {
-			for (var i=0; i<bars.length; i++) {
-				bars[i].draw(0);
-				bars[i].draw(1);
+			for (var i = 0, j = bars.length; i < j; i++) {
+				var bar = bars[i];
+
+				bar.draw(0);
+				bar.draw(1);
 			}
 
 			timer.draw(0);

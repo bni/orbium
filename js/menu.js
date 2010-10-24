@@ -344,8 +344,8 @@
 			abo.style.visibility = "visible";
 			abo.style.top = "20%";
 
-			if (orbium.level_full == undefined &&
-				orbium.level_show == undefined) {
+			if (orbium.level_full === undefined &&
+				orbium.level_show === undefined) {
 				support.innerHTML = "GET FULL VERSION";
 			} else {
 				support.innerHTML = "SUPPORT";
@@ -410,8 +410,8 @@
 		};
 
 		this.showCompl = function() {
-			if (orbium.machine.levnr == orbium.level.length-1) {
-				if (orbium.level_full == undefined) {
+			if (orbium.machine.levnr === orbium.level.length-1) {
+				if (orbium.level_full === undefined) {
 					compl.style.top = "8%";
 					comp.innerHTML = "IN THE FULL GAME...<br><br>96 ADDITIONAL LEVELS!<br><br>TELEPORTERS, CHANGERS, BLOCKERS AND MORE!";
 					nextl.style.left = "13%";
@@ -488,13 +488,13 @@
 			} else {
 				// If not set set it to true
 				var soundEnabled = orbium.storage.readValue("sound");
-				if (soundEnabled == null) {
+				if (soundEnabled === null) {
 					orbium.storage.writeValue("sound", true);
 				}
 
 				// Read again
 				soundEnabled = orbium.storage.readValue("sound");
-				if (soundEnabled == "true") {
+				if (soundEnabled === "true") {
 					soundEnabled = true;
 				} else {
 					soundEnabled = false;
@@ -527,13 +527,13 @@
 			} else {
 				// If not set set it to true
 				var tutorialEnabled = orbium.storage.readValue("tutorial");
-				if (tutorialEnabled == null) {
+				if (tutorialEnabled === null) {
 					orbium.storage.writeValue("tutorial", true);
 				}
 
 				// Read again
 				tutorialEnabled = orbium.storage.readValue("tutorial");
-				if (tutorialEnabled == "true") {
+				if (tutorialEnabled === "true") {
 					tutorialEnabled = true;
 				} else {
 					tutorialEnabled = false;
@@ -550,13 +550,13 @@
 		this.updateLimits = function() {
 			// If not set set it to true
 			var limitsEnabled = orbium.storage.readValue("limits");
-			if (limitsEnabled == null) {
+			if (limitsEnabled === null) {
 				orbium.storage.writeValue("limits", true);
 			}
 
 			// Read again
 			limitsEnabled = orbium.storage.readValue("limits");
-			if (limitsEnabled == "true") {
+			if (limitsEnabled === "true") {
 				limitsEnabled = true;
 			} else {
 				limitsEnabled = false;
@@ -580,7 +580,7 @@
 		};
 
 		this.setLvlNr = function() {
-			if (orbium.machine.levnr == 0) {
+			if (orbium.machine.levnr === 0) {
 				prev.style.color = "#444444";
 				prev.style.webkitTextStrokeColor = "#666666";
 				prev.style.textShadow = "0px 0px "+Math.round(orbium.Tile.size/shadowFactor)+"px #666666";
@@ -605,13 +605,13 @@
 			}
 
 			var reached = orbium.storage.readValue("reachedlevel");
-			if (reached != null) {
+			if (reached !== null) {
 				reached = parseInt(reached);
 			} else {
 				reached = 0;
 			}
 
-			if (orbium.machine.levnr == reached) {
+			if (orbium.machine.levnr === reached) {
 				next.style.color = "#444444";
 				next.style.webkitTextStrokeColor = "#666666";
 				next.style.textShadow = "0px 0px "+Math.round(orbium.Tile.size/shadowFactor)+"px #666666";
@@ -690,7 +690,7 @@
 			orbium.sign.hide();
 			orbium.tutorial.hide();
 
-			if (orbium.editor.selected != null) {
+			if (orbium.editor.selected !== null) {
 				orbium.editor.edit();
 			} else {
 				this.updateResume();
@@ -737,7 +737,7 @@
 
 		this.toggleSound = function() {
 			var soundEnabled = orbium.storage.readValue("sound");
-			if (soundEnabled == "true") {
+			if (soundEnabled === "true") {
 				soundEnabled = true;
 			} else {
 				soundEnabled = false;
@@ -756,7 +756,7 @@
 
 		this.toggleTutorial = function() {
 			var tutorialEnabled = orbium.storage.readValue("tutorial");
-			if (tutorialEnabled == "true") {
+			if (tutorialEnabled === "true") {
 				tutorialEnabled = true;
 			} else {
 				tutorialEnabled = false;
@@ -773,7 +773,7 @@
 
 		this.toggleLimits = function() {
 			var limitsEnabled = orbium.storage.readValue("limits");
-			if (limitsEnabled == "true") {
+			if (limitsEnabled === "true") {
 				limitsEnabled = true;
 			} else {
 				limitsEnabled = false;
@@ -858,8 +858,8 @@
 		};
 
 		this.support = function() {
-			if (orbium.level_full == undefined &&
-				orbium.level_show == undefined) {
+			if (orbium.level_full === undefined &&
+				orbium.level_show === undefined) {
 				this.appstore();
 			} else {
 				window.location.href = "mailto:support@jsway.se";
@@ -895,10 +895,10 @@
 		};
 
 		this.playNext = function() {
-			if (orbium.level_full == undefined && orbium.machine.levnr == orbium.level.length-1) {
+			if (orbium.level_full === undefined && orbium.machine.levnr === orbium.level.length-1) {
 				this.appstore();
 				return;
-			} else if (orbium.machine.levnr == orbium.level.length-1) {
+			} else if (orbium.machine.levnr === orbium.level.length-1) {
 				orbium.machine.levnr = -1;
 			}
 
@@ -909,7 +909,7 @@
 		this.compb = function() {
 			this.hideCompl();
 
-			if (orbium.machine.levnr == orbium.level.length-1) {
+			if (orbium.machine.levnr === orbium.level.length-1) {
 				orbium.machine.levnr = -1;
 			}
 

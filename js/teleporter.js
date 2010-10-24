@@ -18,7 +18,7 @@
 		this.influenceMarble = function(marble) {
 			var teleport = false;
 
-			if (marble.lastTeleportDest != this &&
+			if (marble.lastTeleportDest !== this &&
 				orbium.Util.withinRect(
 					marble.xpos+orbium.Marble.size/2,
 					marble.ypos+orbium.Marble.size/2,
@@ -31,19 +31,20 @@
 
 			if (teleport) {
 				var dest = null;
-				for (var j=0; j<orbium.machine.tiles.length; j++) {
+
+				for (var i = 0, j = orbium.machine.tiles.length; i < j; i++) {
+					var tile = orbium.machine.tiles[i];
+
 					var type = null;
-					if (marble.direction == 0 || marble.direction == 2) {
+					if (marble.direction === 0 || marble.direction === 2) {
 						type = 0;
-					} else if (marble.direction == 1 || marble.direction == 3) {
+					} else if (marble.direction === 1 || marble.direction === 3) {
 						type = 1;
 					}
 
-					if (orbium.machine.tiles[j] instanceof orbium.Teleporter &&
-						orbium.machine.tiles[j] != this &&
-						(orbium.machine.tiles[j].variant == type ||
-						orbium.machine.tiles[j].variant == 2)) {
-						dest = orbium.machine.tiles[j];
+					if (tile instanceof orbium.Teleporter && tile !== this &&
+						(tile.variant === type || tile.variant === 2)) {
+						dest = tile;
 					}
 				}
 

@@ -31,7 +31,7 @@
 		};
 
 		this.destruct = function() {
-			for (var i=0; i<dockees.length; i++) {
+			for (var i = 0, j = dockees.length; i < j; i++) {
 				dockees[i].destruct();
 			}
 
@@ -45,14 +45,14 @@
 		this.invalidate = function() {
 			orbium.Tile.prototype.invalidate.call(this);
 
-			for (var j=0; j<dockees.length; j++) {
-				dockees[j].invalidate();
+			for (var i = 0, j = dockees.length; i < j; i++) {
+				dockees[i].invalidate();
 			}
 		};
 
 		var slotFree = function(pos) {
-			for (var i=0; i<dockees.length; i++) {
-				if (dockees[i].pos == pos) {
+			for (var i = 0, j = dockees.length; i < j; i++) {
+				if (dockees[i].pos === pos) {
 					return false;
 				}
 			}
@@ -63,46 +63,48 @@
 		var pattern = function() {
 			var pat = [];
 
-			for (var i=0; i<dockees.length; i++) {
-				if (that.orientation == 0) {
-					if (dockees[i].pos == 0) {
-						pat[0] = dockees[i].color;
-					} else if (dockees[i].pos == 1) {
-						pat[1] = dockees[i].color;
-					} else if (dockees[i].pos == 2) {
-						pat[2] = dockees[i].color;
-					} else if (dockees[i].pos == 3) {
-						pat[3] = dockees[i].color;
+			for (var i = 0, j = dockees.length; i < j; i++) {
+				var dockee = dockees[i];
+
+				if (that.orientation === 0) {
+					if (dockee.pos === 0) {
+						pat[0] = dockee.color;
+					} else if (dockee.pos === 1) {
+						pat[1] = dockee.color;
+					} else if (dockee.pos === 2) {
+						pat[2] = dockee.color;
+					} else if (dockee.pos === 3) {
+						pat[3] = dockee.color;
 					}
-				} else if (that.orientation == 1) {
-					if (dockees[i].pos == 0) {
-						pat[1] = dockees[i].color;
-					} else if (dockees[i].pos == 1) {
-						pat[2] = dockees[i].color;
-					} else if (dockees[i].pos == 2) {
-						pat[3] = dockees[i].color;
-					} else if (dockees[i].pos == 3) {
-						pat[0] = dockees[i].color;
+				} else if (that.orientation === 1) {
+					if (dockee.pos === 0) {
+						pat[1] = dockee.color;
+					} else if (dockee.pos === 1) {
+						pat[2] = dockee.color;
+					} else if (dockee.pos === 2) {
+						pat[3] = dockee.color;
+					} else if (dockee.pos === 3) {
+						pat[0] = dockee.color;
 					}
-				} else if (that.orientation == 2) {
-					if (dockees[i].pos == 0) {
-						pat[2] = dockees[i].color;
-					} else if (dockees[i].pos == 1) {
-						pat[3] = dockees[i].color;
-					} else if (dockees[i].pos == 2) {
-						pat[0] = dockees[i].color;
-					} else if (dockees[i].pos == 3) {
-						pat[1] = dockees[i].color;
+				} else if (that.orientation === 2) {
+					if (dockee.pos === 0) {
+						pat[2] = dockee.color;
+					} else if (dockee.pos === 1) {
+						pat[3] = dockee.color;
+					} else if (dockee.pos === 2) {
+						pat[0] = dockee.color;
+					} else if (dockee.pos === 3) {
+						pat[1] = dockee.color;
 					}
-				} else if (that.orientation == 3) {
-					if (dockees[i].pos == 0) {
-						pat[3] = dockees[i].color;
-					} else if (dockees[i].pos == 1) {
-						pat[0] = dockees[i].color;
-					} else if (dockees[i].pos == 2) {
-						pat[1] = dockees[i].color;
-					} else if (dockees[i].pos == 3) {
-						pat[2] = dockees[i].color;
+				} else if (that.orientation === 3) {
+					if (dockee.pos === 0) {
+						pat[3] = dockee.color;
+					} else if (dockee.pos === 1) {
+						pat[0] = dockee.color;
+					} else if (dockee.pos === 2) {
+						pat[1] = dockee.color;
+					} else if (dockee.pos === 3) {
+						pat[2] = dockee.color;
 					}
 				}
 			}
@@ -111,7 +113,7 @@
 		};
 
 		var dockMarble = function(dir, color, frame, fresh) {
-			if (blockc != -1) {
+			if (blockc !== -1) {
 				if (!fresh) {
 					orbium.player.play("clank");
 				}
@@ -120,43 +122,43 @@
 			}
 
 			var pos = 0;
-			if (dir == 0 && that.orientation == 0) {
+			if (dir === 0 && that.orientation === 0) {
 				pos = 2;
-			} else if (dir == 0 && that.orientation == 1) {
+			} else if (dir === 0 && that.orientation === 1) {
 				pos = 1;
-			} else if (dir == 0 && that.orientation == 2) {
+			} else if (dir === 0 && that.orientation === 2) {
 				pos = 0;
-			} else if (dir == 0 && that.orientation == 3) {
+			} else if (dir === 0 && that.orientation === 3) {
 				pos = 3;
 			}
 
-			if (dir == 1 && that.orientation == 0) {
+			if (dir === 1 && that.orientation === 0) {
 				pos = 3;
-			} else if (dir == 1 && that.orientation == 1) {
+			} else if (dir === 1 && that.orientation === 1) {
 				pos = 2;
-			} else if (dir == 1 && that.orientation == 2) {
+			} else if (dir === 1 && that.orientation === 2) {
 				pos = 1;
-			} else if (dir == 1 && that.orientation == 3) {
+			} else if (dir === 1 && that.orientation === 3) {
 				pos = 0;
 			}
 
-			if (dir == 2 && that.orientation == 0) {
+			if (dir === 2 && that.orientation === 0) {
 				pos = 0;
-			} else if (dir == 2 && that.orientation == 1) {
+			} else if (dir === 2 && that.orientation === 1) {
 				pos = 3;
-			} else if (dir == 2 && that.orientation == 2) {
+			} else if (dir === 2 && that.orientation === 2) {
 				pos = 2;
-			} else if (dir == 2 && that.orientation == 3) {
+			} else if (dir === 2 && that.orientation === 3) {
 				pos = 1;
 			}
 
-			if (dir == 3 && that.orientation == 0) {
+			if (dir === 3 && that.orientation === 0) {
 				pos = 1;
-			} else if (dir == 3 && that.orientation == 1) {
+			} else if (dir === 3 && that.orientation === 1) {
 				pos = 0;
-			} else if (dir == 3 && that.orientation == 2) {
+			} else if (dir === 3 && that.orientation === 2) {
 				pos = 3;
-			} else if (dir == 3 && that.orientation == 3) {
+			} else if (dir === 3 && that.orientation === 3) {
 				pos = 2;
 			}
 
@@ -189,7 +191,7 @@
 		};
 
 		var rotate = function() {
-			if (judderc == -1 && fullc == -1) {
+			if (judderc === -1 && fullc === -1) {
 				orbium.player.play("rotate");
 
 				judderc = 0;
@@ -209,8 +211,8 @@
 
 			var sameColor = dockees[0].color;
 
-			for (var j=0; j<dockees.length; j++) {
-				if (dockees[j].color == sameColor) {
+			for (var i = 0, j = dockees.length; i < j; i++) {
+				if (dockees[i].color === sameColor) {
 					same++;
 				}
 			}
@@ -222,8 +224,8 @@
 			var again = false;
 
 			// Only bother to check if not exploding and 4 is docked
-			if (fullc == -1 && dockees.length == 4) {
-				if (orbium.machine.matcher != null &&
+			if (fullc === -1 && dockees.length === 4) {
+				if (orbium.machine.matcher !== null &&
 					orbium.machine.matcher.active()) {
 					if (orbium.machine.matcher.matches(pattern())) {
 						explode();
@@ -231,8 +233,8 @@
 						again = true;
 					}
 				} else {
-					if (countSame() == 4) {
-						if (orbium.machine.sequencer != null &&
+					if (countSame() === 4) {
+						if (orbium.machine.sequencer !== null &&
 							orbium.machine.sequencer.active()) {
 							var matchColor = dockees[0].color;
 
@@ -258,9 +260,11 @@
 		this.triggerLaunchPosition = function(xtap, ytap) {
 			var launched = false;
 
-			for (var j=0;j<dockees.length;j++) {
-				if (dockees[j].withinTrigger(xtap, ytap)) {
-					launched = launchPosition(dockees[j].pos);
+			for (var i = 0, j = dockees.length; i < j; i++) {
+				var dockee = dockees[i];
+
+				if (dockee.withinTrigger(xtap, ytap)) {
+					launched = launchPosition(dockee.pos);
 				}
 			}
 
@@ -283,11 +287,11 @@
 
 		var launchPosition = function(pos) {
 			var dir = pos + that.orientation;
-			if (dir == 4) {
+			if (dir === 4) {
 				dir = 0;
-			} else if (dir == 5) {
+			} else if (dir === 5) {
 				dir = 1
-			} else if (dir == 6) {
+			} else if (dir === 6) {
 				dir = 2;
 			}
 
@@ -295,26 +299,26 @@
 		};
 
 		var launchDirection = function(dir) {
-			if (judderc != -1) {
+			if (judderc !== -1) {
 				return false;
 			}
 
 			var proceed = false;
 
-			if (dir == 0 && that.hasTopPath &&
+			if (dir === 0 && that.hasTopPath &&
 				that.count >= orbium.Machine.horizTiles) {
 				proceed = true;
 			}
 
-			if (dir == 1 && that.hasRightPath) {
+			if (dir === 1 && that.hasRightPath) {
 				proceed = true;
 			}
 
-			if (dir == 2 && that.hasBottomPath) {
+			if (dir === 2 && that.hasBottomPath) {
 				proceed = true;
 			}
 
-			if (dir == 3 && that.hasLeftPath) {
+			if (dir === 3 && that.hasLeftPath) {
 				proceed = true;
 			}
 
@@ -325,64 +329,64 @@
 
 			var pos = -1;
 
-			if (that.orientation == 0) {
-				if (dir == 0) {
+			if (that.orientation === 0) {
+				if (dir === 0) {
 					pos = 0;
-				} else if (dir == 1) {
+				} else if (dir === 1) {
 					pos = 1;
-				} else if (dir == 2) {
+				} else if (dir === 2) {
 					pos = 2;
-				} else if (dir == 3) {
+				} else if (dir === 3) {
 					pos = 3;
 				}
 			}
 
-			if (that.orientation == 3) {
-				if (dir == 0) {
+			if (that.orientation === 3) {
+				if (dir === 0) {
 					pos = 1;
-				} else if (dir == 1) {
+				} else if (dir === 1) {
 					pos = 2;
-				} else if (dir == 2) {
+				} else if (dir === 2) {
 					pos = 3;
-				} else if (dir == 3) {
+				} else if (dir === 3) {
 					pos = 0;
 				}
 			}
 
-			if (that.orientation == 2) {
-				if (dir == 0) {
+			if (that.orientation === 2) {
+				if (dir === 0) {
 					pos = 2;
-				} else if (dir == 1) {
+				} else if (dir === 1) {
 					pos = 3;
-				} else if (dir == 2) {
+				} else if (dir === 2) {
 					pos = 0;
-				} else if (dir == 3) {
+				} else if (dir === 3) {
 					pos = 1;
 				}
 			}
 
-			if (that.orientation == 1) {
-				if (dir == 0) {
+			if (that.orientation === 1) {
+				if (dir === 0) {
 					pos = 3;
-				} else if (dir == 1) {
+				} else if (dir === 1) {
 					pos = 0;
-				} else if (dir == 2) {
+				} else if (dir === 2) {
 					pos = 1;
-				} else if (dir == 3) {
+				} else if (dir === 3) {
 					pos = 2;
 				}
 			}
 
 			// Find dockee at pos
 			var dockee = null;
-			for (var i=0; i<dockees.length; i++) {
-				if (dockees[i].pos == pos) {
+			for (var i = 0, j = dockees.length; i < j; i++) {
+				if (dockees[i].pos === pos) {
 					dockee = dockees[i];
 				}
 			}
 
 			// No dockee to launch
-			if (dockee == null) {
+			if (dockee === null) {
 				return false;
 			}
 
@@ -409,7 +413,7 @@
 		this.influenceMarble = function(marble) {
 			var within = false;
 
-			if (marble.direction == 0) {
+			if (marble.direction === 0) {
 				if (orbium.Util.withinRect(
 					marble.xpos+orbium.Marble.size/2,
 					marble.ypos,
@@ -419,7 +423,7 @@
 					orbium.Marble.size)) {
 						within = true;
 				}
-			} else if (marble.direction == 1) {
+			} else if (marble.direction === 1) {
 				if (orbium.Util.withinRect(
 					marble.xpos+orbium.Marble.size,
 					marble.ypos+orbium.Marble.size/2,
@@ -429,7 +433,7 @@
 					orbium.Marble.size)) {
 						within = true;
 				}
-			} else if (marble.direction == 2) {
+			} else if (marble.direction === 2) {
 				if (orbium.Util.withinRect(
 					marble.xpos+orbium.Marble.size/2,
 					marble.ypos+orbium.Marble.size,
@@ -439,7 +443,7 @@
 					orbium.Marble.size)) {
 						within = true;
 				}
-			} else if (marble.direction == 3) {
+			} else if (marble.direction === 3) {
 				if (orbium.Util.withinRect(
 					marble.xpos,
 					marble.ypos+orbium.Marble.size/2,
@@ -461,18 +465,18 @@
 
 					// If direction is left we need to invalidate
 					// tile rightof this rotator
-					if (marble.direction == 3) {
+					if (marble.direction === 3) {
 						var idx = this.count+1;
-						if (orbium.machine.tiles[idx] != undefined) {
+						if (orbium.machine.tiles[idx] !== undefined) {
 							orbium.machine.tiles[idx].invalidate();
 						}
 					}
 
 					// If direction is up we need to invalidate
 					// tile below this rotator
-					if (marble.direction == 0) {
+					if (marble.direction === 0) {
 						var idz = this.count+orbium.Machine.horizTiles;
-						if (orbium.machine.tiles[idz] != undefined) {
+						if (orbium.machine.tiles[idz] !== undefined) {
 							orbium.machine.tiles[idz].invalidate();
 						}
 					}
@@ -485,7 +489,7 @@
 
 			// Rotator falldown
 			if (this.count < orbium.Machine.horizTiles && marble.fresh) {
-				if (marble.lastDockTry != this &&
+				if (marble.lastDockTry !== this &&
 					orbium.Util.withinRect(
 					marble.xpos+orbium.Marble.size/2,
 					marble.ypos+orbium.Marble.size/2,
@@ -516,19 +520,19 @@
 			var frame = 0;
 			var offset = 0;
 
-			if (judderc != -1 || fullc != -1) {
-				if (this.orientation == 0) {
+			if (judderc !== -1 || fullc !== -1) {
+				if (this.orientation === 0) {
 					offset = 0;
-				} else if (this.orientation == 3) {
+				} else if (this.orientation === 3) {
 					offset = 4;
-				} else if (this.orientation == 2) {
+				} else if (this.orientation === 2) {
 					offset = 8;
-				} else if (this.orientation == 1) {
+				} else if (this.orientation === 1) {
 					offset = 12;
 				}
 			}
 
-			if (judderc == 0 && stage == 0) {
+			if (judderc === 0 && stage === 0) {
 				frame = offset+stage+1;
 				if (this.broken) {
 					frame += 16;
@@ -537,13 +541,13 @@
 
 				stage = 1;
 
-				for (var i=0; i<dockees.length; i++) {
+				for (var i = 0, j = dockees.length; i < j; i++) {
 					dockees[i].judder(0);
 				}
 				this.invalidate();
 			}
 
-			if (judderc > 2 && stage == 1) {
+			if (judderc > 2 && stage === 1) {
 				frame = offset+stage+1;
 				if (this.broken) {
 					frame += 16;
@@ -552,13 +556,13 @@
 
 				stage = 2;
 
-				for (i=0; i<dockees.length; i++) {
+				for (i = 0, j = dockees.length; i < j; i++) {
 					dockees[i].judder(1);
 				}
 				this.invalidate();
 			}
 
-			if (judderc > 4 && stage == 2) {
+			if (judderc > 4 && stage === 2) {
 				frame = offset+stage+1;
 				if (this.broken) {
 					frame += 16;
@@ -567,15 +571,15 @@
 
 				stage = 3;
 
-				for (i=0; i<dockees.length; i++) {
+				for (i = 0, j = dockees.length; i < j; i++) {
 					dockees[i].judder(2);
 				}
 				this.invalidate();
 			}
 
-			if (judderc > 6 && stage == 3) {
+			if (judderc > 6 && stage === 3) {
 				frame = offset+stage+1;
-				if (frame == 16) {
+				if (frame === 16) {
 					frame = 0;
 				}
 				if (this.broken) {
@@ -591,12 +595,12 @@
 					this.orientation = 3;
 				}
 
-				for (var j=0; j<dockees.length; j++) {
-					dockees[j].place();
+				for (i = 0, j = dockees.length; i < j; i++) {
+					dockees[i].place();
 				}
 
 				// If matcher is present check for full tiles on rotate
-				if (orbium.machine.matcher != null) {
+				if (orbium.machine.matcher !== null) {
 					orbium.machine.checkRotatorsFull();
 				}
 
@@ -608,27 +612,27 @@
 				blockc = -1;
 			}
 
-			if (fullc > 2 && stage == 0) {
-				for (var k=0; k<dockees.length; k++) {
-					dockees[k].destruct();
+			if (fullc > 2 && stage === 0) {
+				for (i = 0, j = dockees.length; i < j; i++) {
+					dockees[i].destruct();
 				}
 				dockees.length = 0;
 				this.setImage(2, "explosion0");
 				stage = 1;
 				this.invalidate();
-			} else if (fullc > 4 && stage == 1) {
+			} else if (fullc > 4 && stage === 1) {
 				this.setImage(2, "explosion1");
 				stage = 2;
 				this.invalidate();
-			} else if (fullc > 6 && stage == 2) {
+			} else if (fullc > 6 && stage === 2) {
 				this.setImage(2, "explosion2");
 				stage = 3;
 				this.invalidate();
-			} else if (fullc > 8 && stage == 3) {
+			} else if (fullc > 8 && stage === 3) {
 				this.setImage(2, "explosion3");
 				stage = 4;
 				this.invalidate();
-			} else if (fullc > 10 && stage == 4) {
+			} else if (fullc > 10 && stage === 4) {
 				fullc = -1;
 				this.setBase("rotatile");
 				frame = offset+16;
@@ -641,27 +645,27 @@
 				orbium.machine.checkLevelComplete();
 			}
 
-			if (judderc != -1) {
+			if (judderc !== -1) {
 				judderc += orbium.Rotator.speed*dt;
 			}
 
-			if (blockc != -1) {
+			if (blockc !== -1) {
 				blockc += orbium.Rotator.speed*dt;
 			}
 
-			if (fullc != -1) {
+			if (fullc !== -1) {
 				fullc += orbium.Rotator.speed*dt;
 			}
 		};
 
 		this.draw = function(idx) {
-			if (idx == 0) {
+			if (idx === 0) {
 				orbium.Tile.prototype.draw.call(this, 0);
-			} else if (idx == 1) {
+			} else if (idx === 1) {
 				orbium.Tile.prototype.draw.call(this, 1);
-			} else if (idx == 2) {
-				for (var j=0; j<dockees.length; j++) {
-					dockees[j].draw(0);
+			} else if (idx === 2) {
+				for (var i = 0, j = dockees.length; i < j; i++) {
+					dockees[i].draw(0);
 				}
 
 				orbium.Tile.prototype.draw.call(this, 2);

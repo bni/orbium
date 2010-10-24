@@ -83,13 +83,13 @@
 		this.reset = function() {
 			// If not set set it to true
 			enabled = orbium.storage.readValue("tutorial");
-			if (enabled == null) {
+			if (enabled === null) {
 				orbium.storage.writeValue("tutorial", true);
 			}
 
 			// Find if tutorial is enabled
 			enabled = orbium.storage.readValue("tutorial");
-			if (enabled == "true") {
+			if (enabled === "true") {
 				enabled = true;
 			} else {
 				enabled = false;
@@ -109,7 +109,7 @@
 
 		this.checkDisableTutorial = function() {
 			// Disable tutorial if level_show is present
-			if (orbium.level_show != undefined) {
+			if (orbium.level_show !== undefined) {
 				return true;
 			}
 
@@ -150,7 +150,7 @@
 		this.update = function(dt) {
 			t += dt;
 
-			if (enabled && orbium.machine.levnr == 0 && current < entries.length) {
+			if (enabled && orbium.machine.levnr === 0 && current < entries.length) {
 				fromSeconds = entries[current][6];
 				toSeconds = entries[current][7];
 

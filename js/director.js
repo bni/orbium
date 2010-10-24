@@ -19,7 +19,7 @@
 		};
 
 		this.influenceMarble = function(marble) {
-			if (marble.direction != direction &&
+			if (marble.direction !== direction &&
 				orbium.Util.withinRect(
 				marble.xpos+orbium.Marble.size/2,
 				marble.ypos+orbium.Marble.size/2,

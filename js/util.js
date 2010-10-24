@@ -24,9 +24,10 @@
 	};
 
 	orbium.Util.removeArrayElement = function(array, element) {
-		for (var i=0; i<array.length; i++) {
-			if (array[i] == element) {
+		for (var i = 0, j = array.length; i < j; i++) {
+			if (array[i] === element) {
 				array.splice(i, 1);
+				return;
 			}
 		}
 	};
@@ -34,7 +35,7 @@
 	orbium.Util.generateRandomIndex = function(max) {
 		var rand = Math.random();
 
-		for (var i=0; i<max; i++) {
+		for (var i = 0; i < max; i++) {
 			if (rand < (i+1)/(max+1)) {
 				return i;
 			}
@@ -44,7 +45,7 @@
 	};
 
 	orbium.Util.isPG = function() {
-		if (typeof Media == "function") {
+		if (typeof Media === "function") {
 			return true;
 		}
 
@@ -52,7 +53,7 @@
 	};
 
 	orbium.Util.isUA = function(name) {
-		if (navigator.userAgent.indexOf(name) != -1) {
+		if (navigator.userAgent.indexOf(name) !== -1) {
 			return true;
 		}
 
@@ -60,7 +61,7 @@
 	};
 
 	orbium.Util.getDevicePixelRatio = function() {
-		if (window.devicePixelRatio == undefined) {
+		if (window.devicePixelRatio === undefined) {
 			return 1;
 		}
 
@@ -71,7 +72,7 @@
 		var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".split("");
 		var arr = [];
 
-		for (var i=0; i<6; i++) {
+		for (var i = 0; i < 6; i++) {
 			arr[i] = chars[0 | Math.random()*chars.length];
 		}
 
@@ -84,7 +85,7 @@
 			var url = window.location.href;
 			var parameters = url.slice(url.indexOf("?") + 1).split("&");
 
-			for (var i=0; i<parameters.length; i++) {
+			for (var i = 0, j = parameters.length; i < j; i++) {
 				var parameter = parameters[i].split("=");
 
 				result[parameter[0]] = parameter[1];
@@ -122,7 +123,7 @@
 		var imageData = bctx.getImageData(0, 0, bw, bh);
 		var sample = imageData.data[bw/2*bw*4+bh/2*4];
 
-		if (sample == 0) {
+		if (sample === 0) {
 			return true;
 		}
 

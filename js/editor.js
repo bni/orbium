@@ -60,7 +60,7 @@
 			var x = 0;
 			var y = 0;
 
-			for (var i=0;i<components.length;i++) {
+			for (var i = 0, j = components.length; i < j; i++) {
 				var type = components[i][0];
 
 				var xp = offset+x*orbium.Tile.size;
@@ -91,7 +91,7 @@
 				overlay.style.width = orbium.Tile.size+"px";
 				overlay.style.height = orbium.Tile.size+"px";
 				overlay.style.zIndex = 101;
-				if (components[i][2] != "") {
+				if (components[i][2] !== "") {
 					overlay.style.backgroundImage = "url("+orbium.gfx_path+components[i][2]+".png)";
 				}
 				overlay.style.cursor = "pointer";
@@ -105,7 +105,7 @@
 					ol.onmousedown = function(e) {orbium.editor.place(e);};
 				}
 
-				if (x == 5) {
+				if (x === 5) {
 					x = 0;
 					y++;
 				} else {

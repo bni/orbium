@@ -28,7 +28,7 @@
 			announcer.dirty = false; // Force it to be clean for test below
 			announcer.announceNextColor(2);
 
-			fireunit.reCompare(/announcer2.png/, announcer.image1.src,
+			fireunit.reCompare(/announcer2.png/, announcer.images[0].src,
 				"The correct image src was set.");
 
 			fireunit.ok(announcer.dirty, "Announcer was invalidated.");

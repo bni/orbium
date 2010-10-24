@@ -215,7 +215,7 @@
 				{code: "verttile5", src: orbium.gfx_path+"verttile5.png"}
 			];
 
-			for (var i=0; i<images.length; i++) {
+			for (var i = 0, j = images.length; i < j; i++) {
 				var image = new Image();
 				image.src = images[i].src;
 				image.failure = false;

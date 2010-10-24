@@ -43,7 +43,7 @@
 		}; orbium.Tile.prototype.construct = this.construct;
 
 		this.setBase = function(baseName) {
-			if (baseName != undefined) {
+			if (baseName !== undefined) {
 				var idx = 0;
 
 				// First row rotators
@@ -57,8 +57,8 @@
 				if (idx >= 0 &&
 					idx < orbium.Machine.horizTiles*orbium.Machine.vertTiles &&
 					orbium.machine.tiles[idx].inducesTopPath &&
-					this.variant != 1 &&
-					orbium.machine.tiles[idx].variant != 1) {
+					this.variant !== 1 &&
+					orbium.machine.tiles[idx].variant !== 1) {
 					this.hasTopPath = true;
 				}
 
@@ -66,10 +66,10 @@
 				idx = this.count+1;
 				if (idx >= 0 &&
 					idx < orbium.Machine.horizTiles*orbium.Machine.vertTiles &&
-					(this.count+1)%orbium.Machine.horizTiles != 0 &&
+					(this.count+1)%orbium.Machine.horizTiles !== 0 &&
 					orbium.machine.tiles[idx].inducesRightPath &&
-					this.variant != 0 &&
-					orbium.machine.tiles[idx].variant != 0) {
+					this.variant !== 0 &&
+					orbium.machine.tiles[idx].variant !== 0) {
 					this.hasRightPath = true;
 				}
 
@@ -78,8 +78,8 @@
 				if (idx >= 0 &&
 					idx < orbium.Machine.horizTiles*orbium.Machine.vertTiles &&
 					orbium.machine.tiles[idx].inducesBottomPath &&
-					this.variant != 1 &&
-					orbium.machine.tiles[idx].variant != 1) {
+					this.variant !== 1 &&
+					orbium.machine.tiles[idx].variant !== 1) {
 					this.hasBottomPath = true;
 				}
 
@@ -87,10 +87,10 @@
 				idx = this.count-1;
 				if (idx >= 0 &&
 					idx < orbium.Machine.horizTiles*orbium.Machine.vertTiles &&
-					this.count%orbium.Machine.horizTiles != 0 &&
+					this.count%orbium.Machine.horizTiles !== 0 &&
 					orbium.machine.tiles[idx].inducesLeftPath &&
-					this.variant != 0 &&
-					orbium.machine.tiles[idx].variant != 0) {
+					this.variant !== 0 &&
+					orbium.machine.tiles[idx].variant !== 0) {
 					this.hasLeftPath = true;
 				}
 

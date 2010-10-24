@@ -37,12 +37,12 @@
 
 			// Read the level we played last
 			this.levnr = orbium.storage.readValue("lastlevel");
-			if (this.levnr != null) {
+			if (this.levnr !== null) {
 				this.levnr = parseInt(this.levnr);
 			}
 
 			// If not set start at level -1, else decr level with one
-			if (this.levnr == null) {
+			if (this.levnr === null) {
 				this.levnr = -1;
 			} else if (this.levnr > orbium.level.length-1) {
 				this.levnr = -1;
@@ -62,17 +62,17 @@
 			if (this.levnr < orbium.level.length-1) {
 				this.levnr++;
 
-				if (this.lane != null) {
+				if (this.lane !== null) {
 					this.lane.destruct();
 				}
 
-				for (var i=0; i<this.tiles.length; i++) {
+				for (var i = 0, j = this.tiles.length; i < j; i++) {
 					this.tiles[i].destruct();
 				}
 				this.tiles.length = 0;
 
-				for (var j=0; j<this.marbles.length; j++) {
-					this.marbles[j].destruct();
+				for (i = 0, j = this.marbles.length; i < j; i++) {
+					this.marbles[i].destruct();
 				}
 				this.marbles.length = 0;
 
@@ -85,8 +85,8 @@
 
 				// Add tiles
 				var count=0;
-				for (var ynr=0; ynr<orbium.Machine.vertTiles; ynr++) {
-					for (var xnr=0; xnr<orbium.Machine.horizTiles; xnr++) {
+				for (var ynr = 0; ynr < orbium.Machine.vertTiles; ynr++) {
+					for (var xnr = 0; xnr < orbium.Machine.horizTiles; xnr++) {
 						var symbol = orbium.level[this.levnr][count];
 
 						this.createTile(symbol, count, xnr, ynr);
@@ -113,52 +113,52 @@
 			var variant = parseInt(middle);
 			var color = parseInt(suffix);
 
-			if (prefix == "E") {
+			if (prefix === "E") {
 				var emptytile = new orbium.EmptyTile(count, xnr, ynr);
 				orbium.Util.setArrayElement(count, this.tiles, emptytile);
-			} else if (prefix == "R") {
+			} else if (prefix === "R") {
 				var rotator = new orbium.Rotator(count, xnr, ynr);
 				orbium.Util.setArrayElement(count, this.tiles, rotator);
-			} else if (prefix == "H") {
+			} else if (prefix === "H") {
 				var horiztile = new orbium.HorizTile(count, xnr, ynr);
 				orbium.Util.setArrayElement(count, this.tiles, horiztile);
-			} else if (prefix == "V") {
+			} else if (prefix === "V") {
 				var verttile = new orbium.VertTile(count, xnr, ynr);
 				orbium.Util.setArrayElement(count, this.tiles, verttile);
-			} else if (prefix == "X") {
+			} else if (prefix === "X") {
 				var crosstile = new orbium.CrossTile(count, xnr, ynr);
 				orbium.Util.setArrayElement(count, this.tiles, crosstile);
-			} else if (prefix == "I") {
+			} else if (prefix === "I") {
 				var inspector = new orbium.Inspector(count, xnr, ynr,
 					variant, color);
 				orbium.Util.setArrayElement(count, this.tiles, inspector);
-			} else if (prefix == "P") {
+			} else if (prefix === "P") {
 				var teleporter = new orbium.Teleporter(count, xnr, ynr,
 					variant);
 				orbium.Util.setArrayElement(count, this.tiles, teleporter);
-			} else if (prefix == "T") {
+			} else if (prefix === "T") {
 				var transformer = new orbium.Transformer(count, xnr, ynr,
 					variant, color);
 				orbium.Util.setArrayElement(count, this.tiles, transformer);
-			} else if (prefix == "D") {
+			} else if (prefix === "D") {
 				var director = new orbium.Director(count, xnr, ynr, variant);
 				orbium.Util.setArrayElement(count, this.tiles, director);
-			} else if (prefix == "N") {
+			} else if (prefix === "N") {
 				this.counter = new orbium.Counter(count, xnr, ynr);
 				orbium.Util.setArrayElement(count, this.tiles, this.counter);
-			} else if (prefix == "C") {
+			} else if (prefix === "C") {
 				this.clock = new orbium.Clock(count, xnr, ynr);
 				orbium.Util.setArrayElement(count, this.tiles, this.clock);
-			} else if (prefix == "M") {
+			} else if (prefix === "M") {
 				this.matcher = new orbium.Matcher(count, xnr, ynr);
 				orbium.Util.setArrayElement(count, this.tiles, this.matcher);
-			} else if (prefix == "S") {
+			} else if (prefix === "S") {
 				this.sequencer = new orbium.Sequencer(count, xnr, ynr, color);
 				orbium.Util.setArrayElement(count, this.tiles, this.sequencer);
-			} else if (prefix == "F") {
+			} else if (prefix === "F") {
 				var falltile = new orbium.FallTile(count, xnr, ynr);
 				orbium.Util.setArrayElement(count, this.tiles, falltile);
-			} else if (prefix == "A") {
+			} else if (prefix === "A") {
 				this.announcer = new orbium.Announcer(count, xnr, ynr);
 				orbium.Util.setArrayElement(count, this.tiles, this.announcer);
 			} else {
@@ -169,7 +169,7 @@
 
 		this.calculateBases = function() {
 			// Set the correct base for tiles
-			for (var i=0;i<this.tiles.length;i++) {
+			for (var i = 0, j = this.tiles.length; i < j; i++) {
 				this.tiles[i].setBase();
 			}
 		};
@@ -181,18 +181,18 @@
 
 				// Read the level we have reached
 				var reached = orbium.storage.readValue("reachedlevel");
-				if (reached != null) {
+				if (reached !== null) {
 					reached = parseInt(reached);
 				}
 
 				// Save reached level if higher than ever before
-				if (reached == null || levnr > reached) {
+				if (reached === null || levnr > reached) {
 					orbium.storage.writeValue("reachedlevel", levnr);
 				}
 
 				// If reached level is higher than available levels, write
 				// available levels as reached
-				if (reached != null && reached > orbium.level.length-1) {
+				if (reached !== null && reached > orbium.level.length-1) {
 					orbium.storage.writeValue("reachedlevel", orbium.level.length-1);
 				}
 			}
@@ -222,7 +222,7 @@
 		this.randomizeNextColor = function() {
 			this.nextColor = orbium.Util.generateRandomIndex(3);
 
-			if (this.announcer != null) {
+			if (this.announcer !== null) {
 				this.announcer.announceNextColor(this.nextColor);
 			}
 		};
@@ -230,7 +230,7 @@
 		this.checkLevelComplete = function() {
 			var complete = true;
 
-			for (var i=0;i<this.tiles.length;i++) {
+			for (var i = 0, j = this.tiles.length; i < j; i++) {
 				var tile = this.tiles[i];
 
 				if (tile instanceof orbium.Rotator) {
@@ -278,7 +278,7 @@
 			var launched = false;
 
 			// Check if a dockee should be launched
-			for (var i=0;i<this.tiles.length;i++) {
+			for (var i = 0, j = this.tiles.length; i < j; i++) {
 				var tile = this.tiles[i];
 
 				if (tile instanceof orbium.Rotator) {
@@ -296,7 +296,7 @@
 
 		this.checkTap = function(xtap, ytap) {
 			if (!this.paused) {
-				for (var i=0;i<this.tiles.length;i++) {
+				for (var i = 0, j = this.tiles.length; i < j; i++) {
 					var tile = this.tiles[i];
 
 					if (tile instanceof orbium.Rotator) {
@@ -315,11 +315,11 @@
 				}
 			}
 
-			if (orbium.editor.selected != null) {
+			if (orbium.editor.selected !== null) {
 				//console.log("selected: "+orbium.editor.selected);
 
-				for (var j=0;j<this.tiles.length;j++) {
-					var target = this.tiles[j];
+				for (i = 0, j = this.tiles.length; i < j; i++) {
+					var target = this.tiles[i];
 
 					if (target instanceof orbium.Counter) {
 						if (orbium.Util.withinRect(
@@ -354,8 +354,9 @@
 		};
 
 		this.checkDrag = function(xtap, ytap, dir) {
-			for (var i=0;i<this.tiles.length;i++) {
+			for (var i = 0, j = this.tiles.length; i < j; i++) {
 				var tile = this.tiles[i];
+
 				if (tile instanceof orbium.Rotator) {
 					if (tile.triggerLaunchDirection(xtap, ytap, dir)) {
 						return true;
@@ -381,7 +382,7 @@
 			e.preventDefault();
 			e.cancelBubble = true;
 
-			if (this.xorg == null && this.yorg == null) {
+			if (this.xorg === null && this.yorg === null) {
 				this.xorg = this.findXPos(e);
 				this.yorg = this.findYPos(e);
 			}
@@ -391,7 +392,7 @@
 			e.preventDefault();
 			e.cancelBubble = true;
 
-			if (this.xorg != null && this.yorg != null) {
+			if (this.xorg !== null && this.yorg !== null) {
 				var xcur = this.findXPos(e);
 				var ycur = this.findYPos(e);
 
@@ -427,7 +428,7 @@
 			e.preventDefault();
 			e.cancelBubble = true;
 
-			if (this.xorg != null && this.yorg != null) {
+			if (this.xorg !== null && this.yorg !== null) {
 				this.checkTap(this.xorg, this.yorg);
 				this.xorg = null;
 				this.yorg = null;
@@ -484,7 +485,7 @@
 			while (again) {
 				again = false;
 
-				for (var i=0; i<this.tiles.length; i++) {
+				for (var i = 0, j = this.tiles.length; i < j; i++) {
 					var tile = this.tiles[i];
 
 					if (tile instanceof orbium.Rotator) {
@@ -497,7 +498,7 @@
 		};
 
 		this.checkTile = function(tile) {
-			for (var i=0; i<this.marbles.length; i++) {
+			for (var i = 0, j = this.marbles.length; i < j; i++) {
 				var marble = this.marbles[i];
 
 				// Check if marble is above tile and we should invalidate it
@@ -522,8 +523,8 @@
 				tile.influenceMarble(marble);
 			}
 
-			for (var j=0; j<this.marbles.length; j++) {
-				var checkMarble = this.marbles[j];
+			for (i = 0, j = this.marbles.length; i < j; i++) {
+				var checkMarble = this.marbles[i];
 
 				if (checkMarble.stale) {
 					checkMarble.destruct();
@@ -545,16 +546,18 @@
 				if (!this.paused) {
 					this.lane.update(dt);
 
-					for (var j=0; j<this.tiles.length; j++) {
-						if (this.tiles[j].update != undefined) {
-							this.tiles[j].update(dt);
+					for (var i = 0, j = this.tiles.length; i < j; i++) {
+						var tile = this.tiles[i];
+
+						if (tile.update !== undefined) {
+							tile.update(dt);
 						}
 
-						this.checkTile(this.tiles[j]);
+						this.checkTile(tile);
 					}
 
-					for (var k=0; k<this.marbles.length; k++) {
-						this.marbles[k].update(dt);
+					for (i = 0, j = this.marbles.length; i < j; i++) {
+						this.marbles[i].update(dt);
 					}
 
 					orbium.sign.update(dt);
@@ -564,17 +567,19 @@
 
 				this.lane.draw();
 
-				for (var m=0; m<this.tiles.length; m++) {
-					this.tiles[m].draw(0);
-					this.tiles[m].draw(1);
+				for (i = 0, j = this.tiles.length; i < j; i++) {
+					tile = this.tiles[i];
+
+					tile.draw(0);
+					tile.draw(1);
 				}
 
-				for (var n=0; n<this.marbles.length; n++) {
-					this.marbles[n].draw(0);
+				for (i = 0, j = this.marbles.length; i < j; i++) {
+					this.marbles[i].draw(0);
 				}
 
-				for (var l=0; l<this.tiles.length; l++) {
-					this.tiles[l].draw(2);
+				for (i = 0, j = this.tiles.length; i < j; i++) {
+					this.tiles[i].draw(2);
 				}
 
 				if (this.first) {
@@ -586,16 +591,20 @@
 				}
 			} else {
 				var num = 0;
-				for (var p=0; p<orbium.loader.props.length; p++) {
-					if (orbium.loader[orbium.loader.props[p]].complete || orbium.loader[orbium.loader.props[p]].failure) {
+				for (i = 0, j = orbium.loader.props.length; i < j; i++) {
+					var prop = orbium.loader.props[i];
+
+					if (orbium.loader[prop].complete ||
+						orbium.loader[prop].failure) {
 						num++;
 					}
 				}
 
-				var pct = num/orbium.loader.props.length;
+				var len = orbium.loader.props.length;
+				var pct = num/len;
 				this.showProgress(pct);
 
-				if (num == orbium.loader.props.length) {
+				if (num === len) {
 					this.loaded = true;
 				}
 			}

@@ -13,27 +13,27 @@
 		this.construct = function() {
 			this.fresh = false;
 
-			if (xpos == undefined) {
+			if (xpos === undefined) {
 				xpos = orbium.width;
 
 				this.fresh = true; // It is a fresh marble if it didnt get xpos
 			}
 
-			if (ypos == undefined) {
+			if (ypos === undefined) {
 				ypos = orbium.Bar.height/2-orbium.Marble.size/2;
 			}
 
 			this.color = color;
-			if (this.color == undefined) {
+			if (this.color === undefined) {
 				this.color = orbium.machine.nextColor;
 			}
 
 			this.frame = frame;
-			if (this.frame == undefined) {
+			if (this.frame === undefined) {
 				this.frame = orbium.Util.generateRandomIndex(5);
 			}
 
-			if (direction == undefined) {
+			if (direction === undefined) {
 				this.direction = 3;
 			} else {
 				this.direction = direction;
@@ -57,13 +57,13 @@
 		};
 
 		this.bounce = function() {
-			if (this.direction == 0) {
+			if (this.direction === 0) {
 				this.direction = 2;
-			} else if (this.direction == 1) {
+			} else if (this.direction === 1) {
 				this.direction = 3;
-			} else if (this.direction == 2) {
+			} else if (this.direction === 2) {
 				this.direction = 0;
-			} else if (this.direction == 3) {
+			} else if (this.direction === 3) {
 				this.direction = 1;
 			}
 
@@ -74,25 +74,25 @@
 		this.animate = function() {
 			// Animate the marble every 6th frame
 			if (this.framec > 6) {
-				if (this.direction == 0) {
+				if (this.direction === 0) {
 					this.frame--;
 
 					if (this.frame < 6) {
 						this.frame = 11;
 					}
-				} else if (this.direction == 1) {
+				} else if (this.direction === 1) {
 					this.frame++;
 
 					if (this.frame > 5) {
 						this.frame = 0;
 					}
-				} else if (this.direction == 2) {
+				} else if (this.direction === 2) {
 					this.frame++;
 
 					if (this.frame > 11) {
 						this.frame = 6;
 					}
-				} else if (this.direction == 3) {
+				} else if (this.direction === 3) {
 					this.frame--;
 
 					if (this.frame < 0) {
@@ -133,13 +133,13 @@
 			}
 
 			// Move the marble
-			if (this.direction == 0) {
+			if (this.direction === 0) {
 				this.ypos -= orbium.Marble.speed*dt;
-			} else if (this.direction == 1) {
+			} else if (this.direction === 1) {
 				this.xpos += orbium.Marble.speed*dt;
-			} else if (this.direction == 2) {
+			} else if (this.direction === 2) {
 				this.ypos += orbium.Marble.speed*dt;
-			} else if (this.direction == 3) {
+			} else if (this.direction === 3) {
 				this.xpos -= orbium.Marble.speed*dt;
 			}
 

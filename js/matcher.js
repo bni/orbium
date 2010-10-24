@@ -13,7 +13,7 @@
 		};
 
 		this.destruct = function() {
-			for (var i=0; i<indicators.length; i++) {
+			for (var i = 0, j = indicators.length; i < j; i++) {
 				indicators[i].destruct();
 			}
 
@@ -23,7 +23,7 @@
 		this.invalidate = function() {
 			orbium.Tile.prototype.invalidate.call(this);
 
-			for (var i=0; i<indicators.length; i++) {
+			for (var i = 0, j = indicators.length; i < j; i++) {
 				indicators[i].invalidate();
 			}
 		};
@@ -39,7 +39,8 @@
 			var col4 = 0;
 
 			// Randomize until non identical colors
-			while (col1 == col2 == col3 == col4) {
+			while (col1 === col2 &&	col2 === col3 &&
+				col3 === col4 && col4 === col1) {
 				col1 = this.randColor();
 				col2 = this.randColor();
 				col3 = this.randColor();
@@ -58,7 +59,6 @@
 
 			var xpos3 = Math.round(this.xpos+orbium.Tile.size/2-orbium.Marble.size/2);
 			var offset = orbium.Tile.size*0.642;
-			if (orbium.Tile.size == 144) { offset = orbium.Tile.size*0.645 } // Fix for rounding bug?
 			var ypos3 = Math.round(this.ypos+offset);
 			var indicator3 = new orbium.Indicator(xpos3, ypos3, col3);
 			orbium.Util.addArrayElement(indicators, indicator3);
@@ -80,8 +80,8 @@
 		};
 
 		this.matches = function(check) {
-			for (var i=0; i<check.length; i++) {
-				if (check[i] != indicators[i].color) {
+			for (var i = 0, j = check.length; i < j; i++) {
+				if (check[i] !== indicators[i].color) {
 					return false;
 				}
 			}
@@ -96,16 +96,16 @@
 		this.update = function(dt) {
 			t += dt;
 
-			if (t > refillSeconds && indicators.length == 0) {
+			if (t > refillSeconds && indicators.length === 0) {
 				this.fill();
 			}
 		};
 
 		this.draw = function(idx) {
-			if (idx == 0) {
+			if (idx === 0) {
 				orbium.Tile.prototype.draw.call(this, 0);
 
-				for (var i=0; i<indicators.length; i++) {
+				for (var i = 0, j = indicators.length; i < j; i++) {
 					indicators[i].draw(0);
 				}
 			}

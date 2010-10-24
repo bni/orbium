@@ -42,7 +42,7 @@
 			fireunit.ok(counter.isFallAllowed(),
 				"Fall is allowed with 2 moving marbles.");
 
-			fireunit.reCompare(/counter2.png/, counter.image1.src,
+			fireunit.reCompare(/counter2.png/, counter.images[0].src,
 				"The correct image src was set.");
 
 			fireunit.ok(counter.dirty, "Counter was invalidated.");

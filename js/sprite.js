@@ -59,9 +59,9 @@
 			sprite.style.height = this.height+"px";
 
 			var offset = 0;
-			if (idx == 1) {
+			if (idx === 1) {
 				offset = 1;
-			} else if (idx == 2) {
+			} else if (idx === 2) {
 				offset = 9;
 			}
 			sprite.style.zIndex = this.zindex+offset;
@@ -73,21 +73,21 @@
 
 		this.setImage = function(idx, image) {
 			if (orbium.has_canvas) {
-				if (image != null) {
+				if (image !== null) {
 					this.images[idx] = orbium.loader[image];
 				} else {
 					this.images[idx] = null;
 				}
 			} else {
-				if (image != null) {
-					if (this.elements[idx] == null) {
+				if (image !== null) {
+					if (this.elements[idx] === null) {
 						this.elements[idx] = this.createLayer(image, idx);
 					}
 
 					this.elements[idx].style.backgroundImage = "url("+
 						orbium.gfx_path+image+".png)";
 				} else {
-					if (this.elements[idx] != null) {
+					if (this.elements[idx] !== null) {
 						orbium.div.removeChild(this.elements[idx]);
 						this.elements[idx] = null;
 					}
@@ -102,7 +102,7 @@
 		this.draw = function(idx) {
 			if (this.dirty) {
 				if (orbium.has_canvas) {
-					if (this.images[idx] != null) {
+					if (this.images[idx] !== null) {
 						orbium.ctx.drawImage(
 							this.images[idx],
 							Math.round(this.xpos),
@@ -110,7 +110,7 @@
 							this.width, this.height);
 					}
 				} else {
-					if (this.elements[idx] != null) {
+					if (this.elements[idx] !== null) {
 						if (orbium.has_transform) {
 							this.elements[idx].style.webkitTransform = 
 								"translate3d("+Math.round(this.xpos)+
@@ -124,15 +124,15 @@
 					}
 				}
 
-				if (idx == 0) {
-					if (this.images[1] == null && this.images[2] == null) {
+				if (idx === 0) {
+					if (this.images[1] === null && this.images[2] === null) {
 						this.dirty = false;
 					}
-				} else if (idx == 1) {
-					if (this.images[2] == null) {
+				} else if (idx === 1) {
+					if (this.images[2] === null) {
 						this.dirty = false;
 					}
-				} else if (idx == 2) {
+				} else if (idx === 2) {
 					this.dirty = false;
 				}
 			}

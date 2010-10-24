@@ -51,10 +51,10 @@
 			var w = orbium.Util.getRequestParameter("w");
 			var h = orbium.Util.getRequestParameter("h");
 
-			if (w != undefined && h != undefined) {
+			if (w !== undefined && h !== undefined) {
 				avail_width = parseInt(w);
 				avail_height = parseInt(h);
-			} else if (window.innerWidth != undefined) { // Compliant
+			} else if (window.innerWidth !== undefined) { // Compliant
 				avail_width = window.innerWidth;
 				avail_height = window.innerHeight;
 			} else { // IE
@@ -69,7 +69,7 @@
 				avail_width = 800;
 				avail_height = 480;
 			} else {
-				if (orbium.Util.getDevicePixelRatio() == 2) {
+				if (orbium.Util.getDevicePixelRatio() === 2) {
 					avail_width = 960;
 					avail_height = 640;
 				} else {
@@ -79,31 +79,31 @@
 			}
 
 			// Palm pixi special case
-			if ((screen.width == 400 && screen.height == 320) ||
-				(screen.width == 320 && screen.height == 400)) {
+			if ((screen.width === 400 && screen.height === 320) ||
+				(screen.width === 320 && screen.height === 400)) {
 				avail_width = 400;
 				avail_height = 320;
 			}
 
 			// Android ldpi
-			if (screen.height == 240) {
+			if (screen.height === 240) {
 				avail_width = 320;
 				avail_height = 240;
 			}
 		}
 
 		var dimensions = null;
-		if (avail_width >= 1024 && avail_height >= 697 && orbium.dimensions_1024x697 != undefined) {
+		if (avail_width >= 1024 && avail_height >= 697 && orbium.dimensions_1024x697 !== undefined) {
 			dimensions = orbium.dimensions_1024x697;
-		} else if (avail_width >= 936 && avail_height >= 637 && orbium.dimensions_936x637 != undefined) {
+		} else if (avail_width >= 936 && avail_height >= 637 && orbium.dimensions_936x637 !== undefined) {
 			dimensions = orbium.dimensions_936x637;
-		} else if (avail_width >= 704 && avail_height >= 479 && orbium.dimensions_704x479 != undefined) {
+		} else if (avail_width >= 704 && avail_height >= 479 && orbium.dimensions_704x479 !== undefined) {
 			dimensions = orbium.dimensions_704x479;
-		} else if (avail_width >= 464 && avail_height >= 316 && orbium.dimensions_464x316 != undefined) {
+		} else if (avail_width >= 464 && avail_height >= 316 && orbium.dimensions_464x316 !== undefined) {
 			dimensions = orbium.dimensions_464x316;
-		} else if (avail_width >= 400 && avail_height >= 289 && orbium.dimensions_424x289 != undefined) {
+		} else if (avail_width >= 400 && avail_height >= 289 && orbium.dimensions_424x289 !== undefined) {
 			dimensions = orbium.dimensions_424x289;
-		} else if (avail_width >= 320 && avail_height >= 240 && orbium.dimensions_344x234 != undefined) {
+		} else if (avail_width >= 320 && avail_height >= 240 && orbium.dimensions_344x234 !== undefined) {
 			dimensions = orbium.dimensions_344x234;
 		} else {
 			return; // There was not enough screen to draw graphics
@@ -118,7 +118,7 @@
 		var vp_user_scalable = "user-scalable=no, ";
 
 		var scale = "1.0";
-		if (orbium.Util.getDevicePixelRatio() == 2) {
+		if (orbium.Util.getDevicePixelRatio() === 2) {
 			scale = "0.5";
 		}
 
@@ -164,11 +164,11 @@
 			level: null
 		}
 
-		if (orbium.level_show != undefined) {
+		if (orbium.level_show !== undefined) {
 			orbium.packs[orbium.pack_idx].level = orbium.level_show;
-		} else if (orbium.level_full != undefined) {
+		} else if (orbium.level_full !== undefined) {
 			orbium.packs[orbium.pack_idx].level = orbium.level_full;
-		} else if (orbium.level_free != undefined) {
+		} else if (orbium.level_free !== undefined) {
 			orbium.packs[orbium.pack_idx].level = orbium.level_free;
 		} else {
 			return; // No levels was found
@@ -188,9 +188,9 @@
 
 		// Use translate3d if webkitTransform is available
 		// Do not use it for older pre 4th gen iOS devices
-		if (orbium.div.style.webkitTransform != undefined &&
+		if (orbium.div.style.webkitTransform !== undefined &&
 			!(orbium.Util.isUA("iPhone") &&
-			orbium.Util.getDevicePixelRatio() == 1)) {
+			orbium.Util.getDevicePixelRatio() === 1)) {
 			orbium.has_transform = true;
 
 			orbium.div.style.webkitTransform = "translate3d("+orbium.xpos+"px,"+orbium.ypos+"px,0px)";
@@ -242,7 +242,7 @@
 			var el = document.createElement("div");
 			el.setAttribute("ontouchmove", "return;");
 
-			if (typeof el.ontouchmove == "function") {
+			if (typeof el.ontouchmove === "function") {
 				orbium.has_touch_api = true;
 			}
 

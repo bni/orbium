@@ -30,7 +30,7 @@
 				this.xpos -= speed*dt;
 			}
 
-			for (var i=orbium.Machine.horizTiles; i>=0; i--) {
+			for (var i = orbium.Machine.horizTiles; i >= 0; i--) {
 				if (this.xpos < orbium.Tile.size*i) {
 					orbium.machine.lane.setTimerStage(i+1);
 				}
@@ -51,7 +51,7 @@
 			if (orbium.has_canvas) {
 				var trailBegin = this.xpos+orbium.Tile.size;
 
-				for (var i=orbium.Machine.horizTiles; i>=0; i--) {
+				for (var i = orbium.Machine.horizTiles; i >= 0; i--) {
 					if (trailBegin < orbium.Tile.size*i) {
 						var trailEnd = orbium.Tile.size*i;
 					}

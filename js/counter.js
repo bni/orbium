@@ -12,7 +12,7 @@
 		this.countActiveMarbles = function() {
 			var count = 0;
 
-			for (var i=0; i<orbium.machine.marbles.length; i++) {
+			for (var i = 0, j = orbium.machine.marbles.length; i < j; i++) {
 				if (!orbium.machine.marbles[i].fresh) {
 					count++;
 				}
