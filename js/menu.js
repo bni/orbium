@@ -193,45 +193,75 @@
 		};
 
 		this.setupTouchEvents = function() {
-			start.ontouchstart = function() {orbium.menu.start();};
-			select.ontouchstart = function() {orbium.menu.select();};
-			settings.ontouchstart = function() {orbium.menu.settings();};
-			about.ontouchstart = function() {orbium.menu.about();};
+			start.addEventListener("touchstart",
+				function(e) {orbium.menu.start();}, true);
+			select.addEventListener("touchstart",
+				function(e) {orbium.menu.select();}, true);
+			settings.addEventListener("touchstart",
+				function(e) {orbium.menu.settings();}, true);
+			about.addEventListener("touchstart",
+				function(e) {orbium.menu.about();}, true);
 
-			pack.ontouchstart = function() {orbium.menu.changePack();};
-			edit.ontouchstart = function() {orbium.editor.edit();};
-			prev.ontouchstart = function() {orbium.menu.prev();};
-			next.ontouchstart = function() {orbium.menu.next();};
-			play.ontouchstart = function() {orbium.menu.start();};
-			lvlb.ontouchstart = function() {orbium.menu.lvlb();};
+			pack.addEventListener("touchstart",
+				function(e) {orbium.menu.changePack();}, true);
+			edit.addEventListener("touchstart",
+				function(e) {orbium.editor.edit();}, true);
+			prev.addEventListener("touchstart",
+				function(e) {orbium.menu.prev();}, true);
+			next.addEventListener("touchstart",
+				function(e) {orbium.menu.next();}, true);
+			play.addEventListener("touchstart",
+				function(e) {orbium.menu.start();}, true);
+			lvlb.addEventListener("touchstart",
+				function(e) {orbium.menu.lvlb();}, true);
 
-			support.ontouchstart = function() {orbium.menu.support();};
-			credits.ontouchstart = function() {orbium.menu.credits();};
-			abob.ontouchstart = function() {orbium.menu.abob();};
+			support.addEventListener("touchstart",
+				function(e) {orbium.menu.support();}, true);
+			credits.addEventListener("touchstart",
+				function(e) {orbium.menu.credits();}, true);
+			abob.addEventListener("touchstart",
+				function(e) {orbium.menu.abob();}, true);
 
-			sound.ontouchstart = function() {orbium.menu.toggleSound();};
-			tutorial.ontouchstart = function() {orbium.menu.toggleTutorial();};
-			limits.ontouchstart = function() {orbium.menu.toggleLimits();};
-			settb.ontouchstart = function() {orbium.menu.settb();};
+			sound.addEventListener("touchstart",
+				function(e) {orbium.menu.toggleSound();}, true);
+			tutorial.addEventListener("touchstart",
+				function(e) {orbium.menu.toggleTutorial();}, true);
+			limits.addEventListener("touchstart",
+				function(e) {orbium.menu.toggleLimits();}, true);
+			settb.addEventListener("touchstart",
+				function(e) {orbium.menu.settb();}, true);
 
-			debug.ontouchstart = function() {orbium.menu.debug();};
-			reset.ontouchstart = function() {orbium.menu.reset();};
-			unlock.ontouchstart = function() {orbium.menu.unlock();};
-			editoron.ontouchstart = function() {orbium.menu.editoron();};
-			perfon.ontouchstart = function() {orbium.menu.perfon();};
+			debug.addEventListener("touchstart",
+				function(e) {orbium.menu.debug();}, true);
+			reset.addEventListener("touchstart",
+				function(e) {orbium.menu.reset();}, true);
+			unlock.addEventListener("touchstart",
+				function(e) {orbium.menu.unlock();}, true);
+			editoron.addEventListener("touchstart",
+				function(e) {orbium.menu.editoron();}, true);
+			perfon.addEventListener("touchstart",
+				function(e) {orbium.menu.perfon();}, true);
 
-			logo.ontouchstart = function() {orbium.menu.logo();};
+			logo.addEventListener("touchstart",
+				function(e) {orbium.menu.logo();}, true);
 
-			credb.ontouchstart = function() {orbium.menu.credb();};
+			credb.addEventListener("touchstart",
+				function(e) {orbium.menu.credb();}, true);
 
-			retry.ontouchstart = function() {orbium.menu.retry();};
-			failb.ontouchstart = function() {orbium.menu.failb();};
+			retry.addEventListener("touchstart",
+				function(e) {orbium.menu.retry();}, true);
+			failb.addEventListener("touchstart",
+				function(e) {orbium.menu.failb();}, true);
 
-			nextl.ontouchstart = function() {orbium.menu.playNext();};
-			compb.ontouchstart = function() {orbium.menu.compb();};
+			nextl.addEventListener("touchstart",
+				function(e) {orbium.menu.playNext();}, true);
+			compb.addEventListener("touchstart",
+				function(e) {orbium.menu.compb();}, true);
 
-			contact.ontouchstart = function() {orbium.menu.contact();};
-			gfx.ontouchstart = function() {orbium.menu.gfx();};
+			contact.addEventListener("touchstart",
+				function(e) {orbium.menu.contact();}, true);
+			gfx.addEventListener("touchstart",
+				function(e) {orbium.menu.gfx();}, true);
 		};
 
 		this.setupMouseEvents = function() {

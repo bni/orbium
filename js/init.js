@@ -30,8 +30,8 @@
 
 	orbium.init = function() {
 		// For now use screensize to determine if we run on a device with touch
-		// capabilities or if we are on a desktop computer. Touch capable does not
-		// mean a touch API is available.
+		// capabilities or if we are on a desktop computer. Touch capable does
+		// not mean a touch API is available.
 		// FIXME: Detect this in a better way. how?
 		if (screen.width <= 1024 && screen.height <= 768) {
 			orbium.has_touch_screen = true;
@@ -93,17 +93,23 @@
 		}
 
 		var dimensions = null;
-		if (avail_width >= 1024 && avail_height >= 697 && orbium.dimensions_1024x697 !== undefined) {
+		if (avail_width >= 1024 && avail_height >= 697 &&
+			orbium.dimensions_1024x697 !== undefined) {
 			dimensions = orbium.dimensions_1024x697;
-		} else if (avail_width >= 936 && avail_height >= 637 && orbium.dimensions_936x637 !== undefined) {
+		} else if (avail_width >= 936 && avail_height >= 637 &&
+			orbium.dimensions_936x637 !== undefined) {
 			dimensions = orbium.dimensions_936x637;
-		} else if (avail_width >= 704 && avail_height >= 479 && orbium.dimensions_704x479 !== undefined) {
+		} else if (avail_width >= 704 && avail_height >= 479 &&
+			orbium.dimensions_704x479 !== undefined) {
 			dimensions = orbium.dimensions_704x479;
-		} else if (avail_width >= 464 && avail_height >= 316 && orbium.dimensions_464x316 !== undefined) {
+		} else if (avail_width >= 464 && avail_height >= 316 &&
+			orbium.dimensions_464x316 !== undefined) {
 			dimensions = orbium.dimensions_464x316;
-		} else if (avail_width >= 400 && avail_height >= 289 && orbium.dimensions_424x289 !== undefined) {
+		} else if (avail_width >= 400 && avail_height >= 289 &&
+			orbium.dimensions_424x289 !== undefined) {
 			dimensions = orbium.dimensions_424x289;
-		} else if (avail_width >= 320 && avail_height >= 240 && orbium.dimensions_344x234 !== undefined) {
+		} else if (avail_width >= 320 && avail_height >= 240 &&
+			orbium.dimensions_344x234 !== undefined) {
 			dimensions = orbium.dimensions_344x234;
 		} else {
 			return; // There was not enough screen to draw graphics
@@ -126,7 +132,8 @@
 		var vp_minimum_scale = "minimum-scale="+scale+", ";
 		var vp_maximum_scale = "maximum-scale="+scale;
 
-		vp.attributes.content.value = vp_width+vp_droid_dpi+vp_user_scalable+vp_initial_scale+vp_minimum_scale+vp_maximum_scale;
+		vp.attributes.content.value = vp_width+vp_droid_dpi+vp_user_scalable+
+			vp_initial_scale+vp_minimum_scale+vp_maximum_scale;
 
 		// Apple touch icon
 		var ai = document.getElementById("ai");
@@ -152,8 +159,10 @@
 		var refMarbleSpeed = 48;
 		var refRotatorSpeed = 60;
 		var refTilesize = 36;
-		orbium.Marble.speed = Math.round(orbium.Tile.size/refTilesize*refMarbleSpeed);
-		orbium.Rotator.speed = Math.round(orbium.Tile.size/refTilesize*refRotatorSpeed);
+		orbium.Marble.speed =
+			Math.round(orbium.Tile.size/refTilesize*refMarbleSpeed);
+		orbium.Rotator.speed =
+			Math.round(orbium.Tile.size/refTilesize*refRotatorSpeed);
 
 		orbium.packs = [];
 		orbium.pack_idx = 0;
@@ -177,7 +186,8 @@
 		orbium.level = orbium.packs[orbium.pack_idx].level;
 
 		orbium.width = orbium.Tile.size*orbium.Machine.horizTiles;
-		orbium.height = orbium.Tile.size*orbium.Machine.vertTiles+orbium.Bar.height;
+		orbium.height = orbium.Tile.size*orbium.Machine.vertTiles+
+			orbium.Bar.height;
 
 		orbium.xpos = Math.round(avail_width/2-orbium.width/2);
 		orbium.ypos = Math.round(avail_height/2-orbium.height/2);
@@ -193,7 +203,8 @@
 			orbium.Util.getDevicePixelRatio() === 1)) {
 			orbium.has_transform = true;
 
-			orbium.div.style.webkitTransform = "translate3d("+orbium.xpos+"px,"+orbium.ypos+"px,0px)";
+			orbium.div.style.webkitTransform = "translate3d("+
+				orbium.xpos+"px,"+orbium.ypos+"px,0px)";
 		} else {
 			orbium.div.style.left = ""+orbium.xpos+"px";
 			orbium.div.style.top = ""+orbium.ypos+"px";
@@ -221,7 +232,9 @@
 			block.style.width = ""+orbium.width+"px";
 			block.style.height = ""+orbium.height+"px";
 			block.style.visibility = "visible";
-			window.onorientationchange = function() {setTimeout(function() {window.scrollTo(0, 1);}, 1000);};
+			window.onorientationchange = function() {
+				setTimeout(function() {window.scrollTo(0, 1);}, 1000);
+			};
 		}
 
 		orbium.loader = new orbium.Loader();
@@ -235,7 +248,18 @@
 		orbium.machine.nextLevel();
 
 		if (orbium.has_touch_screen) {
-			// Check if device has touch API. Some browsers like Chrome implement
+			// Prevent the viewport from being panned. To do this we have a
+			// div, screen0, that covers the whole screen, that we set up event
+			// listeners on and prevent the default action.
+			var scr = document.getElementById("screen0");
+			scr.addEventListener("touchstart",
+				function(e) {e.preventDefault();}, false);
+			scr.addEventListener("touchend",
+				function(e) {e.preventDefault();}, false);
+			scr.addEventListener("touchmove",
+				function(e) {e.preventDefault();}, false);
+
+			// Check if device has touch API. Some browsers like Chrome have
 			// touch API and tells us it support it even though its running on a
 			// regular non touch screen PC, sigh..
 			// So screen check size above prevents us from even doing this check
@@ -248,15 +272,21 @@
 
 			// Set touch events if avalable, otherwise fall back on mouse events
 			if (orbium.has_touch_api) {
-				orbium.div.addEventListener("touchstart", function(e) {orbium.machine.startDrag(e);}, true);
-				orbium.div.addEventListener("touchend", function(e) {orbium.machine.endDrag(e);}, true);
-				orbium.div.addEventListener("touchmove", function(e) {orbium.machine.moveDrag(e);}, true);
+				orbium.div.addEventListener("touchstart",
+					function(e) {orbium.machine.startDrag(e);}, true);
+				orbium.div.addEventListener("touchend",
+					function(e) {orbium.machine.endDrag(e);}, true);
+				orbium.div.addEventListener("touchmove",
+					function(e) {orbium.machine.moveDrag(e);}, true);
 
 				orbium.menu.setupTouchEvents();
 			} else {
-				orbium.div.onmousedown = function(e) {orbium.machine.startDrag(e);};
-				orbium.div.onmouseup = function(e) {orbium.machine.endDrag(e);};
-				orbium.div.onmousemove = function(e) {orbium.machine.moveDrag(e);};
+				orbium.div.addEventListener("mousedown",
+					function(e) {orbium.machine.startDrag(e);}, true);
+				orbium.div.addEventListener("mouseup",
+					function(e) {orbium.machine.endDrag(e);}, true);
+				orbium.div.addEventListener("mousemove",
+					function(e) {orbium.machine.moveDrag(e);}, true);
 
 				orbium.menu.setupMouseEvents();
 			}
@@ -266,10 +296,12 @@
 			// IE has an annoying habit of interpreting fast mousedowns as
 			// a doubleclick event. Workaround is to use mouseup for IE
 			// instead. This results in IE having somewhat slower interactivity
-			if (orbium.Util.isUA("MSIE")) {
-				orbium.div.onmouseup = function(e) {orbium.machine.mouseDown(e);};
-			} else {
-				orbium.div.onmousedown = function(e) {orbium.machine.mouseDown(e);};
+			if (orbium.div.addEventListener) {
+				orbium.div.addEventListener("mousedown",
+					function(e) {orbium.machine.mouseDown(e);}, true);
+			} else if (orbium.div.attachEvent) {
+				orbium.div.attachEvent("onmouseup",
+					function(e) {orbium.machine.mouseDown(e);});
 			}
 
 			orbium.menu.setupMouseEvents();

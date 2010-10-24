@@ -368,9 +368,9 @@
 		};
 
 		this.mouseDown = function(e) {
-			if (!e) e = window.event;
+			if (!e) {e = window.event;}
 			e.cancelBubble = true;
-			if (e.stopPropagation) e.stopPropagation();
+			if (e.stopPropagation) {e.stopPropagation();}
 
 			var xmouse = this.findXPos(e);
 			var ymouse = this.findYPos(e);
@@ -379,8 +379,8 @@
 		};
 
 		this.startDrag = function(e) {
+			e.stopPropagation();
 			e.preventDefault();
-			e.cancelBubble = true;
 
 			if (this.xorg === null && this.yorg === null) {
 				this.xorg = this.findXPos(e);
@@ -389,8 +389,8 @@
 		};
 
 		this.moveDrag = function(e) {
+			e.stopPropagation();
 			e.preventDefault();
-			e.cancelBubble = true;
 
 			if (this.xorg !== null && this.yorg !== null) {
 				var xcur = this.findXPos(e);
@@ -425,8 +425,8 @@
 		};
 
 		this.endDrag = function(e) {
+			e.stopPropagation();
 			e.preventDefault();
-			e.cancelBubble = true;
 
 			if (this.xorg !== null && this.yorg !== null) {
 				this.checkTap(this.xorg, this.yorg);
