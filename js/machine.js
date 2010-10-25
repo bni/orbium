@@ -475,8 +475,8 @@
 				progress1.style.visibility = "hidden";
 			}
 
-			var div0 = document.getElementById("div0");
-			div0.style.visibility = "visible";
+			var pane = document.getElementById("pane");
+			pane.style.visibility = "visible";
 		};
 
 		this.checkRotatorsFull = function() {
@@ -526,7 +526,7 @@
 			for (i = 0, j = this.marbles.length; i < j; i++) {
 				var checkMarble = this.marbles[i];
 
-				if (checkMarble.stale) {
+				if (checkMarble !== undefined && checkMarble.stale) {
 					checkMarble.destruct();
 					orbium.Util.removeArrayElement(this.marbles, checkMarble);
 					this.counter.countActiveMarbles();

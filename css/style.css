@@ -7,7 +7,7 @@ body {
 	overflow: hidden;
 }
 
-#screen0 {
+#screen {
 	position: absolute;
 	margin: 0px;
 	padding: 0px;
@@ -18,7 +18,7 @@ body {
 	-moz-user-select: none;
 }
 
-#div0 {
+#pane {
 	position: absolute;
 	visibility: hidden;
 	cursor: pointer;
@@ -27,7 +27,7 @@ body {
 	z-index: 2;
 }
 
-#menu0 {
+#menu {
 	position: absolute;
 	visibility: hidden;
 	background-color: black;
@@ -39,7 +39,7 @@ body {
 	z-index: 99;
 }
 
-#menu0 a {
+#menu a {
 	color: white;
 }
 

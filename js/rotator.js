@@ -263,7 +263,7 @@
 			for (var i = 0, j = dockees.length; i < j; i++) {
 				var dockee = dockees[i];
 
-				if (dockee.withinTrigger(xtap, ytap)) {
+				if (dockee !== undefined && dockee.withinTrigger(xtap, ytap)) {
 					launched = launchPosition(dockee.pos);
 				}
 			}

@@ -66,7 +66,7 @@
 			}
 			sprite.style.zIndex = this.zindex+offset;
 
-			orbium.div.appendChild(sprite);
+			orbium.pane.appendChild(sprite);
 
 			return document.getElementById(id);
 		};
@@ -88,7 +88,7 @@
 						orbium.gfx_path+image+".png)";
 				} else {
 					if (this.elements[idx] !== null) {
-						orbium.div.removeChild(this.elements[idx]);
+						orbium.pane.removeChild(this.elements[idx]);
 						this.elements[idx] = null;
 					}
 				}

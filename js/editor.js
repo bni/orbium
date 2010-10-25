@@ -5,7 +5,7 @@
 		var shadowFactor = 17;
 		var textFactor = 2.5;
 
-		var menu0 = null;
+		var menu = null;
 
 		var edt = null;
 		var sav = null;
@@ -14,7 +14,7 @@
 		this.construct = function() {
 			this.selected = null;
 
-			menu0 = document.getElementById("menu0");
+			menu = document.getElementById("menu");
 
 			edt = document.getElementById("edt");
 			sav = document.getElementById("sav");
@@ -115,9 +115,9 @@
 		};
 
 		this.showEdit = function() {
-			menu0.style.visibility = "visible";
-			menu0.style.opacity = "1.0";
-			menu0.style.filter = "alpha(opacity=100)";
+			menu.style.visibility = "visible";
+			menu.style.opacity = "1.0";
+			menu.style.filter = "alpha(opacity=100)";
 
 			edt.style.visibility = "visible";
 			sav.style.visibility = "visible";

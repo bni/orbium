@@ -3,7 +3,7 @@
 		var shadowFactor = 17;
 		var textFactor = 2.5;
 
-		var menu0 = null;
+		var menu = null;
 
 		var main = null;
 		var lvl = null;
@@ -70,7 +70,7 @@
 		var gfx = null;
 
 		this.construct = function() {
-			menu0 = document.getElementById("menu0");
+			menu = document.getElementById("menu");
 
 			main = document.getElementById("main");
 			lvl = document.getElementById("lvl");
@@ -141,13 +141,13 @@
 			var width = orbium.width-orbium.Marble.size*2;
 			var height = orbium.height-orbium.Marble.size*2;
 
-			menu0.style.visibility = "hidden";
-			menu0.style.left = ""+left+"px";
-			menu0.style.top = ""+top+"px";
-			menu0.style.width = ""+width+"px";
-			menu0.style.height = ""+height+"px";
-			menu0.style.fontSize = orbium.Tile.size+"px";
-			menu0.style.textShadow = "0px 0px "+Math.round(orbium.Tile.size/shadowFactor)+"px #ffffff";
+			menu.style.visibility = "hidden";
+			menu.style.left = ""+left+"px";
+			menu.style.top = ""+top+"px";
+			menu.style.width = ""+width+"px";
+			menu.style.height = ""+height+"px";
+			menu.style.fontSize = orbium.Tile.size+"px";
+			menu.style.textShadow = "0px 0px "+Math.round(orbium.Tile.size/shadowFactor)+"px #ffffff";
 
 			support.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
 			credits.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
@@ -307,23 +307,23 @@
 		};
 
 		this.showMain = function() {
-			menu0.style.opacity = "0.8";
-			menu0.style.filter = "alpha(opacity=80)";
+			menu.style.opacity = "0.8";
+			menu.style.filter = "alpha(opacity=80)";
 
-			menu0.style.visibility = "visible";
+			menu.style.visibility = "visible";
 			main.style.visibility = "visible";
 		};
 
 		this.hideMain = function() {
-			menu0.style.visibility = "hidden";
+			menu.style.visibility = "hidden";
 			main.style.visibility = "hidden";
 		};
 
 		this.showLvl = function() {
 			orbium.machine.resetLevel();
 
-			menu0.style.opacity = "0.6";
-			menu0.style.visibility = "visible";
+			menu.style.opacity = "0.6";
+			menu.style.visibility = "visible";
 
 			if (orbium.Machine.editorMode) {
 				pack.style.visibility = "visible";
@@ -347,29 +347,29 @@
 		};
 
 		this.showCreds = function() {
-			menu0.style.visibility = "visible";
+			menu.style.visibility = "visible";
 			creds.style.visibility = "visible";
 		};
 
 		this.hideCreds = function() {
-			menu0.style.visibility = "hidden";
+			menu.style.visibility = "hidden";
 			creds.style.visibility = "hidden";
 		};
 
 		this.showSett = function() {
-			menu0.style.visibility = "visible";
+			menu.style.visibility = "visible";
 
 			sett.style.visibility = "visible";
 			sett.style.top = "30%";
 		};
 
 		this.hideSett = function() {
-			menu0.style.visibility = "hidden";
+			menu.style.visibility = "hidden";
 			sett.style.visibility = "hidden";
 		};
 
 		this.showAbout = function() {
-			menu0.style.visibility = "visible";
+			menu.style.visibility = "visible";
 
 			abo.style.visibility = "visible";
 			abo.style.top = "20%";
@@ -383,31 +383,31 @@
 		};
 
 		this.hideAbout = function() {
-			menu0.style.visibility = "hidden";
+			menu.style.visibility = "hidden";
 			abo.style.visibility = "hidden";
 		};
 
 		this.showDbg = function() {
-			menu0.style.visibility = "visible";
+			menu.style.visibility = "visible";
 
 			dbg.style.visibility = "visible";
 			dbg.style.top = "32%";
 		};
 
 		this.hideDbg = function() {
-			menu0.style.visibility = "hidden";
+			menu.style.visibility = "hidden";
 			dbg.style.visibility = "hidden";
 		};
 
 		this.showLgo = function() {
-			menu0.style.visibility = "visible";
-			menu0.style.left = ""+orbium.xpos+"px";
-			menu0.style.top = ""+orbium.ypos+"px";
-			menu0.style.width = ""+orbium.width+"px";
-			menu0.style.height = ""+orbium.height+"px";
-			menu0.style.height = ""+orbium.height+"px";
-			menu0.style.webkitBorderRadius = "0px";
-			menu0.style.mozBorderRadius = "0px";
+			menu.style.visibility = "visible";
+			menu.style.left = ""+orbium.xpos+"px";
+			menu.style.top = ""+orbium.ypos+"px";
+			menu.style.width = ""+orbium.width+"px";
+			menu.style.height = ""+orbium.height+"px";
+			menu.style.height = ""+orbium.height+"px";
+			menu.style.webkitBorderRadius = "0px";
+			menu.style.mozBorderRadius = "0px";
 
 			lgob.style.left = ""+Math.round(orbium.Tile.size*1.6)+"px";
 			lgob.style.fontSize = ""+Math.round(orbium.Tile.size*1.1)+"px";
@@ -427,7 +427,7 @@
 		};
 
 		this.showFail = function(msg) {
-			menu0.style.visibility = "visible";
+			menu.style.visibility = "visible";
 			fail.style.visibility = "visible";
 			fail.style.top = "35%";
 
@@ -435,7 +435,7 @@
 		};
 
 		this.hideFail = function() {
-			menu0.style.visibility = "hidden";
+			menu.style.visibility = "hidden";
 			fail.style.visibility = "hidden";
 		};
 
@@ -461,12 +461,12 @@
 				nextl.innerHTML = "NEXT";
 			}
 
-			menu0.style.visibility = "visible";
+			menu.style.visibility = "visible";
 			compl.style.visibility = "visible";
 		};
 
 		this.hideCompl = function() {
-			menu0.style.visibility = "hidden";
+			menu.style.visibility = "hidden";
 			compl.style.visibility = "hidden";
 		};
 

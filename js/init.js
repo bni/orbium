@@ -4,8 +4,8 @@
 	orbium.has_touch_screen = false;
 	orbium.has_touch_api = false;
 
-	orbium.div = null;
-	orbium.canvas = null;
+	orbium.pane = null;
+	orbium.canv = null;
 	orbium.ctx = null;
 
 	orbium.loader = null;
@@ -192,22 +192,22 @@
 		orbium.xpos = Math.round(avail_width/2-orbium.width/2);
 		orbium.ypos = Math.round(avail_height/2-orbium.height/2);
 
-		orbium.div = document.getElementById("div0");
-		orbium.div.style.width = ""+orbium.width+"px";
-		orbium.div.style.height = ""+orbium.height+"px";
+		orbium.pane = document.getElementById("pane");
+		orbium.pane.style.width = ""+orbium.width+"px";
+		orbium.pane.style.height = ""+orbium.height+"px";
 
 		// Use translate3d if webkitTransform is available
 		// Do not use it for older pre 4th gen iOS devices
-		if (orbium.div.style.webkitTransform !== undefined &&
+		if (orbium.pane.style.webkitTransform !== undefined &&
 			!(orbium.Util.isUA("iPhone") &&
 			orbium.Util.getDevicePixelRatio() === 1)) {
 			orbium.has_transform = true;
 
-			orbium.div.style.webkitTransform = "translate3d("+
+			orbium.pane.style.webkitTransform = "translate3d("+
 				orbium.xpos+"px,"+orbium.ypos+"px,0px)";
 		} else {
-			orbium.div.style.left = ""+orbium.xpos+"px";
-			orbium.div.style.top = ""+orbium.ypos+"px";
+			orbium.pane.style.left = ""+orbium.xpos+"px";
+			orbium.pane.style.top = ""+orbium.ypos+"px";
 
 			// Try to create a canvas element to determine if device has
 			// canvas capability
@@ -215,23 +215,16 @@
 				!orbium.Util.hasDrawImageScalingBug()) {
 				orbium.has_canvas = true;
 
-				orbium.canvas = document.getElementById("canvas0");
-				orbium.canvas.style.visibility = "visible";
-				orbium.canvas.width = orbium.width;
-				orbium.canvas.height = orbium.height;
+				orbium.canv = document.getElementById("canv");
+				orbium.canv.style.visibility = "visible";
+				orbium.canv.width = orbium.width;
+				orbium.canv.height = orbium.height;
 
-				orbium.ctx = orbium.canvas.getContext("2d");
+				orbium.ctx = orbium.canv.getContext("2d");
 			}
 		}
 
 		if (orbium.has_touch_screen && !orbium.Util.isPG()) {
-			var block = document.getElementById("block0");
-			var offset = orbium.ypos+orbium.height;
-			block.style.left = ""+orbium.xpos+"px";
-			block.style.top = ""+offset+"px";
-			block.style.width = ""+orbium.width+"px";
-			block.style.height = ""+orbium.height+"px";
-			block.style.visibility = "visible";
 			window.onorientationchange = function() {
 				setTimeout(function() {window.scrollTo(0, 1);}, 1000);
 			};
@@ -249,15 +242,15 @@
 
 		if (orbium.has_touch_screen) {
 			// Prevent the viewport from being panned. To do this we have a
-			// div, screen0, that covers the whole screen, that we set up event
+			// div that covers the whole screen, that we set up event
 			// listeners on and prevent the default action.
-			var scr = document.getElementById("screen0");
+			var scr = document.getElementById("screen");
 			scr.addEventListener("touchstart",
-				function(e) {e.preventDefault();}, false);
+				function(e) {e.preventDefault();}, true);
 			scr.addEventListener("touchend",
-				function(e) {e.preventDefault();}, false);
+				function(e) {e.preventDefault();}, true);
 			scr.addEventListener("touchmove",
-				function(e) {e.preventDefault();}, false);
+				function(e) {e.preventDefault();}, true);
 
 			// Check if device has touch API. Some browsers like Chrome have
 			// touch API and tells us it support it even though its running on a
@@ -272,20 +265,20 @@
 
 			// Set touch events if avalable, otherwise fall back on mouse events
 			if (orbium.has_touch_api) {
-				orbium.div.addEventListener("touchstart",
+				orbium.pane.addEventListener("touchstart",
 					function(e) {orbium.machine.startDrag(e);}, true);
-				orbium.div.addEventListener("touchend",
+				orbium.pane.addEventListener("touchend",
 					function(e) {orbium.machine.endDrag(e);}, true);
-				orbium.div.addEventListener("touchmove",
+				orbium.pane.addEventListener("touchmove",
 					function(e) {orbium.machine.moveDrag(e);}, true);
 
 				orbium.menu.setupTouchEvents();
 			} else {
-				orbium.div.addEventListener("mousedown",
+				orbium.pane.addEventListener("mousedown",
 					function(e) {orbium.machine.startDrag(e);}, true);
-				orbium.div.addEventListener("mouseup",
+				orbium.pane.addEventListener("mouseup",
 					function(e) {orbium.machine.endDrag(e);}, true);
-				orbium.div.addEventListener("mousemove",
+				orbium.pane.addEventListener("mousemove",
 					function(e) {orbium.machine.moveDrag(e);}, true);
 
 				orbium.menu.setupMouseEvents();
@@ -296,11 +289,11 @@
 			// IE has an annoying habit of interpreting fast mousedowns as
 			// a doubleclick event. Workaround is to use mouseup for IE
 			// instead. This results in IE having somewhat slower interactivity
-			if (orbium.div.addEventListener) {
-				orbium.div.addEventListener("mousedown",
+			if (orbium.pane.addEventListener) {
+				orbium.pane.addEventListener("mousedown",
 					function(e) {orbium.machine.mouseDown(e);}, true);
-			} else if (orbium.div.attachEvent) {
-				orbium.div.attachEvent("onmouseup",
+			} else if (orbium.pane.attachEvent) {
+				orbium.pane.attachEvent("onmouseup",
 					function(e) {orbium.machine.mouseDown(e);});
 			}
 
