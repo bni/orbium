@@ -14,6 +14,7 @@
 		var compl = null;
 
 		var start = null;
+		var startFunc = null;
 		var select = null;
 		var settings = null;
 		var about = null;
@@ -193,117 +194,147 @@
 		};
 
 		this.setupTouchEvents = function() {
-			start.addEventListener("touchstart",
-				function(e) {orbium.menu.start();}, true);
-			select.addEventListener("touchstart",
-				function(e) {orbium.menu.select();}, true);
-			settings.addEventListener("touchstart",
-				function(e) {orbium.menu.settings();}, true);
-			about.addEventListener("touchstart",
-				function(e) {orbium.menu.about();}, true);
+			orbium.Util.attachListener(start, "touchstart",
+				startFunc = function(e) {orbium.menu.start();});
+			orbium.Util.attachListener(select, "touchstart",
+				function(e) {orbium.menu.select();});
+			orbium.Util.attachListener(settings, "touchstart",
+				function(e) {orbium.menu.settings();});
+			orbium.Util.attachListener(about, "touchstart",
+				function(e) {orbium.menu.about();});
 
-			pack.addEventListener("touchstart",
-				function(e) {orbium.menu.changePack();}, true);
-			edit.addEventListener("touchstart",
-				function(e) {orbium.editor.edit();}, true);
-			prev.addEventListener("touchstart",
-				function(e) {orbium.menu.prev();}, true);
-			next.addEventListener("touchstart",
-				function(e) {orbium.menu.next();}, true);
-			play.addEventListener("touchstart",
-				function(e) {orbium.menu.start();}, true);
-			lvlb.addEventListener("touchstart",
-				function(e) {orbium.menu.lvlb();}, true);
+			orbium.Util.attachListener(pack, "touchstart",
+				function(e) {orbium.menu.changePack();});
+			orbium.Util.attachListener(edit, "touchstart",
+				function(e) {orbium.editor.edit();});
+			orbium.Util.attachListener(prev, "touchstart",
+				function(e) {orbium.menu.prev();});
+			orbium.Util.attachListener(next, "touchstart",
+				function(e) {orbium.menu.next();});
+			orbium.Util.attachListener(play, "touchstart",
+				function(e) {orbium.menu.start();});
+			orbium.Util.attachListener(lvlb, "touchstart",
+				function(e) {orbium.menu.lvlb();});
 
-			support.addEventListener("touchstart",
-				function(e) {orbium.menu.support();}, true);
-			credits.addEventListener("touchstart",
-				function(e) {orbium.menu.credits();}, true);
-			abob.addEventListener("touchstart",
-				function(e) {orbium.menu.abob();}, true);
+			orbium.Util.attachListener(support, "touchstart",
+				function(e) {orbium.menu.support();});
+			orbium.Util.attachListener(credits, "touchstart",
+				function(e) {orbium.menu.credits();});
+			orbium.Util.attachListener(abob, "touchstart",
+				function(e) {orbium.menu.abob();});
 
-			sound.addEventListener("touchstart",
-				function(e) {orbium.menu.toggleSound();}, true);
-			tutorial.addEventListener("touchstart",
-				function(e) {orbium.menu.toggleTutorial();}, true);
-			limits.addEventListener("touchstart",
-				function(e) {orbium.menu.toggleLimits();}, true);
-			settb.addEventListener("touchstart",
-				function(e) {orbium.menu.settb();}, true);
+			orbium.Util.attachListener(sound, "touchstart",
+				function(e) {orbium.menu.toggleSound();});
+			orbium.Util.attachListener(tutorial, "touchstart",
+				function(e) {orbium.menu.toggleTutorial();});
+			orbium.Util.attachListener(limits, "touchstart",
+				function(e) {orbium.menu.toggleLimits();});
+			orbium.Util.attachListener(settb, "touchstart",
+				function(e) {orbium.menu.settb();});
 
-			debug.addEventListener("touchstart",
-				function(e) {orbium.menu.debug();}, true);
-			reset.addEventListener("touchstart",
-				function(e) {orbium.menu.reset();}, true);
-			unlock.addEventListener("touchstart",
-				function(e) {orbium.menu.unlock();}, true);
-			editoron.addEventListener("touchstart",
-				function(e) {orbium.menu.editoron();}, true);
-			perfon.addEventListener("touchstart",
-				function(e) {orbium.menu.perfon();}, true);
+			orbium.Util.attachListener(debug, "touchstart",
+				function(e) {orbium.menu.debug();});
+			orbium.Util.attachListener(reset, "touchstart",
+				function(e) {orbium.menu.reset();});
+			orbium.Util.attachListener(unlock, "touchstart",
+				function(e) {orbium.menu.unlock();});
+			orbium.Util.attachListener(editoron, "touchstart",
+				function(e) {orbium.menu.editoron();});
+			orbium.Util.attachListener(perfon, "touchstart",
+				function(e) {orbium.menu.perfon();});
 
-			logo.addEventListener("touchstart",
-				function(e) {orbium.menu.logo();}, true);
+			orbium.Util.attachListener(logo, "touchstart",
+				function(e) {orbium.menu.logo();});
 
-			credb.addEventListener("touchstart",
-				function(e) {orbium.menu.credb();}, true);
+			orbium.Util.attachListener(credb, "touchstart",
+				function(e) {orbium.menu.credb();});
 
-			retry.addEventListener("touchstart",
-				function(e) {orbium.menu.retry();}, true);
-			failb.addEventListener("touchstart",
-				function(e) {orbium.menu.failb();}, true);
+			orbium.Util.attachListener(retry, "touchstart",
+				function(e) {orbium.menu.retry();});
+			orbium.Util.attachListener(failb, "touchstart",
+				function(e) {orbium.menu.failb();});
 
-			nextl.addEventListener("touchstart",
-				function(e) {orbium.menu.playNext();}, true);
-			compb.addEventListener("touchstart",
-				function(e) {orbium.menu.compb();}, true);
+			orbium.Util.attachListener(nextl, "touchstart",
+				function(e) {orbium.menu.playNext();});
+			orbium.Util.attachListener(compb, "touchstart",
+				function(e) {orbium.menu.compb();});
 
-			contact.addEventListener("touchstart",
-				function(e) {orbium.menu.contact();}, true);
-			gfx.addEventListener("touchstart",
-				function(e) {orbium.menu.gfx();}, true);
+			orbium.Util.attachListener(contact, "touchstart",
+				function(e) {orbium.menu.contact();});
+			orbium.Util.attachListener(gfx, "touchstart",
+				function(e) {orbium.menu.gfx();});
 		};
 
 		this.setupMouseEvents = function() {
-			start.onmousedown = function() {orbium.menu.start();};
-			select.onmousedown = function() {orbium.menu.select();};
-			settings.onmousedown = function() {orbium.menu.settings();};
-			about.onmousedown = function() {orbium.menu.about();};
+			orbium.Util.attachListener(start, "mousedown",
+				startFunc = function(e) {orbium.menu.start();});
+			orbium.Util.attachListener(select, "mousedown",
+				function(e) {orbium.menu.select();});
+			orbium.Util.attachListener(settings, "mousedown",
+				function(e) {orbium.menu.settings();});
+			orbium.Util.attachListener(about, "mousedown",
+				function(e) {orbium.menu.about();});
 
-			pack.onmousedown = function() {orbium.menu.changePack();};
-			edit.onmousedown = function() {orbium.editor.edit();};
-			prev.onmousedown = function() {orbium.menu.prev();};
-			next.onmousedown = function() {orbium.menu.next();};
-			play.onmousedown = function() {orbium.menu.start();};
-			lvlb.onmousedown = function() {orbium.menu.lvlb();};
+			orbium.Util.attachListener(pack, "mousedown",
+				function(e) {orbium.menu.changePack();});
+			orbium.Util.attachListener(edit, "mousedown",
+				function(e) {orbium.editor.edit();});
+			orbium.Util.attachListener(prev, "mousedown",
+				function(e) {orbium.menu.prev();});
+			orbium.Util.attachListener(next, "mousedown",
+				function(e) {orbium.menu.next();});
+			orbium.Util.attachListener(play, "mousedown",
+				function(e) {orbium.menu.start();});
+			orbium.Util.attachListener(lvlb, "mousedown",
+				function(e) {orbium.menu.lvlb();});
 
-			support.onmousedown = function() {orbium.menu.support();};
-			credits.onmousedown = function() {orbium.menu.credits();};
-			abob.onmousedown = function() {orbium.menu.abob();};
+			orbium.Util.attachListener(support, "mousedown",
+				function(e) {orbium.menu.support();});
+			orbium.Util.attachListener(credits, "mousedown",
+				function(e) {orbium.menu.credits();});
+			orbium.Util.attachListener(abob, "mousedown",
+				function(e) {orbium.menu.abob();});
 
-			sound.onmousedown = function() {orbium.menu.toggleSound();};
-			tutorial.onmousedown = function() {orbium.menu.toggleTutorial();};
-			limits.onmousedown = function() {orbium.menu.toggleLimits();};
-			settb.onmousedown = function() {orbium.menu.settb();};
+			orbium.Util.attachListener(sound, "mousedown",
+				function(e) {orbium.menu.toggleSound();});
+			orbium.Util.attachListener(tutorial, "mousedown",
+				function(e) {orbium.menu.toggleTutorial();});
+			orbium.Util.attachListener(limits, "mousedown",
+				function(e) {orbium.menu.toggleLimits();});
+			orbium.Util.attachListener(settb, "mousedown",
+				function(e) {orbium.menu.settb();});
 
-			debug.onmousedown = function() {orbium.menu.debug();};
-			reset.onmousedown = function() {orbium.menu.reset();};
-			unlock.onmousedown = function() {orbium.menu.unlock();};
-			editoron.onmousedown = function() {orbium.menu.editoron();};
-			perfon.onmousedown = function() {orbium.menu.perfon();};
+			orbium.Util.attachListener(debug, "mousedown",
+				function(e) {orbium.menu.debug();});
+			orbium.Util.attachListener(reset, "mousedown",
+				function(e) {orbium.menu.reset();});
+			orbium.Util.attachListener(unlock, "mousedown",
+				function(e) {orbium.menu.unlock();});
+			orbium.Util.attachListener(editoron, "mousedown",
+				function(e) {orbium.menu.editoron();});
+			orbium.Util.attachListener(perfon, "mousedown",
+				function(e) {orbium.menu.perfon();});
 
-			logo.onmousedown = function() {orbium.menu.logo();};
+			orbium.Util.attachListener(logo, "mousedown",
+				function(e) {orbium.menu.logo();});
 
-			credb.onmousedown = function() {orbium.menu.credb();};
+			orbium.Util.attachListener(credb, "mousedown",
+				function(e) {orbium.menu.credb();});
 
-			retry.onmousedown = function() {orbium.menu.retry();};
-			failb.onmousedown = function() {orbium.menu.failb();};
+			orbium.Util.attachListener(retry, "mousedown",
+				function(e) {orbium.menu.retry();});
+			orbium.Util.attachListener(failb, "mousedown",
+				function(e) {orbium.menu.failb();});
 
-			nextl.onmousedown = function() {orbium.menu.playNext();};
-			compb.onmousedown = function() {orbium.menu.compb();};
+			orbium.Util.attachListener(nextl, "mousedown",
+				function(e) {orbium.menu.playNext();});
+			orbium.Util.attachListener(compb, "mousedown",
+				function(e) {orbium.menu.compb();});
 
-			contact.onmousedown = function() {orbium.menu.contact();};
-			gfx.onmousedown = function() {orbium.menu.gfx();};
+			orbium.Util.attachListener(contact, "mousedown",
+				function(e) {orbium.menu.contact();});
+			orbium.Util.attachListener(gfx, "mousedown",
+				function(e) {orbium.menu.gfx();});
 		};
 
 		this.showMain = function() {
@@ -472,9 +503,13 @@
 
 		this.updateStart = function() {
 			if (orbium.has_touch_api) {
-				start.ontouchstart = function() {orbium.menu.start();};
+				orbium.Util.detachListener(start, "touchstart", startFunc);
+				orbium.Util.attachListener(start, "touchstart",
+					startFunc = function() {orbium.menu.start();});
 			} else {
-				start.onmousedown = function() {orbium.menu.start();};
+				orbium.Util.detachListener(start, "mousedown", startFunc);
+				orbium.Util.attachListener(start, "mousedown",
+					startFunc = function() {orbium.menu.start();});
 			}
 
 			start.innerHTML = "START";
@@ -482,9 +517,13 @@
 
 		this.updateRestart = function() {
 			if (orbium.has_touch_api) {
-				start.ontouchstart = function() {orbium.menu.restart();};
+				orbium.Util.detachListener(start, "touchstart", startFunc);
+				orbium.Util.attachListener(start, "touchstart",
+					startFunc = function() {orbium.menu.restart();});
 			} else {
-				start.onmousedown = function() {orbium.menu.restart();};
+				orbium.Util.detachListener(start, "mousedown", startFunc);
+				orbium.Util.attachListener(start, "mousedown",
+					startFunc = function() {orbium.menu.restart();});
 			}
 
 			start.innerHTML = "START";
@@ -492,9 +531,13 @@
 
 		this.updateResume = function() {
 			if (orbium.has_touch_api) {
-				start.ontouchstart = function() {orbium.menu.resume();};
+				orbium.Util.detachListener(start, "touchstart", startFunc);
+				orbium.Util.attachListener(start, "touchstart",
+					startFunc = function() {orbium.menu.resume();});
 			} else {
-				start.onmousedown = function() {orbium.menu.resume();};
+				orbium.Util.detachListener(start, "mousedown", startFunc);
+				orbium.Util.attachListener(start, "mousedown",
+					startFunc = function() {orbium.menu.resume();});
 			}
 
 			start.innerHTML = "RESUME";
@@ -504,12 +547,6 @@
 			// Disable if not available
 			if (!orbium.player.audioSupported) {
 				sound.innerHTML = "SOUND: N/A";
-
-				if (orbium.has_touch_api) {
-					sound.ontouchstart = null;
-				} else {
-					sound.onmousedown = null;
-				}
 
 				sound.style.cursor = "default";
 				sound.style.color = "#444444"
@@ -543,12 +580,6 @@
 		this.updateTutorial = function() {
 			if (orbium.tutorial.checkDisableTutorial()) {
 				tutorial.innerHTML = "TUTORIAL: N/A";
-
-				if (orbium.has_touch_api) {
-					tutorial.ontouchstart = null;
-				} else {
-					tutorial.onmousedown = null;
-				}
 
 				tutorial.style.cursor = "default";
 				tutorial.style.color = "#444444"
@@ -615,23 +646,11 @@
 				prev.style.webkitTextStrokeColor = "#666666";
 				prev.style.textShadow = "0px 0px "+Math.round(orbium.Tile.size/shadowFactor)+"px #666666";
 				prev.style.cursor = "default";
-
-				if (orbium.has_touch_api) {
-					prev.ontouchstart = null;
-				} else {
-					prev.onmousedown = null;
-				}
 			} else {
 				prev.style.color = "#cccccc";
 				prev.style.webkitTextStrokeColor = "white";
 				prev.style.textShadow = "0px 0px "+Math.round(orbium.Tile.size/shadowFactor)+"px #ffffff";
 				prev.style.cursor = "pointer";
-
-				if (orbium.has_touch_api) {
-					prev.ontouchstart = function() {orbium.menu.prev();};
-				} else {
-					prev.onmousedown = function() {orbium.menu.prev();};
-				}
 			}
 
 			var reached = orbium.storage.readValue("reachedlevel");
@@ -646,23 +665,11 @@
 				next.style.webkitTextStrokeColor = "#666666";
 				next.style.textShadow = "0px 0px "+Math.round(orbium.Tile.size/shadowFactor)+"px #666666";
 				next.style.cursor = "default";
-
-				if (orbium.has_touch_api) {
-					next.ontouchstart = null;
-				} else {
-					next.onmousedown = null;
-				}
 			} else {
 				next.style.color = "#cccccc";
 				next.style.webkitTextStrokeColor = "white";
 				next.style.textShadow = "0px 0px "+Math.round(orbium.Tile.size/shadowFactor)+"px #ffffff";
 				next.style.cursor = "pointer";
-
-				if (orbium.has_touch_api) {
-					next.ontouchstart = function() {orbium.menu.next();};
-				} else {
-					next.onmousedown = function() {orbium.menu.next();};
-				}
 			}
 
 			var act = orbium.machine.levnr+1;

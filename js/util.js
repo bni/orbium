@@ -75,6 +75,22 @@
 		return arr.join("");
 	};
 
+	orbium.Util.attachListener = function(element, event, func) {
+		if (element.addEventListener) {
+			element.addEventListener(event, func, true);
+		} else if (element.attachEvent) {
+			element.attachEvent("on"+event, func);
+		}
+	};
+
+	orbium.Util.detachListener = function(element, event, func) {
+		if (element.removeEventListener) {
+			element.removeEventListener(event, func, true);
+		} else if (element.attachEvent) {
+			element.detachEvent("on"+event, func);
+		}
+	};
+
 	orbium.Util.getRequestParameter = function(name) {
 		function getRequestParameters() {
 			var result = {};

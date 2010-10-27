@@ -24,9 +24,11 @@
 			tst.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
 
 			if (orbium.has_touch_api) {
-				tst.ontouchstart = function() {orbium.menu.start();};
+				orbium.Util.attachListener(tst, "touchstart",
+					function() {orbium.menu.start();});
 			} else {
-				tst.onmousedown = function() {orbium.menu.start();};
+				orbium.Util.attachListener(tst, "mousedown",
+					function() {orbium.menu.start();});
 			}
 
 			var components = [
@@ -100,9 +102,11 @@
 
 				var ol = document.getElementById(""+type);
 				if (orbium.has_touch_api) {
-					ol.ontouchstart = function(e) {orbium.editor.place(e);};
+					orbium.Util.attachListener(ol, "touchstart",
+						function(e) {orbium.editor.place(e);});
 				} else {
-					ol.onmousedown = function(e) {orbium.editor.place(e);};
+					orbium.Util.attachListener(ol, "mousedown",
+						function(e) {orbium.editor.place(e);});
 				}
 
 				if (x === 5) {

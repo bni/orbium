@@ -225,9 +225,9 @@
 		}
 
 		if (orbium.has_touch_screen && !orbium.Util.isPG()) {
-			window.onorientationchange = function() {
-				setTimeout(function() {window.scrollTo(0, 1);}, 1000);
-			};
+			orbium.Util.attachListener(window, "orientationchange",
+				function() {setTimeout(function() {window.scrollTo(0, 1);},
+					1000);});
 		}
 
 		orbium.loader = new orbium.Loader();
@@ -245,12 +245,12 @@
 			// div that covers the whole screen, that we set up event
 			// listeners on and prevent the default action.
 			var scr = document.getElementById("screen");
-			scr.addEventListener("touchstart",
-				function(e) {e.preventDefault();}, true);
-			scr.addEventListener("touchend",
-				function(e) {e.preventDefault();}, true);
-			scr.addEventListener("touchmove",
-				function(e) {e.preventDefault();}, true);
+			orbium.Util.attachListener(scr, "touchstart",
+				function(e) {e.stopPropagation(); e.preventDefault();});
+			orbium.Util.attachListener(scr, "touchend",
+				function(e) {e.stopPropagation(); e.preventDefault();});
+			orbium.Util.attachListener(scr, "touchmove",
+				function(e) {e.stopPropagation(); e.preventDefault();});
 
 			// Check if device has touch API. Some browsers like Chrome have
 			// touch API and tells us it support it even though its running on a
@@ -265,21 +265,21 @@
 
 			// Set touch events if avalable, otherwise fall back on mouse events
 			if (orbium.has_touch_api) {
-				orbium.pane.addEventListener("touchstart",
-					function(e) {orbium.machine.startDrag(e);}, true);
-				orbium.pane.addEventListener("touchend",
-					function(e) {orbium.machine.endDrag(e);}, true);
-				orbium.pane.addEventListener("touchmove",
-					function(e) {orbium.machine.moveDrag(e);}, true);
+				orbium.Util.attachListener(orbium.pane, "touchstart",
+					function(e) {orbium.machine.startDrag(e);});
+				orbium.Util.attachListener(orbium.pane, "touchend",
+					function(e) {orbium.machine.endDrag(e);});
+				orbium.Util.attachListener(orbium.pane, "touchmove",
+					function(e) {orbium.machine.moveDrag(e);});
 
 				orbium.menu.setupTouchEvents();
 			} else {
-				orbium.pane.addEventListener("mousedown",
-					function(e) {orbium.machine.startDrag(e);}, true);
-				orbium.pane.addEventListener("mouseup",
-					function(e) {orbium.machine.endDrag(e);}, true);
-				orbium.pane.addEventListener("mousemove",
-					function(e) {orbium.machine.moveDrag(e);}, true);
+				orbium.Util.attachListener(orbium.pane, "mousedown",
+					function(e) {orbium.machine.startDrag(e);});
+				orbium.Util.attachListener(orbium.pane, "mouseup",
+					function(e) {orbium.machine.endDrag(e);});
+				orbium.Util.attachListener(orbium.pane, "mousemove",
+					function(e) {orbium.machine.moveDrag(e);});
 
 				orbium.menu.setupMouseEvents();
 			}
@@ -290,10 +290,10 @@
 			// a doubleclick event. Workaround is to use mouseup for IE
 			// instead. This results in IE having somewhat slower interactivity
 			if (orbium.pane.addEventListener) {
-				orbium.pane.addEventListener("mousedown",
-					function(e) {orbium.machine.mouseDown(e);}, true);
+				orbium.Util.attachListener(orbium.pane, "mousedown",
+					function(e) {orbium.machine.mouseDown(e);});
 			} else if (orbium.pane.attachEvent) {
-				orbium.pane.attachEvent("onmouseup",
+				orbium.Util.attachListener(orbium.pane, "mouseup",
 					function(e) {orbium.machine.mouseDown(e);});
 			}
 
