@@ -241,15 +241,15 @@
 		orbium.machine.nextLevel();
 
 		if (orbium.has_touch_screen) {
-			// Prevent the viewport from being panned. To do this we have a
-			// div that covers the whole screen, that we set up event
-			// listeners on and prevent the default action.
+			// Prevent the viewport from being panned. To do this we prevent
+			// touchmove from performing the default action on the screen div
+			// and the menu div.
 			var scr = document.getElementById("screen");
-			orbium.Util.attachListener(scr, "touchstart",
-				function(e) {e.stopPropagation(); e.preventDefault();});
-			orbium.Util.attachListener(scr, "touchend",
-				function(e) {e.stopPropagation(); e.preventDefault();});
 			orbium.Util.attachListener(scr, "touchmove",
+				function(e) {e.stopPropagation(); e.preventDefault();});
+
+			var mnu = document.getElementById("menu");
+			orbium.Util.attachListener(mnu, "touchmove",
 				function(e) {e.stopPropagation(); e.preventDefault();});
 
 			// Check if device has touch API. Some browsers like Chrome have
