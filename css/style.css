@@ -9,15 +9,6 @@ body {
 	-moz-user-select: none;
 }
 
-#screen {
-	position: absolute;
-	margin: 0px;
-	padding: 0px;
-	width: 100%;
-	height: 100%;
-	z-index: 1;
-}
-
 #pane {
 	position: absolute;
 	visibility: hidden;

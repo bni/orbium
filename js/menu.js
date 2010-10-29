@@ -263,6 +263,11 @@
 				function(e) {orbium.menu.contact();});
 			orbium.Util.attachListener(gfx, "touchstart",
 				function(e) {orbium.menu.gfx();});
+
+			this.updateStart();
+			this.updateSound();
+			this.updateTutorial();
+			this.updateLimits();
 		};
 
 		this.setupMouseEvents = function() {
@@ -335,6 +340,11 @@
 				function(e) {orbium.menu.contact();});
 			orbium.Util.attachListener(gfx, "mousedown",
 				function(e) {orbium.menu.gfx();});
+
+			this.updateStart();
+			this.updateSound();
+			this.updateTutorial();
+			this.updateLimits();
 		};
 
 		this.showMain = function() {

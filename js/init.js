@@ -242,24 +242,14 @@
 
 		if (orbium.has_touch_screen) {
 			// Prevent the viewport from being panned. To do this we prevent
-			// touchmove from performing the default action on the screen div
-			// and the menu div.
-			var scr = document.getElementById("screen");
-			orbium.Util.attachListener(scr, "touchmove",
-				function(e) {e.stopPropagation(); e.preventDefault();});
+			// touchmove from performing the default action on the document
+			orbium.Util.attachListener(document, "touchmove",
+				function(e) {e.preventDefault();});
 
-			var mnu = document.getElementById("menu");
-			orbium.Util.attachListener(mnu, "touchmove",
-				function(e) {e.stopPropagation(); e.preventDefault();});
-
-			// Check if device has touch API. Some browsers like Chrome have
-			// touch API and tells us it support it even though its running on a
-			// regular non touch screen PC, sigh..
-			// So screen check size above prevents us from even doing this check
-			var el = document.createElement("div");
-			el.setAttribute("ontouchmove", "return;");
-
-			if (typeof el.ontouchmove === "function") {
+			// Check if device has touch API. Note that having this API is not
+			// required for detecting "swipes", as we can do that with mouse
+			// events too
+			if ("ontouchstart" in window) {
 				orbium.has_touch_api = true;
 			}
 
@@ -300,11 +290,6 @@
 			orbium.menu.setupMouseEvents();
 		}
 
-		orbium.menu.updateStart();
-		orbium.menu.updateSound();
-		orbium.menu.updateTutorial();
-		orbium.menu.updateLimits();
-
 		orbium.editor = new orbium.Editor();
 
 		var target_fps = 60;
@@ -312,6 +297,7 @@
 			target_fps = 30;
 		}
 
-		setInterval(function() {orbium.machine.run();}, Math.round(1000/target_fps));
+		setInterval(function() {orbium.machine.run();},
+			Math.round(1000/target_fps));
 	};
 }(window.orbium = window.orbium || {}));
