@@ -12,6 +12,9 @@
 
 		this.dirty = null;
 
+		this.lastx = null;
+		this.lasty = null;
+
 		this.construct = function(images, xpos, ypos, width, height, zindex) {
 			this.xpos = xpos;
 			this.ypos = ypos;
@@ -28,6 +31,9 @@
 			}
 
 			this.dirty = true;
+
+			this.lastx = this.xpos;
+			this.lasty = this.ypos;
 		}; orbium.Sprite.prototype.construct = this.construct;
 
 		this.destruct = function() {
@@ -98,21 +104,27 @@
 			}
 		};
 
-		this.invalidate = function(moved) {
+		this.invalidate = function() {
+			// If we are running on canvas we need to invalidate for every
+			// change that modifies appearance. If we are rendering to DOM
+			// we only need to invalidate on movement.
 			if (orbium.has_canvas) {
 				this.dirty = true;
 			} else {
-				if (moved) {
+				if (this.xpos !== this.lastx || this.ypos !== this.lasty) {
 					this.dirty = true;
+
+					this.lastx = this.xpos;
+					this.lasty = this.ypos;
 				}
 			}
 		}; orbium.Sprite.prototype.invalidate = this.invalidate;
 
-		var lastImage = function(idx, images) {
+		var lastEntry = function(idx, arr) {
 			var last = true;
 
-			for (var i = idx+1, j = images.length; i < j; i++) {
-				if (images[i] !== null) {
+			for (var i = idx+1, j = arr.length; i < j; i++) {
+				if (arr[i] !== undefined && arr[i] !== null) {
 					last = false;
 				}
 			}
@@ -123,7 +135,8 @@
 		this.draw = function(idx) {
 			if (this.dirty) {
 				if (orbium.has_canvas) {
-					if (this.images[idx] !== null) {
+					if (this.images[idx] !== undefined &&
+						this.images[idx] !== null) {
 						orbium.ctx.drawImage(
 							this.images[idx],
 							Math.round(this.xpos),
@@ -131,11 +144,12 @@
 							this.width, this.height);
 					}
 
-					if (lastImage(idx, this.images)) {
+					if (lastEntry(idx, this.images)) {
 						this.dirty = false;
 					}
 				} else {
-					if (this.elements[idx] !== null) {
+					if (this.elements[idx] !== undefined &&
+						this.elements[idx] !== null) {
 						if (orbium.has_transform) {
 							this.elements[idx].style.webkitTransform = 
 								"translate3d("+Math.round(this.xpos)+
@@ -148,7 +162,9 @@
 						}
 					}
 
-					this.dirty = false;
+					if (lastEntry(idx, this.elements)) {
+						this.dirty = false;
+					}
 				}
 			}
 		}; orbium.Sprite.prototype.draw = this.draw;

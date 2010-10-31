@@ -41,7 +41,7 @@
 				orbium.machine.failLevel("ORB TIME EXPIRED!");
 			}
 
-			this.invalidate(true);
+			this.invalidate();
 		};
 
 		this.draw = function(idx) {

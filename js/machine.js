@@ -513,7 +513,7 @@
 					tile.ypos,
 					orbium.Tile.size,
 					orbium.Tile.size)) {
-					tile.invalidate(false);
+					tile.invalidate();
 				}
 
 				// Perform action on marble

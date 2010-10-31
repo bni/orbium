@@ -18,21 +18,21 @@
 		this.makeSink = function() {
 			var n = this.nr+8;
 			this.setImage(0, "bar"+n);
-			this.invalidate(false);
+			this.invalidate();
 		};
 
 		this.makePassed = function() {
 			if (!passed) {
 				passed = true;
 				this.setImage(1, "timer1");
-				this.invalidate(false);
+				this.invalidate();
 			}
 		};
 
 		this.clearPassed = function() {
 			passed = false;
 			this.setImage(1, null);
-			this.invalidate(false);
+			this.invalidate();
 		};
 
 		this.construct.apply(this, arguments);

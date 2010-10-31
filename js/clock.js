@@ -25,7 +25,7 @@
 				if (t >= maxSeconds/10*i && frame === i-1) {
 					frame++;
 					this.setImage(0, "clock"+frame);
-					this.invalidate(false);
+					this.invalidate();
 				}
 			}
 

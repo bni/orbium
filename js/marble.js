@@ -108,7 +108,7 @@
 				this.framec = 0;
 			}
 
-			this.invalidate(true);
+			this.invalidate();
 		};
 
 		this.update = function(dt) {

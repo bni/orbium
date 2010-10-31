@@ -25,7 +25,7 @@
 			}
 
 			this.setImage(0, "counter"+activeMarbles);
-			this.invalidate(false);
+			this.invalidate();
 		};
 
 		this.isLaunchAllowed = function() {

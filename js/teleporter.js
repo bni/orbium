@@ -52,7 +52,7 @@
 
 				marble.xpos = dest.xpos+orbium.Tile.size/2-orbium.Marble.size/2;
 				marble.ypos = dest.ypos+orbium.Tile.size/2-orbium.Marble.size/2;
-				dest.invalidate(false);
+				dest.invalidate();
 			}
 		};
 

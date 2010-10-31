@@ -150,7 +150,7 @@
 
 				this.setImage(0, baseName+frame);
 
-				this.invalidate(false);
+				this.invalidate();
 			}
 		}; orbium.Tile.prototype.setBase = this.setBase;
 	}; orbium.Tile.prototype = new orbium.Sprite();
