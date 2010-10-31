@@ -7,7 +7,7 @@
 
 		this.announceNextColor = function(nextColor) {
 			this.setImage(0, "announcer"+nextColor);
-			this.invalidate();
+			this.invalidate(false);
 		};
 
 		this.construct.apply(this, arguments);

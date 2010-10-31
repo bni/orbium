@@ -14,9 +14,9 @@
 			this.place();
 
 			var f = this.color*12+this.frame;
-			orbium.Sprite.prototype.construct.call(this, "marble"+f, null,
-				null, this.xpos, this.ypos, orbium.Marble.size,
-				orbium.Marble.size, 5);
+			var images = ["marble"+f];
+			orbium.Sprite.prototype.construct.call(this, images, this.xpos,
+				this.ypos, orbium.Marble.size, orbium.Marble.size, 5);
 		};
 
 		this.destruct = function() {

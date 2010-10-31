@@ -10,28 +10,29 @@
 
 			passed = false;
 
-			orbium.Sprite.prototype.construct.call(this, "bar"+this.nr, null,
-				null, xpos, ypos, orbium.Tile.size, orbium.Bar.height, 3);
+			var images = ["bar"+this.nr];
+			orbium.Sprite.prototype.construct.call(this, images, xpos, ypos,
+				orbium.Tile.size, orbium.Bar.height, 3);
 		};
 
 		this.makeSink = function() {
 			var n = this.nr+8;
 			this.setImage(0, "bar"+n);
-			this.invalidate();
+			this.invalidate(false);
 		};
 
 		this.makePassed = function() {
 			if (!passed) {
 				passed = true;
 				this.setImage(1, "timer1");
-				this.invalidate();
+				this.invalidate(false);
 			}
 		};
 
 		this.clearPassed = function() {
 			passed = false;
 			this.setImage(1, null);
-			this.invalidate();
+			this.invalidate(false);
 		};
 
 		this.construct.apply(this, arguments);

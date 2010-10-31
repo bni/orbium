@@ -38,8 +38,9 @@
 			var xpos = orbium.Tile.size*this.xnr;
 			var ypos = orbium.Tile.size*this.ynr+orbium.Bar.height;
 
-			orbium.Sprite.prototype.construct.call(this, image0, image1, image2,
-				xpos, ypos, orbium.Tile.size, orbium.Tile.size, 3);
+			var images = [image0, image1, image2];
+			orbium.Sprite.prototype.construct.call(this, images, xpos, ypos,
+				orbium.Tile.size, orbium.Tile.size, 3);
 		}; orbium.Tile.prototype.construct = this.construct;
 
 		this.setBase = function(baseName) {
@@ -149,12 +150,8 @@
 
 				this.setImage(0, baseName+frame);
 
-				this.invalidate();
+				this.invalidate(false);
 			}
 		}; orbium.Tile.prototype.setBase = this.setBase;
-
-		this.influenceMarble = function(marble) {
-			return false; // Default implementation, do nothing
-		}; orbium.Tile.prototype.influenceMarble = this.influenceMarble;
 	}; orbium.Tile.prototype = new orbium.Sprite();
 }(window.orbium = window.orbium || {}));

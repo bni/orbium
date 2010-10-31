@@ -8,8 +8,9 @@
 			var x = orbium.Util.generateRandomIndex(11);
 
 			var f = this.color*12+x;
-			orbium.Sprite.prototype.construct.call(this, "marble"+f, null, null,
-				xpos, ypos, orbium.Marble.size, orbium.Marble.size, 4);
+			var images = ["marble"+f];
+			orbium.Sprite.prototype.construct.call(this, images, xpos, ypos,
+				orbium.Marble.size, orbium.Marble.size, 4);
 		};
 
 		this.construct.apply(this, arguments);

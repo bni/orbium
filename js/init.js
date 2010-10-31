@@ -241,11 +241,6 @@
 		orbium.machine.nextLevel();
 
 		if (orbium.has_touch_screen) {
-			// Prevent the viewport from being panned. To do this we prevent
-			// touchmove from performing the default action on the document
-			orbium.Util.attachListener(document, "touchmove",
-				function(e) {e.preventDefault();});
-
 			// Check if device has touch API. Note that having this API is not
 			// required for detecting "swipes", as we can do that with mouse
 			// events too
@@ -255,6 +250,11 @@
 
 			// Set touch events if avalable, otherwise fall back on mouse events
 			if (orbium.has_touch_api) {
+				// Prevent the viewport from being panned. To do this we prevent
+				// touchmove from performing the default action on the document
+				orbium.Util.attachListener(document, "touchmove",
+					function(e) {e.preventDefault();});
+
 				orbium.Util.attachListener(orbium.pane, "touchstart",
 					function(e) {orbium.machine.startDrag(e);});
 				orbium.Util.attachListener(orbium.pane, "touchend",

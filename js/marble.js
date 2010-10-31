@@ -45,8 +45,9 @@
 			this.stale = false;
 
 			var f = this.color*12+this.frame;
-			orbium.Sprite.prototype.construct.call(this, "marble"+f, null, null,
-				xpos, ypos, orbium.Marble.size, orbium.Marble.size, 5);
+			var images = ["marble"+f];
+			orbium.Sprite.prototype.construct.call(this, images, xpos, ypos,
+				orbium.Marble.size, orbium.Marble.size, 5);
 
 			this.framec = 99;
 			this.animate();
@@ -107,7 +108,7 @@
 				this.framec = 0;
 			}
 
-			this.invalidate();
+			this.invalidate(true);
 		};
 
 		this.update = function(dt) {

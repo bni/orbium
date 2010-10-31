@@ -11,8 +11,9 @@
 
 			speed = Math.round(orbium.width/maxSeconds);
 
-			orbium.Sprite.prototype.construct.call(this, "timer0", null, null,
-				xpos, ypos, orbium.Tile.size, orbium.Bar.height, 4);
+			var images = ["timer0"];
+			orbium.Sprite.prototype.construct.call(this, images, xpos, ypos,
+				orbium.Tile.size, orbium.Bar.height, 4);
 		};
 
 		this.reset = function() {
@@ -40,7 +41,7 @@
 				orbium.machine.failLevel("ORB TIME EXPIRED!");
 			}
 
-			this.invalidate();
+			this.invalidate(true);
 		};
 
 		this.draw = function(idx) {

@@ -46,7 +46,7 @@
 			orbium.Tile.prototype.invalidate.call(this);
 
 			for (var i = 0, j = dockees.length; i < j; i++) {
-				dockees[i].invalidate();
+				dockees[i].invalidate(true);
 			}
 		};
 
@@ -468,7 +468,7 @@
 					if (marble.direction === 3) {
 						var idx = this.count+1;
 						if (orbium.machine.tiles[idx] !== undefined) {
-							orbium.machine.tiles[idx].invalidate();
+							orbium.machine.tiles[idx].invalidate(false);
 						}
 					}
 
@@ -477,7 +477,7 @@
 					if (marble.direction === 0) {
 						var idz = this.count+orbium.Machine.horizTiles;
 						if (orbium.machine.tiles[idz] !== undefined) {
-							orbium.machine.tiles[idz].invalidate();
+							orbium.machine.tiles[idz].invalidate(false);
 						}
 					}
 
@@ -503,7 +503,7 @@
 					if (falldown) {
 						marble.destruct();
 						orbium.Util.removeArrayElement(orbium.machine.marbles, marble);
-						this.invalidate();
+						this.invalidate(false);
 
 						orbium.machine.checkRotatorsFull();
 
@@ -544,7 +544,7 @@
 				for (var i = 0, j = dockees.length; i < j; i++) {
 					dockees[i].judder(0);
 				}
-				this.invalidate();
+				this.invalidate(false);
 			}
 
 			if (judderc > 2 && stage === 1) {
@@ -559,7 +559,7 @@
 				for (i = 0, j = dockees.length; i < j; i++) {
 					dockees[i].judder(1);
 				}
-				this.invalidate();
+				this.invalidate(false);
 			}
 
 			if (judderc > 4 && stage === 2) {
@@ -574,7 +574,7 @@
 				for (i = 0, j = dockees.length; i < j; i++) {
 					dockees[i].judder(2);
 				}
-				this.invalidate();
+				this.invalidate(false);
 			}
 
 			if (judderc > 6 && stage === 3) {
@@ -605,7 +605,7 @@
 				}
 
 				judderc = -1;
-				this.invalidate();
+				this.invalidate(false);
 			}
 
 			if (blockc > 12) {
@@ -619,19 +619,19 @@
 				dockees.length = 0;
 				this.setImage(2, "explosion0");
 				stage = 1;
-				this.invalidate();
+				this.invalidate(false);
 			} else if (fullc > 4 && stage === 1) {
 				this.setImage(2, "explosion1");
 				stage = 2;
-				this.invalidate();
+				this.invalidate(false);
 			} else if (fullc > 6 && stage === 2) {
 				this.setImage(2, "explosion2");
 				stage = 3;
-				this.invalidate();
+				this.invalidate(false);
 			} else if (fullc > 8 && stage === 3) {
 				this.setImage(2, "explosion3");
 				stage = 4;
-				this.invalidate();
+				this.invalidate(false);
 			} else if (fullc > 10 && stage === 4) {
 				fullc = -1;
 				this.setBase("rotatile");
@@ -640,7 +640,7 @@
 				this.setImage(2, null);
 
 				stage = 0;
-				this.invalidate();
+				this.invalidate(false);
 
 				orbium.machine.checkLevelComplete();
 			}

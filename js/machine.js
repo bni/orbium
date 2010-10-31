@@ -380,7 +380,6 @@
 
 		this.startDrag = function(e) {
 			e.stopPropagation();
-			e.preventDefault();
 
 			if (this.xorg === null && this.yorg === null) {
 				this.xorg = this.findXPos(e);
@@ -390,7 +389,6 @@
 
 		this.moveDrag = function(e) {
 			e.stopPropagation();
-			e.preventDefault();
 
 			if (this.xorg !== null && this.yorg !== null) {
 				var xcur = this.findXPos(e);
@@ -426,7 +424,6 @@
 
 		this.endDrag = function(e) {
 			e.stopPropagation();
-			e.preventDefault();
 
 			if (this.xorg !== null && this.yorg !== null) {
 				this.checkTap(this.xorg, this.yorg);
@@ -516,11 +513,13 @@
 					tile.ypos,
 					orbium.Tile.size,
 					orbium.Tile.size)) {
-					tile.invalidate();
+					tile.invalidate(false);
 				}
 
 				// Perform action on marble
-				tile.influenceMarble(marble);
+				if (tile.influenceMarble !== undefined) {
+					tile.influenceMarble(marble);
+				}
 			}
 
 			for (i = 0, j = this.marbles.length; i < j; i++) {

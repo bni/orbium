@@ -55,7 +55,7 @@
 					bar.ypos,
 					orbium.Tile.size,
 					orbium.Tile.size)) {
-					bar.invalidate();
+					bar.invalidate(false);
 				}
 			}
 
@@ -73,7 +73,7 @@
 				bar.ypos,
 				orbium.Tile.size,
 				orbium.Bar.height)) {
-				bar.invalidate();
+				bar.invalidate(false);
 			}
 		};
 

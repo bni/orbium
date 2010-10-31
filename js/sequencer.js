@@ -25,7 +25,7 @@
 			orbium.Tile.prototype.invalidate.call(this);
 
 			for (var i = 0, j = indicators.length; i < j; i++) {
-				indicators[i].invalidate();
+				indicators[i].invalidate(false);
 			}
 		};
 
@@ -80,7 +80,7 @@
 			if (indicators.length > 0) {
 				indicators[0].destruct();
 				orbium.Util.removeArrayElement(indicators, indicators[0]);
-				this.invalidate();
+				this.invalidate(false);
 			}
 		};
 

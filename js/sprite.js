@@ -12,11 +12,7 @@
 
 		this.dirty = null;
 
-		this.construct = function(image0, image1, image2, xpos, ypos,
-			width, height, zindex) {
-			this.images = [null, null, null];
-			this.elements = [null, null, null];
-
+		this.construct = function(images, xpos, ypos, width, height, zindex) {
 			this.xpos = xpos;
 			this.ypos = ypos;
 			this.width = width;
@@ -24,47 +20,51 @@
 
 			this.zindex = zindex;
 
-			this.setImage(0, image0);
-			this.setImage(1, image1);
-			this.setImage(2, image2);
+			this.images = [];
+			this.elements = [];
+
+			for (var i = 0, j = images.length; i < j; i++) {
+				this.setImage(i, images[i]);
+			}
 
 			this.dirty = true;
 		}; orbium.Sprite.prototype.construct = this.construct;
 
 		this.destruct = function() {
-			this.setImage(0, null);
-			this.setImage(1, null);
-			this.setImage(2, null);
+			var len = 0;
+			if (orbium.has_canvas) {
+				len = this.images.length;
+			} else {
+				len = this.elements.length;
+			}
+
+			for (var i = 0; i < len; i++) {
+				this.setImage(i, null);
+			}
 		}; orbium.Sprite.prototype.destruct = this.destruct;
 
-		this.createLayer = function(name, idx) {
-			var id = ""+name+"_"+orbium.Util.generateUniqeString();
+		var makeElement = function(idx, image, x, y, w, h, z) {
+			var id = ""+image+"_"+orbium.Util.generateUniqeString();
 
 			var sprite = document.createElement("div");
 			sprite.id = id;
 
 			if (orbium.has_transform) {
-				sprite.style.webkitTransform = "translate3d("+this.xpos+"px,"+
-					this.ypos+"px,0px)";
+				sprite.style.webkitTransform = "translate3d("+x+"px,"+
+					y+"px,0px)";
 			} else {
-				sprite.style.left = this.xpos+"px";
-				sprite.style.top = this.ypos+"px";
+				sprite.style.left = x+"px";
+				sprite.style.top = y+"px";
 			}
 
 			sprite.style.position = "absolute";
 			sprite.style.padding = "0px";
 			sprite.style.margin = "0px";
 			sprite.style.backgroundRepeat = "no-repeat";
-			sprite.style.width = this.width+"px";
-			sprite.style.height = this.height+"px";
+			sprite.style.width = w+"px";
+			sprite.style.height = h+"px";
 
-			var offset = 0;
-			if (idx === 1) {
-				offset = 1;
-			} else if (idx === 2) {
-				offset = 9;
-			}
-			sprite.style.zIndex = this.zindex+offset;
+			sprite.style.zIndex = z+idx*2;
 
 			orbium.pane.appendChild(sprite);
 
@@ -80,14 +80,17 @@
 				}
 			} else {
 				if (image !== null) {
-					if (this.elements[idx] === null) {
-						this.elements[idx] = this.createLayer(image, idx);
+					if (this.elements[idx] === undefined ||
+						this.elements[idx] === null) {
+						this.elements[idx] = makeElement(idx, image, this.xpos,
+							this.ypos, this.width, this.height,	this.zindex);
 					}
 
 					this.elements[idx].style.backgroundImage = "url("+
 						orbium.gfx_path+image+".png)";
 				} else {
-					if (this.elements[idx] !== null) {
+					if (this.elements[idx] !== undefined &&
+						this.elements[idx] !== null) {
 						orbium.pane.removeChild(this.elements[idx]);
 						this.elements[idx] = null;
 					}
@@ -95,9 +98,27 @@
 			}
 		};
 
-		this.invalidate = function() {
-			this.dirty = true;
+		this.invalidate = function(moved) {
+			if (orbium.has_canvas) {
+				this.dirty = true;
+			} else {
+				if (moved) {
+					this.dirty = true;
+				}
+			}
 		}; orbium.Sprite.prototype.invalidate = this.invalidate;
+
+		var lastImage = function(idx, images) {
+			var last = true;
+
+			for (var i = idx+1, j = images.length; i < j; i++) {
+				if (images[i] !== null) {
+					last = false;
+				}
+			}
+
+			return last;
+		};
 
 		this.draw = function(idx) {
 			if (this.dirty) {
@@ -108,6 +129,10 @@
 							Math.round(this.xpos),
 							Math.round(this.ypos),
 							this.width, this.height);
+					}
+
+					if (lastImage(idx, this.images)) {
+						this.dirty = false;
 					}
 				} else {
 					if (this.elements[idx] !== null) {
@@ -122,17 +147,7 @@
 								Math.round(this.ypos)+"px";
 						}
 					}
-				}
 
-				if (idx === 0) {
-					if (this.images[1] === null && this.images[2] === null) {
-						this.dirty = false;
-					}
-				} else if (idx === 1) {
-					if (this.images[2] === null) {
-						this.dirty = false;
-					}
-				} else if (idx === 2) {
 					this.dirty = false;
 				}
 			}
