@@ -37,46 +37,6 @@
 			}
 		};
 
-		var checkBar = function(bar) {
-			for (var i = 0, j = orbium.machine.marbles.length; i < j; i++) {
-				var marble = orbium.machine.marbles[i];
-
-				if (orbium.Util.withinRect(
-					marble.xpos,
-					marble.ypos,
-					bar.xpos,
-					bar.ypos,
-					orbium.Tile.size,
-					orbium.Tile.size) ||
-				orbium.Util.withinRect(
-					marble.xpos+orbium.Marble.size,
-					marble.ypos+orbium.Marble.size,
-					bar.xpos,
-					bar.ypos,
-					orbium.Tile.size,
-					orbium.Tile.size)) {
-					bar.invalidate();
-				}
-			}
-
-			if (orbium.Util.withinRect(
-				timer.xpos,
-				timer.ypos,
-				bar.xpos,
-				bar.ypos,
-				orbium.Tile.size,
-				orbium.Bar.height) ||
-			orbium.Util.withinRect(
-				timer.xpos+orbium.Tile.size,
-				timer.ypos+orbium.Bar.height,
-				bar.xpos,
-				bar.ypos,
-				orbium.Tile.size,
-				orbium.Bar.height)) {
-				bar.invalidate();
-			}
-		};
-
 		this.injectMarble = function() {
 			// Check that there does not already exist a fresh marble in the lane
 			// This should never happen, but check for it anyway
@@ -105,9 +65,31 @@
 			timer.reset();
 		};
 
-		this.update = function(dt) {
-			for (var i = 0, j = bars.length; i < j; i++) {
-				checkBar(bars[i]);
+		this.update = function(dt, marble) {
+			var idx1 = Math.floor(marble.xpos/orbium.Tile.size);
+			var idx2 = Math.floor((marble.xpos+orbium.Marble.size)/orbium.Tile.size);
+
+			if (idx1 >= 0 && idx1 < bars.length) {
+				var bar1 = bars[idx1];
+				bar1.invalidate();
+			}
+
+			if (idx2 >= 0 && idx2 < bars.length && idx1 !== idx2) {
+				var bar2 = bars[idx2];
+				bar2.invalidate();
+			}
+
+			var idx3 = Math.floor(timer.xpos/orbium.Tile.size);
+			var idx4 = Math.floor((timer.xpos+orbium.Tile.size)/orbium.Tile.size);
+
+			if (idx3 >= 0 && idx3 < bars.length) {
+				var bar3 = bars[idx3];
+				bar3.invalidate();
+			}
+
+			if (idx4 >= 0 && idx4 < bars.length && idx3 !== idx4) {
+				var bar4 = bars[idx4];
+				bar4.invalidate();
 			}
 
 			timer.update(dt);

@@ -494,42 +494,104 @@
 			}
 		};
 
-		this.checkTile = function(tile) {
-			for (var i = 0, j = this.marbles.length; i < j; i++) {
-				var marble = this.marbles[i];
+		var updateTiles = function(dt) {
+			for (var i = 0, j = that.tiles.length; i < j; i++) {
+				var tile = that.tiles[i];
 
-				// Check if marble is above tile and we should invalidate it
-				if (orbium.Util.withinRect(
-					marble.xpos,
-					marble.ypos,
-					tile.xpos,
-					tile.ypos,
-					orbium.Tile.size,
-					orbium.Tile.size) ||
-				orbium.Util.withinRect(
-					marble.xpos+orbium.Marble.size,
-					marble.ypos+orbium.Marble.size,
-					tile.xpos,
-					tile.ypos,
-					orbium.Tile.size,
-					orbium.Tile.size)) {
-					tile.invalidate();
-				}
-
-				// Perform action on marble
-				if (tile.influenceMarble !== undefined) {
-					tile.influenceMarble(marble);
+				if (tile.update !== undefined) {
+					tile.update(dt);
 				}
 			}
+		};
 
-			for (i = 0, j = this.marbles.length; i < j; i++) {
-				var checkMarble = this.marbles[i];
+		var updateMarbles = function(dt) {
+			for (var i = 0, j = that.marbles.length; i < j; i++) {
+				var marble = that.marbles[i];
+
+				marble.update(dt);
+
+				if (marble.fresh) {
+					that.lane.update(dt, marble);
+
+					var idx = Math.floor(marble.xpos/orbium.Tile.size);
+
+					if (idx >= 0 && idx < orbium.Machine.horizTiles) {
+						var tile = that.tiles[idx];
+
+						if (tile.influenceMarble !== undefined) {
+							tile.influenceMarble(marble);
+						}
+					}
+				} else {
+					var idx1 = Math.floor(marble.xpos/orbium.Tile.size);
+					var idy1 = Math.floor((marble.ypos-orbium.Bar.height)/orbium.Tile.size);
+					var count1 = idy1*orbium.Machine.horizTiles+idx1;
+
+					var idx2 = Math.floor((marble.xpos+orbium.Marble.size)/orbium.Tile.size);
+					var idy2 = Math.floor((marble.ypos+orbium.Marble.size-orbium.Bar.height)/orbium.Tile.size);
+					var count2 = idy2*orbium.Machine.horizTiles+idx2;
+
+					var tile1 = that.tiles[count1];
+
+					tile1.invalidate();
+
+					if (tile1.influenceMarble !== undefined) {
+						tile1.influenceMarble(marble);
+					}
+
+					if (count1 !== count2) {
+						var tile2 = that.tiles[count2];
+
+						tile2.invalidate();
+
+						if (tile2.influenceMarble !== undefined) {
+							tile2.influenceMarble(marble);
+						}
+					}
+				}
+			}
+		};
+
+		var removeStaleMarbles = function() {
+			for (var i = 0, j = that.marbles.length; i < j; i++) {
+				var checkMarble = that.marbles[i];
 
 				if (checkMarble !== undefined && checkMarble.stale) {
 					checkMarble.destruct();
-					orbium.Util.removeArrayElement(this.marbles, checkMarble);
-					this.counter.countActiveMarbles();
+					orbium.Util.removeArrayElement(that.marbles, checkMarble);
+					that.counter.countActiveMarbles();
 				}
+			}
+		};
+
+		var updateSigns = function(dt) {
+			orbium.sign.update(dt);
+			orbium.tutorial.update(dt);
+			orbium.perf.update(dt);
+		};
+
+		var drawLane = function() {
+			that.lane.draw();
+		};
+
+		var drawTilesFirstPass = function() {
+			for (var i = 0, j = that.tiles.length; i < j; i++) {
+				var tile = that.tiles[i];
+
+				tile.draw(0);
+				tile.draw(1);
+			}
+		};
+
+		var drawMarbles = function() {
+			for (var i = 0, j = that.marbles.length; i < j; i++) {
+				that.marbles[i].draw(0);
+			}
+		};
+
+		var drawTilesSecondPass = function() {
+			for (var i = 0, j = that.tiles.length; i < j; i++) {
+				that.tiles[i].draw(2);
 			}
 		};
 
@@ -543,43 +605,16 @@
 
 				// Only update if not paused
 				if (!this.paused) {
-					this.lane.update(dt);
-
-					for (var i = 0, j = this.tiles.length; i < j; i++) {
-						var tile = this.tiles[i];
-
-						if (tile.update !== undefined) {
-							tile.update(dt);
-						}
-
-						this.checkTile(tile);
-					}
-
-					for (i = 0, j = this.marbles.length; i < j; i++) {
-						this.marbles[i].update(dt);
-					}
-
-					orbium.sign.update(dt);
-					orbium.tutorial.update(dt);
-					orbium.perf.update(dt);
+					updateTiles(dt);
+					updateMarbles(dt);
+					removeStaleMarbles();
+					updateSigns(dt);
 				}
 
-				this.lane.draw();
-
-				for (i = 0, j = this.tiles.length; i < j; i++) {
-					tile = this.tiles[i];
-
-					tile.draw(0);
-					tile.draw(1);
-				}
-
-				for (i = 0, j = this.marbles.length; i < j; i++) {
-					this.marbles[i].draw(0);
-				}
-
-				for (i = 0, j = this.tiles.length; i < j; i++) {
-					this.tiles[i].draw(2);
-				}
+				drawLane();
+				drawTilesFirstPass();
+				drawMarbles();
+				drawTilesSecondPass();
 
 				if (this.first) {
 					this.first = false;
@@ -590,7 +625,7 @@
 				}
 			} else {
 				var num = 0;
-				for (i = 0, j = orbium.loader.props.length; i < j; i++) {
+				for (var i = 0, j = orbium.loader.props.length; i < j; i++) {
 					var prop = orbium.loader.props[i];
 
 					if (orbium.loader[prop].complete ||
@@ -609,6 +644,6 @@
 			}
 		};
 
-		this.construct.apply(this, arguments);
+		var that = this; this.construct.apply(this, arguments);
 	};
 }(window.orbium = window.orbium || {}));

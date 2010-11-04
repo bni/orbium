@@ -47,7 +47,7 @@
 			var f = this.color*12+this.frame;
 			var images = ["marble"+f];
 			orbium.Sprite.prototype.construct.call(this, images, xpos, ypos,
-				orbium.Marble.size, orbium.Marble.size, 5);
+				orbium.Marble.size, orbium.Marble.size, 6);
 
 			this.framec = 99;
 			this.animate();

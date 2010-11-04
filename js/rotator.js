@@ -411,84 +411,7 @@
 		};
 
 		this.influenceMarble = function(marble) {
-			var within = false;
-
-			if (marble.direction === 0) {
-				if (orbium.Util.withinRect(
-					marble.xpos+orbium.Marble.size/2,
-					marble.ypos,
-					this.xpos+orbium.Tile.size/2-orbium.Marble.size/2,
-					this.ypos+orbium.Tile.size-orbium.Marble.size-orbium.Marble.size/6,
-					orbium.Marble.size,
-					orbium.Marble.size)) {
-						within = true;
-				}
-			} else if (marble.direction === 1) {
-				if (orbium.Util.withinRect(
-					marble.xpos+orbium.Marble.size,
-					marble.ypos+orbium.Marble.size/2,
-					this.xpos+orbium.Marble.size/6,
-					this.ypos+orbium.Tile.size/2-orbium.Marble.size/2,
-					orbium.Marble.size,
-					orbium.Marble.size)) {
-						within = true;
-				}
-			} else if (marble.direction === 2) {
-				if (orbium.Util.withinRect(
-					marble.xpos+orbium.Marble.size/2,
-					marble.ypos+orbium.Marble.size,
-					this.xpos+orbium.Tile.size/2-orbium.Marble.size/2,
-					this.ypos+orbium.Marble.size/6,
-					orbium.Marble.size,
-					orbium.Marble.size)) {
-						within = true;
-				}
-			} else if (marble.direction === 3) {
-				if (orbium.Util.withinRect(
-					marble.xpos,
-					marble.ypos+orbium.Marble.size/2,
-					this.xpos+orbium.Tile.size-orbium.Marble.size-orbium.Marble.size/6,
-					this.ypos+orbium.Tile.size/2-orbium.Marble.size/2,
-					orbium.Marble.size,
-					orbium.Marble.size)) {
-						within = true;
-				}
-			}
-
-			// Check if marble should dock or bounce
-			if (within) {
-				var success = dockMarble(marble.direction,	marble.color,
-					marble.frame, false);
-
-				if (success) {
-					marble.stale = true;
-
-					// If direction is left we need to invalidate
-					// tile rightof this rotator
-					if (marble.direction === 3) {
-						var idx = this.count+1;
-						if (orbium.machine.tiles[idx] !== undefined) {
-							orbium.machine.tiles[idx].invalidate();
-						}
-					}
-
-					// If direction is up we need to invalidate
-					// tile below this rotator
-					if (marble.direction === 0) {
-						var idz = this.count+orbium.Machine.horizTiles;
-						if (orbium.machine.tiles[idz] !== undefined) {
-							orbium.machine.tiles[idz].invalidate();
-						}
-					}
-
-					orbium.machine.checkRotatorsFull();
-				} else {
-					marble.bounce();
-				}
-			}
-
-			// Rotator falldown
-			if (this.count < orbium.Machine.horizTiles && marble.fresh) {
+			if (marble.fresh) {
 				if (marble.lastDockTry !== this &&
 					orbium.Util.withinRect(
 					marble.xpos+orbium.Marble.size/2,
@@ -511,6 +434,82 @@
 						orbium.machine.lane.injectMarble();
 					} else {
 						marble.lastDockTry = this;
+					}
+				}
+			} else {
+				var within = false;
+
+				if (marble.direction === 0) {
+					if (orbium.Util.withinRect(
+						marble.xpos+orbium.Marble.size/2,
+						marble.ypos,
+						this.xpos+orbium.Tile.size/2-orbium.Marble.size/2,
+						this.ypos+orbium.Tile.size-orbium.Marble.size-orbium.Marble.size/6,
+						orbium.Marble.size,
+						orbium.Marble.size)) {
+							within = true;
+					}
+				} else if (marble.direction === 1) {
+					if (orbium.Util.withinRect(
+						marble.xpos+orbium.Marble.size,
+						marble.ypos+orbium.Marble.size/2,
+						this.xpos+orbium.Marble.size/6,
+						this.ypos+orbium.Tile.size/2-orbium.Marble.size/2,
+						orbium.Marble.size,
+						orbium.Marble.size)) {
+							within = true;
+					}
+				} else if (marble.direction === 2) {
+					if (orbium.Util.withinRect(
+						marble.xpos+orbium.Marble.size/2,
+						marble.ypos+orbium.Marble.size,
+						this.xpos+orbium.Tile.size/2-orbium.Marble.size/2,
+						this.ypos+orbium.Marble.size/6,
+						orbium.Marble.size,
+						orbium.Marble.size)) {
+							within = true;
+					}
+				} else if (marble.direction === 3) {
+					if (orbium.Util.withinRect(
+						marble.xpos,
+						marble.ypos+orbium.Marble.size/2,
+						this.xpos+orbium.Tile.size-orbium.Marble.size-orbium.Marble.size/6,
+						this.ypos+orbium.Tile.size/2-orbium.Marble.size/2,
+						orbium.Marble.size,
+						orbium.Marble.size)) {
+							within = true;
+					}
+				}
+
+				// Check if marble should dock or bounce
+				if (within) {
+					var success = dockMarble(marble.direction,	marble.color,
+						marble.frame, false);
+
+					if (success) {
+						marble.stale = true;
+
+						// If direction is left we need to invalidate
+						// tile rightof this rotator
+						if (marble.direction === 3) {
+							var idx = this.count+1;
+							if (orbium.machine.tiles[idx] !== undefined) {
+								orbium.machine.tiles[idx].invalidate();
+							}
+						}
+
+						// If direction is up we need to invalidate
+						// tile below this rotator
+						if (marble.direction === 0) {
+							var idz = this.count+orbium.Machine.horizTiles;
+							if (orbium.machine.tiles[idz] !== undefined) {
+								orbium.machine.tiles[idz].invalidate();
+							}
+						}
+
+						orbium.machine.checkRotatorsFull();
+					} else {
+						marble.bounce();
 					}
 				}
 			}

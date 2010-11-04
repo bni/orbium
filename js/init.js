@@ -293,7 +293,10 @@
 		orbium.editor = new orbium.Editor();
 
 		var target_fps = 60;
-		if (orbium.has_touch_screen) {
+
+		// Lower the target fps if running on older touch screen device that
+		// does not have translate3d
+		if (orbium.has_touch_screen && !orbium.has_transform) {
 			target_fps = 30;
 		}
 
