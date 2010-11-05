@@ -410,7 +410,7 @@
 			return true;
 		};
 
-		this.influenceMarble = function(marble) {
+		this.influence = function(marble) {
 			if (marble.fresh) {
 				if (marble.lastDockTry !== this &&
 					orbium.Util.withinRect(

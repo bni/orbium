@@ -497,10 +497,7 @@
 		var updateTiles = function(dt) {
 			for (var i = 0, j = that.tiles.length; i < j; i++) {
 				var tile = that.tiles[i];
-
-				if (tile.update !== undefined) {
-					tile.update(dt);
-				}
+				tile.update(dt);
 			}
 		};
 
@@ -516,11 +513,7 @@
 					var idx = Math.floor(marble.xpos/orbium.Tile.size);
 
 					if (idx >= 0 && idx < orbium.Machine.horizTiles) {
-						var tile = that.tiles[idx];
-
-						if (tile.influenceMarble !== undefined) {
-							tile.influenceMarble(marble);
-						}
+						that.tiles[idx].influence(marble);
 					}
 				} else {
 					var idx1 = Math.floor(marble.xpos/orbium.Tile.size);
@@ -532,21 +525,13 @@
 					var count2 = idy2*orbium.Machine.horizTiles+idx2;
 
 					var tile1 = that.tiles[count1];
-
 					tile1.invalidate();
-
-					if (tile1.influenceMarble !== undefined) {
-						tile1.influenceMarble(marble);
-					}
+					tile1.influence(marble);
 
 					if (count1 !== count2) {
 						var tile2 = that.tiles[count2];
-
 						tile2.invalidate();
-
-						if (tile2.influenceMarble !== undefined) {
-							tile2.influenceMarble(marble);
-						}
+						tile2.influence(marble);
 					}
 				}
 			}

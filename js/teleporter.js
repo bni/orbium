@@ -15,7 +15,7 @@
 			orbium.Tile.prototype.setBase.call(this, "modtile");
 		};
 
-		this.influenceMarble = function(marble) {
+		this.influence = function(marble) {
 			var teleport = false;
 
 			if (marble.lastTeleportDest !== this &&

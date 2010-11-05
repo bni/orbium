@@ -17,7 +17,7 @@
 			marble.direction = 2;
 		};
 
-		this.influenceMarble = function(marble) {
+		this.influence = function(marble) {
 			// Falldown
 			if (this.count < orbium.Machine.horizTiles && marble.fresh) {
 				if (orbium.Util.withinRect(

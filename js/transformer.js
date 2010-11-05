@@ -19,7 +19,7 @@
 			orbium.Tile.prototype.setBase.call(this, "modtile");
 		};
 
-		this.influenceMarble = function(marble) {
+		this.influence = function(marble) {
 			if (marble.color !== color &&
 				orbium.Util.withinRect(
 				marble.xpos+orbium.Marble.size/2,

@@ -126,11 +126,16 @@
 			for (var i = idx+1, j = arr.length; i < j; i++) {
 				if (arr[i] !== undefined && arr[i] !== null) {
 					last = false;
+					break;
 				}
 			}
 
 			return last;
 		};
+
+		this.update = function(dt) {
+			// Default implementation does nothing
+		}; orbium.Sprite.prototype.update = this.update;
 
 		this.draw = function(idx) {
 			if (this.dirty) {

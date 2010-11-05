@@ -153,5 +153,9 @@
 				this.invalidate();
 			}
 		}; orbium.Tile.prototype.setBase = this.setBase;
+
+		this.influence = function(marble) {
+			// Default implementation does nothing
+		}; orbium.Tile.prototype.influence = this.influence;
 	}; orbium.Tile.prototype = new orbium.Sprite();
 }(window.orbium = window.orbium || {}));
