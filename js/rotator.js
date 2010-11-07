@@ -19,8 +19,8 @@
 			fullc = -1;
 			stage = 0;
 
-			orbium.Tile.prototype.construct.call(this, "rotatile14", "rotator0",
-				null, count, xnr, ynr);
+			orbium.Tile.prototype.construct.call(this, ["rotatile14",
+				"rotator0"], count, xnr, ynr);
 
 			this.inducesSink = true;
 

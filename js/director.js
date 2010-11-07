@@ -5,8 +5,8 @@
 		this.construct = function() {
 			direction = dir;
 
-			orbium.Tile.prototype.construct.call(this, "modtile0", null,
-				"director"+direction, count, xnr, ynr);
+			orbium.Tile.prototype.construct.call(this, ["modtile0", null,
+				"director"+direction], count, xnr, ynr);
 
 			this.inducesTopPath = true;
 			this.inducesRightPath = true;

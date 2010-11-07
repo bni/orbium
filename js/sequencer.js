@@ -7,8 +7,8 @@
 			color = col;
 			indicators = [];
 
-			orbium.Tile.prototype.construct.call(this, "sequencer0", null, null,
-				count, xnr, ynr);
+			orbium.Tile.prototype.construct.call(this, ["sequencer0"], count,
+				xnr, ynr);
 
 			this.setup();
 		};

@@ -6,8 +6,8 @@
 			this.variant = vari;
 			color = col;
 
-			orbium.Tile.prototype.construct.call(this, "modtile0", null,
-				"transformer"+color, count, xnr, ynr);
+			orbium.Tile.prototype.construct.call(this, ["modtile0", null,
+				"transformer"+color], count, xnr, ynr);
 
 			this.inducesTopPath = true;
 			this.inducesRightPath = true;

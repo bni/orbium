@@ -12,8 +12,8 @@
 			var units = orbium.level[orbium.machine.levnr][idx];
 			maxSeconds = (units+1)*90;
 
-			orbium.Tile.prototype.construct.call(this, "clock0", null, null,
-				count, xnr, ynr);
+			orbium.Tile.prototype.construct.call(this, ["clock0"], count,
+				xnr, ynr);
 		};
 
 		this.update = function(dt) {

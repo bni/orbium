@@ -9,7 +9,8 @@
 			t = 0;
 			refillSeconds = 30;
 
-			orbium.Tile.prototype.construct.call(this, "matcher0", null, null, count, xnr, ynr);
+			orbium.Tile.prototype.construct.call(this, ["matcher0"], count,
+				xnr, ynr);
 		};
 
 		this.destruct = function() {

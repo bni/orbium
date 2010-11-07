@@ -3,8 +3,8 @@
 		this.construct = function() {
 			var x = orbium.Util.generateRandomIndex(6);
 
-			orbium.Tile.prototype.construct.call(this, "emptytile"+x, null,
-				null, count, xnr, ynr);
+			orbium.Tile.prototype.construct.call(this, ["emptytile"+x], count,
+				xnr, ynr);
 		};
 
 		this.construct.apply(this, arguments);

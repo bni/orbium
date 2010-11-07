@@ -5,8 +5,8 @@
 		this.construct = function() {
 			activeMarbles = 0;
 
-			orbium.Tile.prototype.construct.call(this, "counter0", null, null,
-				count, xnr, ynr);
+			orbium.Tile.prototype.construct.call(this, ["counter0"], count,
+				xnr, ynr);
 		};
 
 		this.countActiveMarbles = function() {

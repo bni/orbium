@@ -3,7 +3,8 @@
 		this.construct = function() {
 			this.variant = vari;
 
-			orbium.Tile.prototype.construct.call(this, "modtile0", null, "teleporter"+this.variant, count, xnr, ynr);
+			orbium.Tile.prototype.construct.call(this, ["modtile0", null,
+				"teleporter"+this.variant], count, xnr, ynr);
 
 			this.inducesTopPath = true;
 			this.inducesRightPath = true;

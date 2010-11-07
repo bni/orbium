@@ -1,8 +1,8 @@
 (function(orbium) {
 	orbium.Announcer = function(count, xnr, ynr) {
 		this.construct = function() {
-			orbium.Tile.prototype.construct.call(this, "announcer0", null, null,
-				count, xnr, ynr);
+			orbium.Tile.prototype.construct.call(this, ["announcer0"], count,
+				xnr, ynr);
 		};
 
 		this.announceNextColor = function(nextColor) {

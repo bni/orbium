@@ -3,8 +3,8 @@
 		this.construct = function() {
 			var x = orbium.Util.generateRandomIndex(4);
 
-			orbium.Tile.prototype.construct.call(this, "crosstile"+x, null,
-				null, count, xnr, ynr);
+			orbium.Tile.prototype.construct.call(this, ["crosstile"+x], count,
+				xnr, ynr);
 
 			this.inducesTopPath = true;
 			this.inducesRightPath = true;
