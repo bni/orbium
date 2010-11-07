@@ -21,6 +21,8 @@
 
 		this.nextColor = null;
 
+		this.updateableTiles = null;
+
 		this.construct = function() {
 			this.tiles = [];
 
@@ -34,6 +36,8 @@
 
 			this.paused = true;
 			this.first = true;
+
+			this.updateableTiles = [];
 
 			// Read the level we played last
 			this.levnr = orbium.storage.readValue("lastlevel");
@@ -75,6 +79,8 @@
 					this.marbles[i].destruct();
 				}
 				this.marbles.length = 0;
+
+				this.updateableTiles.length = 0;
 
 				// Set special tiles to null
 				this.counter = null;
@@ -119,6 +125,7 @@
 			} else if (prefix === "R") {
 				var rotator = new orbium.Rotator(count, xnr, ynr);
 				orbium.Util.setArrayElement(count, this.tiles, rotator);
+				orbium.Util.addArrayElement(this.updateableTiles, rotator);
 			} else if (prefix === "H") {
 				var horiztile = new orbium.HorizTile(count, xnr, ynr);
 				orbium.Util.setArrayElement(count, this.tiles, horiztile);
@@ -149,9 +156,11 @@
 			} else if (prefix === "C") {
 				this.clock = new orbium.Clock(count, xnr, ynr);
 				orbium.Util.setArrayElement(count, this.tiles, this.clock);
+				orbium.Util.addArrayElement(this.updateableTiles, this.clock);
 			} else if (prefix === "M") {
 				this.matcher = new orbium.Matcher(count, xnr, ynr);
 				orbium.Util.setArrayElement(count, this.tiles, this.matcher);
+				orbium.Util.addArrayElement(this.updateableTiles, this.matcher);
 			} else if (prefix === "S") {
 				this.sequencer = new orbium.Sequencer(count, xnr, ynr, color);
 				orbium.Util.setArrayElement(count, this.tiles, this.sequencer);
@@ -495,8 +504,8 @@
 		};
 
 		var updateTiles = function(dt) {
-			for (var i = 0, j = that.tiles.length; i < j; i++) {
-				var tile = that.tiles[i];
+			for (var i = 0, j = that.updateableTiles.length; i < j; i++) {
+				var tile = that.updateableTiles[i];
 				tile.update(dt);
 			}
 		};

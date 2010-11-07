@@ -17,6 +17,7 @@
 			for (var i = 0, j = indicators.length; i < j; i++) {
 				indicators[i].destruct();
 			}
+			indicators.length = 0;
 
 			orbium.Tile.prototype.destruct.call(this);
 		};
@@ -29,11 +30,11 @@
 			}
 		};
 
-		this.randColor = function() {
+		var randColor = function() {
 			return orbium.Util.generateRandomIndex(3);
 		};
 
-		this.fill = function() {
+		var activate = function() {
 			var col1 = 0;
 			var col2 = 0;
 			var col3 = 0;
@@ -42,34 +43,45 @@
 			// Randomize until non identical colors
 			while (col1 === col2 &&	col2 === col3 &&
 				col3 === col4 && col4 === col1) {
-				col1 = this.randColor();
-				col2 = this.randColor();
-				col3 = this.randColor();
-				col4 = this.randColor();
+				col1 = randColor();
+				col2 = randColor();
+				col3 = randColor();
+				col4 = randColor();
 			}
 
-			var xpos1 = Math.round(this.xpos+orbium.Tile.size/2-orbium.Marble.size/2);
-			var ypos1 = Math.round(this.ypos+orbium.Tile.size*0.046);
+			var xpos1 = Math.round(that.xpos+orbium.Tile.size/2-orbium.Marble.size/2);
+			var ypos1 = Math.round(that.ypos+orbium.Tile.size*0.046);
 			var indicator1 = new orbium.Indicator(xpos1, ypos1, col1);
 			orbium.Util.addArrayElement(indicators, indicator1);
 
-			var xpos2 = Math.round(this.xpos+orbium.Tile.size*0.636);
-			var ypos2 = Math.round(this.ypos+orbium.Tile.size*0.345);
+			var xpos2 = Math.round(that.xpos+orbium.Tile.size*0.636);
+			var ypos2 = Math.round(that.ypos+orbium.Tile.size*0.345);
 			var indicator2 = new orbium.Indicator(xpos2, ypos2, col2);
 			orbium.Util.addArrayElement(indicators, indicator2);
 
-			var xpos3 = Math.round(this.xpos+orbium.Tile.size/2-orbium.Marble.size/2);
+			var xpos3 = Math.round(that.xpos+orbium.Tile.size/2-orbium.Marble.size/2);
 			var offset = orbium.Tile.size*0.642;
-			var ypos3 = Math.round(this.ypos+offset);
+			var ypos3 = Math.round(that.ypos+offset);
 			var indicator3 = new orbium.Indicator(xpos3, ypos3, col3);
 			orbium.Util.addArrayElement(indicators, indicator3);
 
-			var xpos4 = Math.round(this.xpos+orbium.Tile.size*0.054);
-			var ypos4 = Math.round(this.ypos+orbium.Tile.size*0.345);
+			var xpos4 = Math.round(that.xpos+orbium.Tile.size*0.054);
+			var ypos4 = Math.round(that.ypos+orbium.Tile.size*0.345);
 			var indicator4 = new orbium.Indicator(xpos4, ypos4, col4);
 			orbium.Util.addArrayElement(indicators, indicator4);
 
-			this.invalidate();
+			that.invalidate();
+		};
+
+		var deactivate = function() {
+			for (var i = 0, j = indicators.length; i < j; i++) {
+				indicators[i].destruct();
+			}
+			indicators.length = 0;
+
+			t = 0;
+
+			that.invalidate();
 		};
 
 		this.active = function() {
@@ -87,9 +99,7 @@
 				}
 			}
 
-			t = 0;
-			indicators.length = 0;
-			this.invalidate();
+			deactivate();
 
 			return true;
 		};
@@ -98,7 +108,7 @@
 			t += dt;
 
 			if (t > refillSeconds && indicators.length === 0) {
-				this.fill();
+				activate();
 			}
 		};
 
@@ -112,6 +122,6 @@
 			}
 		};
 
-		this.construct.apply(this, arguments);
+		var that = this; this.construct.apply(this, arguments);
 	}; orbium.Matcher.prototype = new orbium.Tile();
 }(window.orbium = window.orbium || {}));

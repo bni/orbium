@@ -34,6 +34,7 @@
 			for (var i = 0, j = dockees.length; i < j; i++) {
 				dockees[i].destruct();
 			}
+			dockees.length = 0;
 
 			orbium.Tile.prototype.destruct.call(this);
 		};
