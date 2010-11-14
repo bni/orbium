@@ -21,6 +21,11 @@
 			this.invalidate();
 		};
 
+		this.unSink = function() {
+			this.setImage(0, "bar"+this.nr);
+			this.invalidate();
+		};
+
 		this.makePassed = function() {
 			if (!passed) {
 				passed = true;

@@ -46,12 +46,6 @@
 			if (baseName !== undefined) {
 				var idx = 0;
 
-				// First row rotators
-				if (this.count < orbium.Machine.horizTiles &&
-					this instanceof orbium.Rotator) {
-					this.hasTopPath = true;
-				}
-
 				// Should tile have top path?
 				idx = this.count-orbium.Machine.horizTiles;
 				if (idx >= 0 &&
@@ -60,6 +54,8 @@
 					this.variant !== 1 &&
 					orbium.machine.tiles[idx].variant !== 1) {
 					this.hasTopPath = true;
+				} else {
+					this.hasTopPath = false;
 				}
 
 				// Should tile have right path?
@@ -71,6 +67,8 @@
 					this.variant !== 0 &&
 					orbium.machine.tiles[idx].variant !== 0) {
 					this.hasRightPath = true;
+				} else {
+					this.hasRightPath = false;
 				}
 
 				// Should tile have bottom path?
@@ -81,6 +79,8 @@
 					this.variant !== 1 &&
 					orbium.machine.tiles[idx].variant !== 1) {
 					this.hasBottomPath = true;
+				} else {
+					this.hasBottomPath = false;
 				}
 
 				// Should tile have left path?
@@ -92,6 +92,14 @@
 					this.variant !== 0 &&
 					orbium.machine.tiles[idx].variant !== 0) {
 					this.hasLeftPath = true;
+				} else {
+					this.hasLeftPath = false;
+				}
+
+				// First row rotators
+				if (this.count < orbium.Machine.horizTiles &&
+					this instanceof orbium.Rotator) {
+					this.hasTopPath = true;
 				}
 
 				var frame = 0;

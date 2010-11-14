@@ -33,6 +33,8 @@
 			for (var i = 0, j = bars.length; i < j; i++) {
 				if (orbium.machine.tiles[i].inducesSink) {
 					bars[i].makeSink();
+				} else {
+					bars[i].unSink();
 				}
 			}
 		};

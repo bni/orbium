@@ -737,7 +737,7 @@
 			orbium.sign.hide();
 			orbium.tutorial.hide();
 
-			if (orbium.editor.selected !== null) {
+			if (orbium.Machine.editorMode) {
 				orbium.editor.edit();
 			} else {
 				this.updateResume();

@@ -113,6 +113,11 @@
 				return true;
 			}
 
+			// Disable tutorial if in editor mode
+			if (orbium.Machine.editorMode) {
+				return true;
+			}
+
 			return false;
 		}
 

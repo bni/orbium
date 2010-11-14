@@ -21,8 +21,6 @@
 
 		this.nextColor = null;
 
-		this.updateableTiles = null;
-
 		this.construct = function() {
 			this.tiles = [];
 
@@ -36,8 +34,6 @@
 
 			this.paused = true;
 			this.first = true;
-
-			this.updateableTiles = [];
 
 			// Read the level we played last
 			this.levnr = orbium.storage.readValue("lastlevel");
@@ -79,8 +75,6 @@
 					this.marbles[i].destruct();
 				}
 				this.marbles.length = 0;
-
-				this.updateableTiles.length = 0;
 
 				// Set special tiles to null
 				this.counter = null;
@@ -125,7 +119,6 @@
 			} else if (prefix === "R") {
 				var rotator = new orbium.Rotator(count, xnr, ynr);
 				orbium.Util.setArrayElement(count, this.tiles, rotator);
-				orbium.Util.addArrayElement(this.updateableTiles, rotator);
 			} else if (prefix === "H") {
 				var horiztile = new orbium.HorizTile(count, xnr, ynr);
 				orbium.Util.setArrayElement(count, this.tiles, horiztile);
@@ -156,11 +149,9 @@
 			} else if (prefix === "C") {
 				this.clock = new orbium.Clock(count, xnr, ynr);
 				orbium.Util.setArrayElement(count, this.tiles, this.clock);
-				orbium.Util.addArrayElement(this.updateableTiles, this.clock);
 			} else if (prefix === "M") {
 				this.matcher = new orbium.Matcher(count, xnr, ynr);
 				orbium.Util.setArrayElement(count, this.tiles, this.matcher);
-				orbium.Util.addArrayElement(this.updateableTiles, this.matcher);
 			} else if (prefix === "S") {
 				this.sequencer = new orbium.Sequencer(count, xnr, ynr, color);
 				orbium.Util.setArrayElement(count, this.tiles, this.sequencer);
@@ -304,60 +295,30 @@
 		};
 
 		this.checkTap = function(xtap, ytap) {
-			if (!this.paused) {
-				for (var i = 0, j = this.tiles.length; i < j; i++) {
-					var tile = this.tiles[i];
+			var idx = Math.floor(xtap/orbium.Tile.size);
+			var idy = Math.floor((ytap-orbium.Bar.height)/orbium.Tile.size);
+			var count = idy*orbium.Machine.horizTiles+idx;
 
-					if (tile instanceof orbium.Rotator) {
-						tile.triggerRotate(xtap, ytap);
-					} else if (tile instanceof orbium.Counter) {
-						if (orbium.Util.withinRect(
-							xtap,
-							ytap,
-							tile.xpos,
-							tile.ypos,
-							orbium.Tile.size,
-							orbium.Tile.size)) {
-							orbium.menu.pause();
-						}
-					}
+			//console.log("idx: "+idx+" idy: "+idy+" count: "+count);
+
+			var target = this.tiles[count];
+
+			if (!this.paused) {
+				if (target instanceof orbium.Rotator) {
+					target.triggerRotate(xtap, ytap);
+				} else if (target instanceof orbium.Counter) {
+					orbium.menu.pause();
 				}
 			}
 
 			if (orbium.editor.selected !== null) {
-				//console.log("selected: "+orbium.editor.selected);
-
-				for (i = 0, j = this.tiles.length; i < j; i++) {
-					var target = this.tiles[i];
-
-					if (target instanceof orbium.Counter) {
-						if (orbium.Util.withinRect(
-							xtap,
-							ytap,
-							target.xpos,
-							target.ypos,
-							orbium.Tile.size,
-							orbium.Tile.size)) {
-							orbium.menu.pause();
-						}
-					} else {
-						if (orbium.Util.withinRect(
-							xtap,
-							ytap,
-							target.xpos,
-							target.ypos,
-							orbium.Tile.size,
-							orbium.Tile.size)) {
-								var xnr = target.xpos/orbium.Tile.size;
-								var ynr = (target.ypos-orbium.Bar.height)/orbium.Tile.size;
-								var idx = ynr*orbium.Machine.horizTiles+xnr;
-
-								target.destruct();
-								this.createTile(orbium.editor.selected, idx, xnr, ynr);
-								this.calculateBases();
-								this.lane.calculateSinks();
-						}
-					}
+				if (target instanceof orbium.Counter) {
+					orbium.menu.pause();
+				} else {
+					target.destruct();
+					this.createTile(orbium.editor.selected, count, idx, idy);
+					this.calculateBases();
+					this.lane.calculateSinks();
 				}
 			}
 		};
@@ -504,9 +465,8 @@
 		};
 
 		var updateTiles = function(dt) {
-			for (var i = 0, j = that.updateableTiles.length; i < j; i++) {
-				var tile = that.updateableTiles[i];
-				tile.update(dt);
+			for (var i = 0, j = that.tiles.length; i < j; i++) {
+				that.tiles[i].update(dt);
 			}
 		};
 
