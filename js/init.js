@@ -32,8 +32,10 @@
 		// For now use screensize to determine if we run on a device with touch
 		// capabilities or if we are on a desktop computer. Touch capable does
 		// not mean a touch API is available.
+		// If touch API is available always use touch screen.
 		// FIXME: Detect this in a better way. how?
-		if (screen.width <= 1024 && screen.height <= 768) {
+		if ((screen.width <= 1024 && screen.height <= 768) ||
+			"ontouchstart" in window) {
 			orbium.has_touch_screen = true;
 		}
 
@@ -199,10 +201,11 @@
 		orbium.pane.style.height = ""+orbium.height+"px";
 
 		// Use translate3d if webkitTransform is available
-		// Do not use it for older pre 4th gen iOS devices
+		// and we are running on 4th gen iOS device.
+		// Chrome supports this but is unstable, so do not use yet
 		if (orbium.pane.style.webkitTransform !== undefined &&
-			!(orbium.Util.isUA("iPhone") &&
-			orbium.Util.getDevicePixelRatio() === 1)) {
+			orbium.Util.isUA("iPhone") &&
+			orbium.Util.getDevicePixelRatio() === 2) {
 			orbium.has_transform = true;
 
 			orbium.pane.style.webkitTransform = "translate3d("+
