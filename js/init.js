@@ -177,6 +177,8 @@
 			orbium.packs[orbium.pack_idx].level = orbium.level_show;
 		} else if (orbium.level_full !== undefined) {
 			orbium.packs[orbium.pack_idx].level = orbium.level_full;
+		} else if (orbium.level_lite !== undefined) {
+			orbium.packs[orbium.pack_idx].level = orbium.level_lite;
 		} else if (orbium.level_free !== undefined) {
 			orbium.packs[orbium.pack_idx].level = orbium.level_free;
 		} else {
