@@ -61,6 +61,7 @@
 			// Disable sounds on certain devices and cases that are problematic
 			if ((orbium.Util.isUA("iPhone") && !orbium.Util.isPG()) ||
 				orbium.Util.isUA("webOS") ||
+				orbium.Util.isUA("Android") ||
 				orbium.Util.isUA("MSIE") ||
 				orbium.Util.isUA("Chrome")) {
 				this.audioSupported = false;
