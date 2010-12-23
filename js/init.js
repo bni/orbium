@@ -200,12 +200,9 @@
 		orbium.pane.style.width = ""+orbium.width+"px";
 		orbium.pane.style.height = ""+orbium.height+"px";
 
-		// Use translate3d if webkitTransform is available
-		// and we are running on 4th gen iOS device.
-		// Chrome supports this but is unstable, so do not use yet
-		if (orbium.pane.style.webkitTransform !== undefined &&
-			orbium.Util.isUA("iPhone") &&
-			orbium.Util.getDevicePixelRatio() === 2) {
+		// Use translate3d on 4th gen iOS device and on iPad only
+		if ((orbium.Util.isUA("iPhone") && orbium.Util.getDevicePixelRatio() === 2) ||
+			orbium.Util.isUA("iPad")) {
 			orbium.has_transform = true;
 
 			orbium.pane.style.webkitTransform = "translate3d("+

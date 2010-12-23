@@ -974,7 +974,7 @@
 		};
 
 		this.appstore = function() {
-			if (orbium.Util.isUA("iPhone")) {
+			if (orbium.Util.isUA("iPhone") || orbium.Util.isUA("iPad")) {
 				window.location.href = "http://itunes.apple.com/us/app/orbium/id376402382?mt=8";
 			} else if (orbium.Util.isUA("webOS")) {
 				window.location.href = "http://developer.palm.com/webChannel/index.php?packageid=se.jsway.orbium";

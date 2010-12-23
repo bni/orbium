@@ -18,7 +18,7 @@
 			supportsMP3 = false;
 			supportsOGG = false;
 
-			if (orbium.Util.isPG() && orbium.Util.isUA("iPhone")) {
+			if (orbium.Util.isPG() && (orbium.Util.isUA("iPhone") || orbium.Util.isUA("iPad"))) {
 				supportsSPP = true;
 			} else if (orbium.Util.isPG()) {
 				supportsPGM = true;
@@ -59,7 +59,7 @@
 			}
 
 			// Disable sounds on certain devices and cases that are problematic
-			if ((orbium.Util.isUA("iPhone") && !orbium.Util.isPG()) ||
+			if (((orbium.Util.isUA("iPhone") || orbium.Util.isUA("iPad")) && !orbium.Util.isPG()) ||
 				orbium.Util.isUA("webOS") ||
 				orbium.Util.isUA("Android") ||
 				orbium.Util.isUA("MSIE") ||
