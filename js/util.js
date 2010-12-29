@@ -110,6 +110,10 @@
 	};
 
 	orbium.Util.hasDrawImageScalingBug = function() {
+		if (!orbium.Util.isUA("Android")) {
+			return false;
+		}
+
 		var iw = 1;
 		var ih = 1;
 

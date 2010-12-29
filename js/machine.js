@@ -494,13 +494,21 @@
 					var count2 = idy2*orbium.Machine.horizTiles+idx2;
 
 					var tile1 = that.tiles[count1];
-					tile1.invalidate();
-					tile1.influence(marble);
+
+					if (tile1 !== undefined) {
+						tile1.invalidate();
+						tile1.influence(marble);
+					} else { // The marble is on top of lane
+						that.lane.update(dt, marble);
+					}
 
 					if (count1 !== count2) {
 						var tile2 = that.tiles[count2];
-						tile2.invalidate();
-						tile2.influence(marble);
+
+						if (tile2 !== undefined) {
+							tile2.invalidate();
+							tile2.influence(marble);
+						}
 					}
 				}
 			}
