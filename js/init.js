@@ -121,7 +121,10 @@
 		var vp = document.getElementById("vp");
 		var vp_width = "width=device-width, ";
 
-		var vp_droid_dpi = "target-densitydpi=device-dpi, ";
+		var vp_droid_dpi = "";
+		if (orbium.Util.isUA("Android")) {
+			vp_droid_dpi = "target-densitydpi=device-dpi, ";
+		}
 
 		var vp_user_scalable = "user-scalable=no, ";
 
@@ -295,9 +298,6 @@
 		orbium.editor = new orbium.Editor();
 
 		var target_fps = 60;
-		if (orbium.has_touch_screen) {
-			target_fps = 30; // Lower the target fps if running on device
-		}
 
 		setInterval(function() {orbium.machine.run();},
 			Math.round(1000/target_fps));

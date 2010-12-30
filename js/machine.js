@@ -474,8 +474,6 @@
 			for (var i = 0, j = that.marbles.length; i < j; i++) {
 				var marble = that.marbles[i];
 
-				marble.update(dt);
-
 				if (marble.fresh) {
 					that.lane.update(dt, marble);
 
@@ -511,6 +509,8 @@
 						}
 					}
 				}
+
+				marble.update(dt);
 			}
 		};
 

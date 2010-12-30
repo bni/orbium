@@ -425,8 +425,8 @@
 						marble.frame, true);
 
 					if (falldown) {
-						marble.destruct();
-						orbium.Util.removeArrayElement(orbium.machine.marbles, marble);
+						marble.fresh = false;
+						marble.stale = true;
 						this.invalidate();
 
 						orbium.machine.checkRotatorsFull();
