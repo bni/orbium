@@ -14,4 +14,4 @@
 
 		this.construct.apply(this, arguments);
 	}; orbium.CrossTile.prototype = new orbium.Tile();
-}(window.orbium = window.orbium || {}));
+}(orbium));

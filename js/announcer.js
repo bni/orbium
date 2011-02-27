@@ -12,4 +12,4 @@
 
 		this.construct.apply(this, arguments);
 	}; orbium.Announcer.prototype = new orbium.Tile();
-}(window.orbium = window.orbium || {}));
+}(orbium));

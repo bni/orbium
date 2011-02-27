@@ -165,4 +165,4 @@
 			// Default implementation does nothing
 		}; orbium.Tile.prototype.influence = this.influence;
 	}; orbium.Tile.prototype = new orbium.Sprite();
-}(window.orbium = window.orbium || {}));
+}(orbium));

@@ -145,4 +145,4 @@
 
 		return false;
 	};
-}(window.orbium = window.orbium || {}));
+}(orbium));

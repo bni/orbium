@@ -34,4 +34,4 @@
 
 		this.construct.apply(this, arguments);
 	}; orbium.Inspector.prototype = new orbium.Tile();
-}(window.orbium = window.orbium || {}));
+}(orbium));

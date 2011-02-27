@@ -1,6 +1,8 @@
 (function(orbium) {
+	orbium.has_dom = false;
 	orbium.has_transform = false;
 	orbium.has_canvas = false;
+
 	orbium.has_touch_screen = false;
 	orbium.has_touch_api = false;
 
@@ -205,7 +207,7 @@
 
 		// Use translate3d on 4th gen iOS device and on iPad only
 		if ((orbium.Util.isUA("iPhone") && orbium.Util.getDevicePixelRatio() === 2) ||
-			orbium.Util.isUA("iPad")) {
+			orbium.Util.isUA("iPad") || orbium.Util.isUA("Safari")) {
 			orbium.has_transform = true;
 
 			orbium.pane.style.webkitTransform = "translate3d("+
@@ -226,6 +228,8 @@
 				orbium.canv.height = orbium.height;
 
 				orbium.ctx = orbium.canv.getContext("2d");
+			} else {
+				orbium.has_dom = true;
 			}
 		}
 
@@ -302,4 +306,4 @@
 		setInterval(function() {orbium.machine.run();},
 			Math.round(1000/target_fps));
 	};
-}(window.orbium = window.orbium || {}));
+}(orbium));

@@ -37,4 +37,4 @@
 			73, 6, 9
 		]
 	];
-}(window.orbium = window.orbium || {}));
+}(orbium));

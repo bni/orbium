@@ -9,4 +9,4 @@
 
 		this.construct.apply(this, arguments);
 	}; orbium.EmptyTile.prototype = new orbium.Tile();
-}(window.orbium = window.orbium || {}));
+}(orbium));

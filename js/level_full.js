@@ -695,4 +695,4 @@
 			98, 3, 4
 		]
 	];
-}(window.orbium = window.orbium || {}));
+}(orbium));

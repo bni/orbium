@@ -16,7 +16,7 @@
 			orbium.Sprite.prototype.construct.call(this, images, xpos, ypos,
 				orbium.Tile.size, orbium.Bar.height, 4);
 
-			if (!orbium.has_canvas) {
+			if (orbium.has_dom || orbium.has_transform) {
 				var id = "timer_gap";
 
 				var sprite = document.createElement("div");
@@ -134,4 +134,4 @@
 
 		this.construct.apply(this, arguments);
 	}; orbium.Timer.prototype = new orbium.Sprite();
-}(window.orbium = window.orbium || {}));
+}(orbium));

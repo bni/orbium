@@ -42,4 +42,4 @@
 
 		this.construct.apply(this, arguments);
 	}; orbium.Bar.prototype = new orbium.Sprite();
-}(window.orbium = window.orbium || {}));
+}(orbium));

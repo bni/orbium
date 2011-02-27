@@ -36,7 +36,10 @@
 			this.first = true;
 
 			// Read the level we played last
-			this.levnr = orbium.storage.readValue("lastlevel");
+			if (orbium.storage !== undefined) {
+				this.levnr = orbium.storage.readValue("lastlevel");
+			}
+
 			if (this.levnr !== null) {
 				this.levnr = parseInt(this.levnr);
 			}
@@ -46,7 +49,7 @@
 				this.levnr = -1;
 			} else if (this.levnr > orbium.level.length-1) {
 				this.levnr = -1;
-			} else {
+			} else if (this.levnr > -1) {
 				this.levnr--;
 			}
 		};
@@ -175,7 +178,7 @@
 		};
 
 		this.saveLevel = function(levnr) {
-			if (!orbium.Machine.editorMode) {
+			if (!orbium.Machine.editorMode && orbium.storage !== undefined) {
 				// Remember this is the level we played last
 				orbium.storage.writeValue("lastlevel", levnr);
 
@@ -608,4 +611,4 @@
 
 		var that = this; this.construct.apply(this, arguments);
 	};
-}(window.orbium = window.orbium || {}));
+}(orbium));

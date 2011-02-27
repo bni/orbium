@@ -84,7 +84,7 @@
 				} else {
 					this.images[idx] = null;
 				}
-			} else {
+			} else if (orbium.has_dom || orbium.has_transform) {
 				if (image !== null) {
 					if (this.elements[idx] === undefined ||
 						this.elements[idx] === null) {
@@ -152,7 +152,7 @@
 					if (lastEntry(idx, this.images)) {
 						this.dirty = false;
 					}
-				} else {
+				} else if (orbium.has_dom || orbium.has_transform) {
 					if (this.elements[idx] !== undefined &&
 						this.elements[idx] !== null) {
 						if (orbium.has_transform) {
@@ -174,4 +174,4 @@
 			}
 		}; orbium.Sprite.prototype.draw = this.draw;
 	};
-}(window.orbium = window.orbium || {}));
+}(orbium));
