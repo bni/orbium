@@ -695,4 +695,4 @@
 			98, 3, 4
 		]
 	];
-}(typeof window != undefined ? window.orbium = window.orbium || {} : orbium));
+}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));

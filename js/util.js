@@ -145,4 +145,4 @@
 
 		return false;
 	};
-}(typeof window != undefined ? window.orbium = window.orbium || {} : orbium));
+}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));

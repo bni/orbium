@@ -352,4 +352,4 @@
 			49, 5, 6
 		]
 	];
-}(typeof window != undefined ? window.orbium = window.orbium || {} : orbium));
+}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));

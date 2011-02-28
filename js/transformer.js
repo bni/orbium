@@ -34,4 +34,4 @@
 
 		this.construct.apply(this, arguments);
 	}; orbium.Transformer.prototype = new orbium.Tile();
-}(typeof window != undefined ? window.orbium = window.orbium || {} : orbium));
+}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));

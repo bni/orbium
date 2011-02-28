@@ -49,4 +49,4 @@
 
 		this.construct.apply(this, arguments);
 	};
-}(typeof window != undefined ? window.orbium = window.orbium || {} : orbium));
+}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));

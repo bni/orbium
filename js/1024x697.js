@@ -5,4 +5,4 @@
 		"bar_height": 57,
 		"gfx_path": "gfx/1024x697/"
 	};
-}(typeof window != undefined ? window.orbium = window.orbium || {} : orbium));
+}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));

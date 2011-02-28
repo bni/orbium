@@ -51,4 +51,4 @@
 
 		this.construct.apply(this, arguments);
 	}; orbium.FallTile.prototype = new orbium.Tile();
-}(typeof window != undefined ? window.orbium = window.orbium || {} : orbium));
+}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));

@@ -174,4 +174,4 @@
 			}
 		}; orbium.Sprite.prototype.draw = this.draw;
 	};
-}(typeof window != undefined ? window.orbium = window.orbium || {} : orbium));
+}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));

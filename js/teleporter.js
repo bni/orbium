@@ -59,4 +59,4 @@
 
 		this.construct.apply(this, arguments);
 	}; orbium.Teleporter.prototype = new orbium.Tile();
-}(typeof window != undefined ? window.orbium = window.orbium || {} : orbium));
+}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));

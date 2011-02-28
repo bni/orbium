@@ -15,4 +15,4 @@
 
 		this.construct.apply(this, arguments);
 	}; orbium.Indicator.prototype = new orbium.Sprite();
-}(typeof window != undefined ? window.orbium = window.orbium || {} : orbium));
+}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));
