@@ -306,4 +306,4 @@
 		setInterval(function() {orbium.machine.run();},
 			Math.round(1000/target_fps));
 	};
-}(orbium));
+}(typeof window != undefined ? window.orbium = window.orbium || {} : orbium));

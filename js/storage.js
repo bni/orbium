@@ -74,4 +74,4 @@
 
 		this.construct.apply(this, arguments);
 	};
-}(orbium));
+}(typeof window != undefined ? window.orbium = window.orbium || {} : orbium));

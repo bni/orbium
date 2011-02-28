@@ -174,4 +174,4 @@
 
 		this.construct.apply(this, arguments);
 	}; orbium.Dockee.prototype = new orbium.Sprite();
-}(orbium));
+}(typeof window != undefined ? window.orbium = window.orbium || {} : orbium));

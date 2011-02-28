@@ -134,4 +134,4 @@
 
 		this.construct.apply(this, arguments);
 	}; orbium.Timer.prototype = new orbium.Sprite();
-}(orbium));
+}(typeof window != undefined ? window.orbium = window.orbium || {} : orbium));

@@ -23,4 +23,4 @@
 			2, 20, 10
 		]
 	];
-}(orbium));
+}(typeof window != undefined ? window.orbium = window.orbium || {} : orbium));

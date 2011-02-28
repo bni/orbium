@@ -674,4 +674,4 @@
 
 		var that = this; this.construct.apply(this, arguments);
 	}; orbium.Rotator.prototype = new orbium.Tile();
-}(orbium));
+}(typeof window != undefined ? window.orbium = window.orbium || {} : orbium));

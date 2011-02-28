@@ -3,7 +3,6 @@ orbium = {};
 (function(orbium) {
 	var net = require("net");
 	require("./level_show.js");
-
 	require("./util.js");
 	require("./sprite.js");
 	require("./tile.js");
@@ -27,7 +26,6 @@ orbium = {};
 	require("./lane.js");
 	require("./bar.js");
 	require("./marble.js");
-
 	require("./machine.js");
 
 	var server = net.createServer();
