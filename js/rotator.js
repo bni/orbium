@@ -174,7 +174,9 @@
 			var dockee = new orbium.Dockee(that, pos, color, frame);
 			orbium.Util.addArrayElement(dockees, dockee);
 
-			orbium.player.play("dock");
+			if (orbium.player !== undefined) {
+				orbium.player.play("dock");
+			}
 
 			return true;
 		};

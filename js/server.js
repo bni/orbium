@@ -26,6 +26,7 @@ orbium = {};
 	require("./lane.js");
 	require("./bar.js");
 	require("./marble.js");
+	require("./dockee.js");
 	require("./machine.js");
 
 	var server = net.createServer();
@@ -55,6 +56,14 @@ orbium = {};
 	orbium.Marble.size = 40;
 	orbium.Bar.height = 57;
 
+	var refMarbleSpeed = 48;
+	var refRotatorSpeed = 60;
+	var refTilesize = 36;
+	orbium.Marble.speed =
+		Math.round(orbium.Tile.size/refTilesize*refMarbleSpeed);
+	orbium.Rotator.speed =
+		Math.round(orbium.Tile.size/refTilesize*refRotatorSpeed);
+
 	orbium.level = orbium.level_show;
 
 	orbium.width = orbium.Tile.size*orbium.Machine.horizTiles;
@@ -71,6 +80,8 @@ orbium = {};
 
 	setInterval(function() {orbium.machine.run();},
 		Math.round(1000/target_fps));
+
+	orbium.machine.startLevel();
 
 	server.on("connection", function (socket) {
 		var client = {};

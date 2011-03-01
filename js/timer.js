@@ -49,7 +49,7 @@
 		};
 
 		this.destruct = function() {
-			if (!orbium.has_canvas) {
+			if (orbium.has_dom || orbium.has_transform) {
 				orbium.pane.removeChild(timerGap);
 			}
 
@@ -59,14 +59,12 @@
 		this.reset = function() {
 			this.xpos = orbium.width;
 
-			if (!orbium.has_canvas) {
-				if (orbium.has_transform) {
-					timerGap.style.webkitTransform = "translate3d("+
-						Math.round(orbium.width)+"px,"+Math.round(this.ypos)+
-						"px,0px)";
-				} else {
-					timerGap.style.left = Math.round(orbium.width)+"px";
-				}
+			if (orbium.has_transform) {
+				timerGap.style.webkitTransform = "translate3d("+
+					Math.round(orbium.width)+"px,"+Math.round(this.ypos)+
+					"px,0px)";
+			} else if (orbium.has_dom) {
+				timerGap.style.left = Math.round(orbium.width)+"px";
 			}
 		};
 
@@ -117,7 +115,7 @@
 						Math.round(this.ypos),
 						Math.round(w),
 						orbium.Bar.height);
-				} else {
+				} else if (orbium.has_dom || orbium.has_transform) {
 					if (orbium.has_transform) {
 						timerGap.style.webkitTransform = "translate3d("+
 							Math.round(trailBegin)+"px,"+Math.round(this.ypos)+

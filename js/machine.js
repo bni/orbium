@@ -219,7 +219,10 @@
 
 		this.failLevel = function(msg) {
 			this.paused = true;
-			orbium.menu.fail(msg);
+
+			if (orbium.menu !== undefined) {
+				orbium.menu.fail(msg);
+			}
 		};
 
 		this.randomizeNextColor = function() {
@@ -530,9 +533,17 @@
 		};
 
 		var updateSigns = function(dt) {
-			orbium.sign.update(dt);
-			orbium.tutorial.update(dt);
-			orbium.perf.update(dt);
+			if (orbium.sign !== undefined) {
+				orbium.sign.update(dt);
+			}
+
+			if (orbium.tutorial !== undefined) {
+				orbium.tutorial.update(dt);
+			}
+
+			if (orbium.perf !== undefined) {
+				orbium.perf.update(dt);
+			}
 		};
 
 		var drawLane = function() {
