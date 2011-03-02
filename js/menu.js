@@ -48,6 +48,7 @@
 		var unlock = null;
 		var editoron = null;
 		var perfon = null;
+		var connecton = null;
 
 		var lgo = null;
 		var lgob = null;
@@ -115,6 +116,7 @@
 			unlock = document.getElementById("unlock");
 			editoron = document.getElementById("editoron");
 			perfon = document.getElementById("perfon");
+			connecton = document.getElementById("connecton");
 
 			lgo = document.getElementById("lgo");
 			lgob = document.getElementById("lgob");
@@ -178,6 +180,7 @@
 			unlock.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
 			editoron.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
 			perfon.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
+			connecton.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
 
 			info.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
 			credb.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
@@ -242,6 +245,8 @@
 				function(e) {orbium.menu.editoron();});
 			orbium.Util.attachListener(perfon, "touchstart",
 				function(e) {orbium.menu.perfon();});
+			orbium.Util.attachListener(connecton, "touchstart",
+				function(e) {orbium.menu.connecton();});
 
 			orbium.Util.attachListener(logo, "touchstart",
 				function(e) {orbium.menu.logo();});
@@ -319,6 +324,8 @@
 				function(e) {orbium.menu.editoron();});
 			orbium.Util.attachListener(perfon, "mousedown",
 				function(e) {orbium.menu.perfon();});
+			orbium.Util.attachListener(connecton, "mousedown",
+				function(e) {orbium.menu.connecton();});
 
 			orbium.Util.attachListener(logo, "mousedown",
 				function(e) {orbium.menu.logo();});
@@ -432,7 +439,7 @@
 			menu.style.visibility = "visible";
 
 			dbg.style.visibility = "visible";
-			dbg.style.top = "32%";
+			dbg.style.top = "30%";
 		};
 
 		this.hideDbg = function() {
@@ -894,6 +901,14 @@
 			this.showMain();
 		};
 
+		this.connecton = function() {
+			orbium.client = new orbium.Client("ws://localhost:1991");
+
+			this.hideDbg();
+			this.updateStart();
+			this.showMain();
+		};
+
 		this.credits = function() {
 			this.hideAbout();
 			this.showCreds();
@@ -914,6 +929,7 @@
 		};
 
 		this.about = function() {
+			orbium.client.send("testing! testing!");
 			this.hideMain();
 			this.showAbout();
 		};
