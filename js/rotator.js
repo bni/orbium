@@ -195,6 +195,10 @@
 
 		var rotate = function() {
 			if (judderc === -1 && fullc === -1) {
+				if (orbium.client !== undefined) {
+					orbium.client.send("rotate!");
+				}
+
 				orbium.player.play("rotate");
 
 				judderc = 0;

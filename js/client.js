@@ -11,11 +11,10 @@
 
 		this.opened = function() {
 			console.log("connection established.");
-			socket.send("well hello");
 		};
 
 		this.send = function(msg) {
-			socket.send(msg);
+		    socket.send(msg);
 		};
 
 		this.received = function(msg) {

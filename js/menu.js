@@ -902,7 +902,7 @@
 		};
 
 		this.connecton = function() {
-			orbium.client = new orbium.Client("ws://localhost:1991");
+			orbium.client = new orbium.Client("ws://192.168.0.105:1991");
 
 			this.hideDbg();
 			this.updateStart();
@@ -929,7 +929,6 @@
 		};
 
 		this.about = function() {
-			orbium.client.send("testing! testing!");
 			this.hideMain();
 			this.showAbout();
 		};
