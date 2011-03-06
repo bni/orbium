@@ -50,6 +50,16 @@ orbium = {};
 		}
 	}
 
+	var distribute = function(msg, exclude) {
+		for (var i = 0, j = clients.length; i < j; i++) {
+			if (clients[i] != exclude) {
+			    clients[i].socket.write("\u0000", "binary");
+			    clients[i].socket.write(msg, "utf8");
+			    clients[i].socket.write("\uffff", "binary");
+			}
+		}
+	}
+
 	orbium.has_dom = false;
 	orbium.has_transform = false;
 	orbium.has_canvas = false;
@@ -149,23 +159,33 @@ orbium = {};
 				client.socket.write(response.join("\r\n"), "binary");
 
 			    client.socket.setNoDelay(true);
-			    client.socket.setEncoding("utf-8");
+			    client.socket.setEncoding("utf8");
 
-				console.log("connected: "+client.id+", "+clients.length+" clients connected");
-				send(client, "you are: "+client.id+"");
-				broadcast(""+client.id+" joined");
+				console.log(client.id+" connected, "+clients.length+" clients connected");
+				send(client, "STATE:"+client.id+"");
 
 				handshakeComplete = true;
 			} else {
-				broadcast(client.id+" says: "+data.substring(0, data.length-1));
-				console.log(client.id+" says: "+data.substring(0, data.length-1));
+				var received = data.substring(1, data.length-1); // trim padding
+				var command = received.split(":")[0];
+
+				var arg1 = received.split(":")[1];
+
+				if (command === "R") {
+					console.log("distributing rotate");
+					orbium.machine.rotateRotator(parseInt(arg1));
+					distribute("R:"+arg1, client);
+				} else {
+					console.log("unknown command");
+				}
+
+				console.log(client.id+" said: "+received);
 			}
 		});
 
 		socket.on("close", function(had_error) {
 			orbium.Util.removeArrayElement(clients, client);
-			broadcast(""+client.id+" left");
-			console.log("disconnected: "+client.id+", "+clients.length+" clients connected");
+			console.log(client.id+" disconnected, "+clients.length+" clients connected");
 		});
 	});
 }(orbium));

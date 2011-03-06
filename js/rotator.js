@@ -189,17 +189,19 @@
 				this.ypos,
 				orbium.Tile.size,
 				orbium.Tile.size)) {
-				rotate();
+				this.rotate(true);
 			}
 		};
 
-		var rotate = function() {
+		this.rotate = function(send) {
 			if (judderc === -1 && fullc === -1) {
-				if (orbium.client !== undefined) {
-					orbium.client.send("rotate!");
+				if (orbium.client !== undefined && send) {
+					orbium.client.send("R:"+this.count);
 				}
 
-				orbium.player.play("rotate");
+				if (orbium.player !== undefined) {
+					orbium.player.play("rotate");
+				}
 
 				judderc = 0;
 				blockc = 0;

@@ -470,6 +470,14 @@
 			}
 		};
 
+		this.rotateRotator = function(count) {
+			var tile = this.tiles[count];
+
+			if (tile instanceof orbium.Rotator) {
+				this.tiles[count].rotate(false);
+			}
+		}
+
 		var updateTiles = function(dt) {
 			for (var i = 0, j = that.tiles.length; i < j; i++) {
 				that.tiles[i].update(dt);
