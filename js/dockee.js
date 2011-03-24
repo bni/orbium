@@ -172,6 +172,16 @@
 			return false;
 		};
 
+		this.getStateString = function() {
+			var state = "";
+
+			state += this.pos+":";
+			state += this.color+":";
+			state += this.frame;
+
+			return state;
+		}
+
 		this.construct.apply(this, arguments);
 	}; orbium.Dockee.prototype = new orbium.Sprite();
 }(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));

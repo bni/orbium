@@ -524,6 +524,22 @@
 			}
 		};
 
+		this.getStateString = function() {
+			var state = "R:"+this.count+":"+this.orientation;
+
+			if (dockees.length > 0) {
+				state += ":";
+			}
+
+			for (var i = 0, j = dockees.length; i < j; i++) {
+				state += dockees[i].getStateString();
+			}
+			
+			state += ";";
+
+			return state;
+		}
+
 		this.update = function(dt) {
 			var frame = 0;
 			var offset = 0;

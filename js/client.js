@@ -19,14 +19,17 @@
 
 		this.received = function(msg) {
 			var received = msg.data;
-			console.log("received: "+received);
+			//console.log("received: "+received);
 
 			var command = received.split(":")[0];
-			var arg1 = received.split(":")[1];
 
-			if (command === "R") {
+			if (command === "STATE") {
+				orbium.machine.setStateString(received);
+			} else if (command === "R") {
+				var arg1 = received.split(":")[1];
+
 				orbium.machine.rotateRotator(parseInt(arg1));
-			}			
+			}
 		};
 
 		var that = this; this.construct.apply(this, arguments);

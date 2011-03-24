@@ -478,6 +478,24 @@
 			}
 		}
 
+		this.getStateString = function() {
+			var state = "STATE:";
+
+			for (var i = 0, j = this.tiles.length; i < j; i++) {
+				var tile = this.tiles[i];
+
+				if (tile.getStateString != undefined) {
+					state += tile.getStateString();
+				}
+			}
+			
+			return state;
+		}
+
+		this.setStateString = function(state) {
+			console.log(state);
+		}
+
 		var updateTiles = function(dt) {
 			for (var i = 0, j = that.tiles.length; i < j; i++) {
 				that.tiles[i].update(dt);

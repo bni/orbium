@@ -36,6 +36,51 @@ orbium = {};
 
 	var clients = [];
 
+	var handshake = function(client, data) {
+		var request = (""+data).split("\r\n");
+
+		var k1 = request[5].split(": ")[1];
+		var k2 = request[6].split(": ")[1];
+
+		var n1 = parseInt(k1.replace(/[^\d]/g, ''));
+		var n2 = parseInt(k2.replace(/[^\d]/g, ''));
+
+		var s1 = k1.replace(/[^ ]/g, '').length;
+		var s2 = k2.replace(/[^ ]/g, '').length;
+
+		n1 /= s1;
+		n2 /= s2;
+
+		var head = request[8];
+
+		var md5 = crypto.createHash("md5");
+
+		md5.update(String.fromCharCode(
+		        n1 >> 24 & 0xFF,
+		        n1 >> 16 & 0xFF,
+		        n1 >> 8 & 0xFF,
+		        n1 & 0xFF));
+
+		md5.update(String.fromCharCode(
+		        n2 >> 24 & 0xFF,
+		        n2 >> 16 & 0xFF,
+		        n2 >> 8 & 0xFF,
+		        n2 & 0xFF));
+
+		md5.update(head);
+
+		var response = [
+			"HTTP/1.1 101 WebSocket Protocol Handshake",
+			"Upgrade: WebSocket",
+			"Connection: Upgrade",
+			"Sec-WebSocket-Origin: "+request[4].split(": ")[1],
+			"Sec-WebSocket-Location: ws://"+request[3].split(": ")[1]+"/",
+			"",
+			md5.digest("binary")];
+
+		client.socket.write(response.join("\r\n"), "binary");
+	}
+
 	var send = function(client, msg) {
 	    client.socket.write("\u0000", "binary");
 	    client.socket.write(msg, "utf8");
@@ -67,7 +112,7 @@ orbium = {};
 	orbium.has_touch_screen = false;
 	orbium.has_touch_api = false;
 
-	orbium.Machine.timeLimits = true;
+	orbium.Machine.timeLimits = false;
 	orbium.Machine.editorMode = false;
 	orbium.Machine.horizTiles = 8;
 	orbium.Machine.vertTiles = 5;
@@ -115,71 +160,28 @@ orbium = {};
 
 		socket.on("data", function(data) {
 			if (!handshakeComplete) {
-				var request = (""+data).split("\r\n");
-
-				var k1 = request[5].split(": ")[1];
-				var k2 = request[6].split(": ")[1];
-
-				var n1 = parseInt(k1.replace(/[^\d]/g, ''));
-				var n2 = parseInt(k2.replace(/[^\d]/g, ''));
-
-				var s1 = k1.replace(/[^ ]/g, '').length;
-				var s2 = k2.replace(/[^ ]/g, '').length;
-
-				n1 /= s1;
-				n2 /= s2;
-
-				var head = request[8];
-
-				var md5 = crypto.createHash("md5");
-
-				md5.update(String.fromCharCode(
-				        n1 >> 24 & 0xFF,
-				        n1 >> 16 & 0xFF,
-				        n1 >> 8 & 0xFF,
-				        n1 & 0xFF));
-
-				md5.update(String.fromCharCode(
-				        n2 >> 24 & 0xFF,
-				        n2 >> 16 & 0xFF,
-				        n2 >> 8 & 0xFF,
-				        n2 & 0xFF));
-
-				md5.update(head);
-
-				var response = [
-					"HTTP/1.1 101 WebSocket Protocol Handshake",
-					"Upgrade: WebSocket",
-					"Connection: Upgrade",
-					"Sec-WebSocket-Origin: "+request[4].split(": ")[1],
-					"Sec-WebSocket-Location: ws://"+request[3].split(": ")[1]+"/",
-					"",
-					md5.digest("binary")];
-
-				client.socket.write(response.join("\r\n"), "binary");
+				handshake(client, data);
 
 			    client.socket.setNoDelay(true);
 			    client.socket.setEncoding("utf8");
 
 				console.log(client.id+" connected, "+clients.length+" clients connected");
-				send(client, "STATE:"+client.id+"");
+
+				var state = orbium.machine.getStateString();
+				//console.log(state);
+
+				send(client, state);
 
 				handshakeComplete = true;
 			} else {
 				var received = data.substring(1, data.length-1); // trim padding
 				var command = received.split(":")[0];
-
-				var arg1 = received.split(":")[1];
+				var arg1 = parseInt(received.split(":")[1]);
 
 				if (command === "R") {
-					console.log("distributing rotate");
-					orbium.machine.rotateRotator(parseInt(arg1));
+					orbium.machine.rotateRotator(arg1);
 					distribute("R:"+arg1, client);
-				} else {
-					console.log("unknown command");
 				}
-
-				console.log(client.id+" said: "+received);
 			}
 		});
 
