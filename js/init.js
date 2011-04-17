@@ -1,4 +1,4 @@
-(function(orbium) {
+(function(orbium, undefined) {
 	orbium.has_dom = false;
 	orbium.has_transform = false;
 	orbium.has_canvas = false;
@@ -205,9 +205,12 @@
 		orbium.pane.style.width = ""+orbium.width+"px";
 		orbium.pane.style.height = ""+orbium.height+"px";
 
+		var isRetina = orbium.Util.isUA("iPhone") &&
+			orbium.Util.getDevicePixelRatio() === 2;
+
 		// Use translate3d on 4th gen iOS device and on iPad only
-		if ((orbium.Util.isUA("iPhone") && orbium.Util.getDevicePixelRatio() === 2) ||
-			orbium.Util.isUA("iPad") || orbium.Util.isUA("Safari")) {
+		if (isRetina || orbium.Util.isUA("iPad") ||
+			orbium.Util.isUA("Safari")) {
 			orbium.has_transform = true;
 
 			orbium.pane.style.webkitTransform = "translate3d("+
@@ -257,10 +260,11 @@
 				orbium.has_touch_api = true;
 			}
 
-			// Set touch events if avalable, otherwise fall back on mouse events
+			// Touch events if available, otherwise fall back on mouse events
 			if (orbium.has_touch_api) {
-				// Prevent the viewport from being panned. To do this we prevent
-				// touchmove from performing the default action on the document
+				// Prevent the viewport from being panned. To do this we
+				// prevent touchmove from performing the default action on
+				// the document
 				orbium.Util.attachListener(document, "touchmove",
 					function(e) {e.preventDefault();});
 
@@ -301,9 +305,23 @@
 
 		orbium.editor = new orbium.Editor();
 
-		var target_fps = 60;
+		// requestAnimFrame shim, by Paul Irish
+		window.requestAnimFrame = (function() {
+			return window.requestAnimationFrame ||
+				window.webkitRequestAnimationFrame ||
+				window.mozRequestAnimationFrame ||
+				window.oRequestAnimationFrame ||
+				window.msRequestAnimationFrame ||
+				function(callback, element) {
+					window.setTimeout(callback, 1000/60);
+				};
+		})();
 
-		setInterval(function() {orbium.machine.run();},
-			Math.round(1000/target_fps));
+		var element = orbium.has_canvas ? orbium.canv : orbium.pane;
+
+		(function animloop() {
+			orbium.machine.run();
+			requestAnimFrame(animloop, element);
+		})();
 	};
-}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));
+})(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);
