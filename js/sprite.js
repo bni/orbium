@@ -1,4 +1,4 @@
-(function(orbium) {
+(function(orbium, undefined) {
 	orbium.Sprite = function() {
 		this.xpos = null;
 		this.ypos = null;
@@ -174,4 +174,4 @@
 			}
 		}; orbium.Sprite.prototype.draw = this.draw;
 	};
-}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));
+})(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

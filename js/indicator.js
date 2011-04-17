@@ -1,4 +1,4 @@
-(function(orbium) {
+(function(orbium, undefined) {
 	orbium.Indicator = function() {
 		this.color = null;
 
@@ -15,4 +15,4 @@
 
 		this.construct.apply(this, arguments);
 	}; orbium.Indicator.prototype = new orbium.Sprite();
-}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));
+})(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

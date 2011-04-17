@@ -1,4 +1,4 @@
-(function(orbium) {
+(function(orbium, undefined) {
 	orbium.VertTile = function(count, xnr, ynr) {
 		this.construct = function() {
 			var x = orbium.Util.generateRandomIndex(5);
@@ -12,4 +12,4 @@
 
 		this.construct.apply(this, arguments);
 	}; orbium.VertTile.prototype = new orbium.Tile();
-}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));
+})(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

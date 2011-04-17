@@ -1,4 +1,4 @@
-(function(orbium) {
+(function(orbium, undefined) {
 	orbium.Client = function(url) {
 		var socket = null;
 
@@ -34,4 +34,4 @@
 
 		var that = this; this.construct.apply(this, arguments);
 	};
-}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));
+})(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

@@ -1,4 +1,4 @@
-(function(orbium) {
+(function(orbium, undefined) {
 	orbium.Tutorial = function() {
 		var textFactor = 5;
 
@@ -128,12 +128,13 @@
 			var top = orbium.ypos+entries[current][3];
 			var width = entries[current][4];
 			var height = entries[current][5];
+			var fontSize = Math.round(orbium.Tile.size/textFactor);
 
 			tutorial0.style.left = ""+left+"px";
 			tutorial0.style.top = ""+top+"px";
 			tutorial0.style.width = ""+width+"px";
 			tutorial0.style.height = ""+height+"px";
-			tutorial0.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
+			tutorial0.style.fontSize = ""+fontSize+"px";
 
 			if (orbium.has_touch_screen) {
 				tutorial0.innerHTML = entries[current][0];
@@ -155,7 +156,8 @@
 		this.update = function(dt) {
 			t += dt;
 
-			if (enabled && orbium.machine.levnr === 0 && current < entries.length) {
+			if (enabled && orbium.machine.levnr === 0 &&
+				current < entries.length) {
 				fromSeconds = entries[current][6];
 				toSeconds = entries[current][7];
 
@@ -169,4 +171,4 @@
 
 		this.construct.apply(this, arguments);
 	};
-}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));
+})(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

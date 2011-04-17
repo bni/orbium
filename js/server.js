@@ -1,6 +1,6 @@
 orbium = {};
 
-(function(orbium) {
+(function(orbium, undefined) {
 	var net = require("net");
 	var crypto = require("crypto");
 
@@ -165,7 +165,8 @@ orbium = {};
 			    client.socket.setNoDelay(true);
 			    client.socket.setEncoding("utf8");
 
-				console.log(client.id+" connected, "+clients.length+" clients connected");
+				console.log(client.id+" connected, "+
+					clients.length+" clients connected");
 
 				var state = orbium.machine.getStateString();
 				//console.log(state);
@@ -174,7 +175,9 @@ orbium = {};
 
 				handshakeComplete = true;
 			} else {
-				var received = data.substring(1, data.length-1); // trim padding
+				// trim padding
+				var received = data.substring(1, data.length-1);
+
 				var command = received.split(":")[0];
 				var arg1 = parseInt(received.split(":")[1]);
 
@@ -187,7 +190,8 @@ orbium = {};
 
 		socket.on("close", function(had_error) {
 			orbium.Util.removeArrayElement(clients, client);
-			console.log(client.id+" disconnected, "+clients.length+" clients connected");
+			console.log(client.id+" disconnected, "+
+				clients.length+" clients connected");
 		});
 	});
-}(orbium));
+})(orbium);

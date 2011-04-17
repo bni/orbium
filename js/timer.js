@@ -1,4 +1,4 @@
-(function(orbium) {
+(function(orbium, undefined) {
 	orbium.Timer = function() {
 		var speed = null;
 		var timerGap = null;
@@ -7,7 +7,10 @@
 			var xpos = orbium.width;
 			var ypos = 0;
 
-			var units = orbium.level[orbium.machine.levnr][orbium.Machine.horizTiles*orbium.Machine.vertTiles+1];
+			var vidx = orbium.Machine.vertTiles;
+			var hidx = orbium.Machine.horizTiles;
+
+			var units = orbium.level[orbium.machine.levnr][hidx*vidx+1];
 			var maxSeconds = (units+1)*3;
 
 			speed = Math.round(orbium.width/maxSeconds);
@@ -69,12 +72,6 @@
 		};
 
 		this.update = function(dt) {
-			// Sometimes there can be a scheduling delay resulting in a large
-			// movement of the timer, we want to filter those out
-			if (speed*dt > orbium.Marble.size/2) {
-				return;
-			}
-
 			if (orbium.Machine.timeLimits) {
 				this.xpos -= speed*dt;
 			}
@@ -93,7 +90,8 @@
 		};
 
 		this.draw = function(idx) {
-			// We override draw here, first we call the base class implementation
+			// We override draw here, first we call the base class
+			// implementation
 			orbium.Sprite.prototype.draw.call(this, idx);
 
 			// We need to fill the gap here
@@ -132,4 +130,4 @@
 
 		this.construct.apply(this, arguments);
 	}; orbium.Timer.prototype = new orbium.Sprite();
-}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));
+})(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

@@ -1,4 +1,4 @@
-(function(orbium) {
+(function(orbium, undefined) {
 	orbium.Bar = function(nr) {
 		var passed = null;
 		this.nr = null;
@@ -42,4 +42,4 @@
 
 		this.construct.apply(this, arguments);
 	}; orbium.Bar.prototype = new orbium.Sprite();
-}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));
+})(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

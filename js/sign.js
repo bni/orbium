@@ -1,4 +1,4 @@
-(function(orbium) {
+(function(orbium, undefined) {
 	orbium.Sign = function() {
 		var shadowFactor = 17;
 		var textFactor = 2.5;
@@ -26,13 +26,15 @@
 			var top = Math.round(orbium.ypos+orbium.Marble.size/3);
 			var width = Math.round(orbium.Marble.size*2.5);
 			var height = Math.round(orbium.Marble.size*1.5);
+			var fontSize = Math.round(orbium.Tile.size/textFactor);
+			var textShadow = Math.round(orbium.Tile.size/shadowFactor);
 
 			sign0.style.left = ""+left+"px";
 			sign0.style.top = ""+top+"px";
 			sign0.style.width = ""+width+"px";
 			sign0.style.height = ""+height+"px";
-			sign0.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
-			sign0.style.textShadow = "0px 0px "+Math.round(orbium.Tile.size/shadowFactor)+"px #ffffff";
+			sign0.style.fontSize = ""+fontSize+"px";
+			sign0.style.textShadow = "0px 0px "+textShadow+"px #ffffff";
 
 			var lev = orbium.machine.levnr+1;
 			if (lev < 10) {
@@ -64,4 +66,4 @@
 
 		this.construct.apply(this, arguments);
 	};
-}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));
+})(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

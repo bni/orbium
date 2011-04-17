@@ -1,4 +1,4 @@
-(function(orbium) {
+(function(orbium, undefined) {
 	orbium.Editor = function() {
 		this.selected = null;
 
@@ -20,8 +20,10 @@
 			sav = document.getElementById("sav");
 			tst = document.getElementById("tst");
 
-			sav.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
-			tst.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
+			var fontSize = Math.round(orbium.Tile.size/textFactor);
+
+			sav.style.fontSize = ""+fontSize+"px";
+			tst.style.fontSize = ""+fontSize+"px";
 
 			if (orbium.has_touch_api) {
 				orbium.Util.attachListener(tst, "touchstart",
@@ -79,7 +81,8 @@
 				tile.style.width = orbium.Tile.size+"px";
 				tile.style.height = orbium.Tile.size+"px";
 				tile.style.zIndex = 100;
-				tile.style.backgroundImage = "url("+orbium.gfx_path+components[i][1]+".png)";
+				tile.style.backgroundImage = "url("+
+					orbium.gfx_path+components[i][1]+".png)";
 				edt.appendChild(tile);
 
 				var overlay = document.createElement("div");
@@ -94,7 +97,8 @@
 				overlay.style.height = orbium.Tile.size+"px";
 				overlay.style.zIndex = 101;
 				if (components[i][2] !== "") {
-					overlay.style.backgroundImage = "url("+orbium.gfx_path+components[i][2]+".png)";
+					overlay.style.backgroundImage = "url("+
+						orbium.gfx_path+components[i][2]+".png)";
 				}
 				overlay.style.cursor = "pointer";
 
@@ -171,4 +175,4 @@
 
 		this.construct.apply(this, arguments);
 	};
-}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));
+})(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

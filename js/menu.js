@@ -1,4 +1,4 @@
-(function(orbium) {
+(function(orbium, undefined) {
 	orbium.Menu = function() {
 		var shadowFactor = 17;
 		var textFactor = 2.5;
@@ -143,6 +143,7 @@
 			var top = orbium.ypos+orbium.Marble.size;
 			var width = orbium.width-orbium.Marble.size*2;
 			var height = orbium.height-orbium.Marble.size*2;
+			var textShadow = Math.round(orbium.Tile.size/shadowFactor);
 
 			menu.style.visibility = "hidden";
 			menu.style.left = ""+left+"px";
@@ -150,50 +151,52 @@
 			menu.style.width = ""+width+"px";
 			menu.style.height = ""+height+"px";
 			menu.style.fontSize = orbium.Tile.size+"px";
-			menu.style.textShadow = "0px 0px "+Math.round(orbium.Tile.size/shadowFactor)+"px #ffffff";
+			menu.style.textShadow = "0px 0px "+textShadow+"px #ffffff";
+			
+			var fontSize = Math.round(orbium.Tile.size/textFactor);
 
-			support.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
-			credits.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
-			filler5.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
-			abob.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
-			copy.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
-			filler6.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
+			support.style.fontSize = ""+fontSize+"px";
+			credits.style.fontSize = ""+fontSize+"px";
+			filler5.style.fontSize = ""+fontSize+"px";
+			abob.style.fontSize = ""+fontSize+"px";
+			copy.style.fontSize = ""+fontSize+"px";
+			filler6.style.fontSize = ""+fontSize+"px";
 
-			pack.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
-			nr.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
-			edit.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
-			prev.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
-			next.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
-			play.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
-			lvlb.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
+			pack.style.fontSize = ""+fontSize+"px";
+			nr.style.fontSize = ""+fontSize+"px";
+			edit.style.fontSize = ""+fontSize+"px";
+			prev.style.fontSize = ""+fontSize+"px";
+			next.style.fontSize = ""+fontSize+"px";
+			play.style.fontSize = ""+fontSize+"px";
+			lvlb.style.fontSize = ""+fontSize+"px";
 
-			sound.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
-			tutorial.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
-			limits.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
-			filler0.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
+			sound.style.fontSize = ""+fontSize+"px";
+			tutorial.style.fontSize = ""+fontSize+"px";
+			limits.style.fontSize = ""+fontSize+"px";
+			filler0.style.fontSize = ""+fontSize+"px";
 
-			debug.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
-			logo.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
-			settb.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
+			debug.style.fontSize = ""+fontSize+"px";
+			logo.style.fontSize = ""+fontSize+"px";
+			settb.style.fontSize = ""+fontSize+"px";
 
-			reset.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
-			unlock.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
-			editoron.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
-			perfon.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
-			connecton.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
+			reset.style.fontSize = ""+fontSize+"px";
+			unlock.style.fontSize = ""+fontSize+"px";
+			editoron.style.fontSize = ""+fontSize+"px";
+			perfon.style.fontSize = ""+fontSize+"px";
+			connecton.style.fontSize = ""+fontSize+"px";
 
-			info.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
-			credb.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
+			info.style.fontSize = ""+fontSize+"px";
+			credb.style.fontSize = ""+fontSize+"px";
 
-			fai.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
-			filler3.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
-			filler4.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
-			retry.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
-			failb.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
+			fai.style.fontSize = ""+fontSize+"px";
+			filler3.style.fontSize = ""+fontSize+"px";
+			filler4.style.fontSize = ""+fontSize+"px";
+			retry.style.fontSize = ""+fontSize+"px";
+			failb.style.fontSize = ""+fontSize+"px";
 
-			comp.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
-			nextl.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
-			compb.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
+			comp.style.fontSize = ""+fontSize+"px";
+			nextl.style.fontSize = ""+fontSize+"px";
+			compb.style.fontSize = ""+fontSize+"px";
 		};
 
 		this.setupTouchEvents = function() {
@@ -459,16 +462,19 @@
 
 			lgob.style.left = ""+Math.round(orbium.Tile.size*1.6)+"px";
 			lgob.style.fontSize = ""+Math.round(orbium.Tile.size*1.1)+"px";
-			lgob.style.letterSpacing = ""+Math.round(orbium.Tile.size/14)+"px";
+			lgob.style.letterSpacing = ""+
+				Math.round(orbium.Tile.size/14)+"px";
 
 			loading.style.left = ""+Math.round(orbium.Tile.size*1.7)+"px";
 			loading.style.fontSize = ""+Math.round(orbium.Tile.size/4)+"px";
-			loading.style.letterSpacing = ""+Math.round(orbium.Tile.size/3)+"px";
+			loading.style.letterSpacing = ""+
+				Math.round(orbium.Tile.size/3)+"px";
 
 			copyright.style.left = ""+Math.round(orbium.Tile.size*2.13)+"px";
 			copyright.style.top = ""+Math.round(orbium.Tile.size*3.12)+"px";
 			copyright.style.fontSize = ""+Math.round(orbium.Tile.size/9)+"px";
-			copyright.style.letterSpacing = ""+Math.round(orbium.Tile.size/14)+"px";
+			copyright.style.letterSpacing = ""+
+				Math.round(orbium.Tile.size/14)+"px";
 
 			lgo.style.visibility = "visible";
 			lgo.style.top = "39%";
@@ -491,13 +497,16 @@
 			if (orbium.machine.levnr === orbium.level.length-1) {
 				if (orbium.level_full === undefined) {
 					compl.style.top = "8%";
-					comp.innerHTML = "IN THE FULL GAME...<br><br>96 ADDITIONAL LEVELS!<br><br>TELEPORTERS, CHANGERS, BLOCKERS AND MORE!";
+					comp.innerHTML = "IN THE FULL GAME...<br><br>96 "+
+						"ADDITIONAL LEVELS!<br><br>TELEPORTERS, CHANGERS, "+
+						"BLOCKERS AND MORE!";
 					nextl.style.left = "13%";
 					compb.style.left = "68%";
 					nextl.innerHTML = "GET IT NOW!";
 				} else {
 					compl.style.top = "35%";
-					comp.innerHTML = "CONGRATULATIONS, YOU COMPLETED ALL LEVELS!";
+					comp.innerHTML = "CONGRATULATIONS, YOU COMPLETED ALL "+
+						"LEVELS!";
 					nextl.innerHTML = "START";
 				}
 			} else {
@@ -565,10 +574,12 @@
 			if (!orbium.player.audioSupported) {
 				sound.innerHTML = "SOUND: N/A";
 
+				var textShadow = Math.round(orbium.Tile.size/shadowFactor);
+
 				sound.style.cursor = "default";
 				sound.style.color = "#444444"
 				sound.style.webkitTextStrokeColor = "#666666";
-				sound.style.textShadow = "0px 0px "+Math.round(orbium.Tile.size/shadowFactor)+"px #666666";
+				sound.style.textShadow = "0px 0px "+textShadow+"px #666666";
 			} else {
 				// If not set set it to true
 				var soundEnabled = orbium.storage.readValue("sound");
@@ -597,11 +608,13 @@
 		this.updateTutorial = function() {
 			if (orbium.tutorial.checkDisableTutorial()) {
 				tutorial.innerHTML = "TUTORIAL: N/A";
+				
+				var textShadow = Math.round(orbium.Tile.size/shadowFactor);
 
 				tutorial.style.cursor = "default";
 				tutorial.style.color = "#444444"
 				tutorial.style.webkitTextStrokeColor = "#666666";
-				tutorial.style.textShadow = "0px 0px "+Math.round(orbium.Tile.size/shadowFactor)+"px #666666";
+				tutorial.style.textShadow = "0px 0px "+textShadow+"px #666666";
 			} else {
 				// If not set set it to true
 				var tutorialEnabled = orbium.storage.readValue("tutorial");
@@ -658,15 +671,17 @@
 		};
 
 		this.setLvlNr = function() {
+			var textShadow = Math.round(orbium.Tile.size/shadowFactor);
+
 			if (orbium.machine.levnr === 0) {
 				prev.style.color = "#444444";
 				prev.style.webkitTextStrokeColor = "#666666";
-				prev.style.textShadow = "0px 0px "+Math.round(orbium.Tile.size/shadowFactor)+"px #666666";
+				prev.style.textShadow = "0px 0px "+textShadow+"px #666666";
 				prev.style.cursor = "default";
 			} else {
 				prev.style.color = "#cccccc";
 				prev.style.webkitTextStrokeColor = "white";
-				prev.style.textShadow = "0px 0px "+Math.round(orbium.Tile.size/shadowFactor)+"px #ffffff";
+				prev.style.textShadow = "0px 0px "+textShadow+"px #ffffff";
 				prev.style.cursor = "pointer";
 			}
 
@@ -680,12 +695,12 @@
 			if (orbium.machine.levnr === reached) {
 				next.style.color = "#444444";
 				next.style.webkitTextStrokeColor = "#666666";
-				next.style.textShadow = "0px 0px "+Math.round(orbium.Tile.size/shadowFactor)+"px #666666";
+				next.style.textShadow = "0px 0px "+textShadow+"px #666666";
 				next.style.cursor = "default";
 			} else {
 				next.style.color = "#cccccc";
 				next.style.webkitTextStrokeColor = "white";
-				next.style.textShadow = "0px 0px "+Math.round(orbium.Tile.size/shadowFactor)+"px #ffffff";
+				next.style.textShadow = "0px 0px "+textShadow+"px #ffffff";
 				next.style.cursor = "pointer";
 			}
 
@@ -870,16 +885,14 @@
 				id: orbium.Util.generateUniqeString(),
 				name: "NEW",
 				level: eval(
-					"["+
-						"["+
-							"'E00', 'E00', 'E00', 'E00', 'E00', 'E00', 'E00', 'E00',"+
-							"'E00', 'E00', 'E00', 'E00', 'E00', 'E00', 'E00', 'E00',"+
-							"'E00', 'E00', 'E00', 'E00', 'E00', 'E00', 'E00', 'E00',"+
-							"'E00', 'E00', 'E00', 'E00', 'E00', 'E00', 'E00', 'E00',"+
-							"'E00', 'E00', 'E00', 'E00', 'E00', 'E00', 'E00', 'N00',"+
-							"0, 20, 10"+
-						"]"+
-					"]"
+					"[["+
+					"'E00', 'E00', 'E00', 'E00', 'E00', 'E00', 'E00', 'E00',"+
+					"'E00', 'E00', 'E00', 'E00', 'E00', 'E00', 'E00', 'E00',"+
+					"'E00', 'E00', 'E00', 'E00', 'E00', 'E00', 'E00', 'E00',"+
+					"'E00', 'E00', 'E00', 'E00', 'E00', 'E00', 'E00', 'E00',"+
+					"'E00', 'E00', 'E00', 'E00', 'E00', 'E00', 'E00', 'N00',"+
+					"0, 20, 10"+
+					"]]"
 				)
 			}
 
@@ -957,7 +970,8 @@
 		};
 
 		this.playNext = function() {
-			if (orbium.level_full === undefined && orbium.machine.levnr === orbium.level.length-1) {
+			if (orbium.level_full === undefined &&
+				orbium.machine.levnr === orbium.level.length-1) {
 				this.appstore();
 				return;
 			} else if (orbium.machine.levnr === orbium.level.length-1) {
@@ -990,13 +1004,18 @@
 
 		this.appstore = function() {
 			if (orbium.Util.isUA("iPhone") || orbium.Util.isUA("iPad")) {
-				window.location.href = "http://itunes.apple.com/us/app/orbium/id376402382?mt=8";
+				window.location.href =
+					"http://itunes.apple.com/us/app/orbium/id376402382?mt=8";
 			} else if (orbium.Util.isUA("webOS")) {
-				window.location.href = "http://developer.palm.com/webChannel/index.php?packageid=se.jsway.orbium";
+				window.location.href =
+					"http://developer.palm.com/webChannel/index.php?"+
+					"packageid=se.jsway.orbium";
 			} else if (orbium.Util.isUA("Android")) {
-				window.location.href = "market://search?q=pname:se.jsway.orbium";
+				window.location.href =
+					"http://market.android.com/details?id=se.jsway.orbium";
 			} else {
-				window.location.href = "http://itunes.apple.com/us/app/orbium/id376402382?mt=8";
+				window.location.href =
+					"http://itunes.apple.com/us/app/orbium/id376402382?mt=8";
 			}
 		};
 
@@ -1016,4 +1035,4 @@
 
 		this.construct.apply(this, arguments);
 	};
-}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));
+})(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

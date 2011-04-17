@@ -1,4 +1,4 @@
-(function(orbium) {
+(function(orbium, undefined) {
 	orbium.Transformer = function(count, xnr, ynr, vari, col) {
 		var color = null;
 
@@ -34,4 +34,4 @@
 
 		this.construct.apply(this, arguments);
 	}; orbium.Transformer.prototype = new orbium.Tile();
-}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));
+})(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

@@ -1,4 +1,4 @@
-(function(orbium) {
+(function(orbium, undefined) {
 	orbium.Perf = function() {
 		var textFactor = 4;
 		var perf0 = null;
@@ -23,12 +23,13 @@
 			var top = orbium.ypos+orbium.height-orbium.Marble.size;
 			var width = Math.round(orbium.Marble.size*3.0);
 			var height = orbium.Marble.size;
+			var fontSize = Math.round(orbium.Tile.size/textFactor);
 
 			perf0.style.left = ""+left+"px";
 			perf0.style.top = ""+top+"px";
 			perf0.style.width = ""+width+"px";
 			perf0.style.height = ""+height+"px";
-			perf0.style.fontSize = ""+Math.round(orbium.Tile.size/textFactor)+"px";
+			perf0.style.fontSize = ""+fontSize+"px";
 
 			perf0.style.visibility = "visible";
 
@@ -49,4 +50,4 @@
 
 		this.construct.apply(this, arguments);
 	};
-}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));
+})(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

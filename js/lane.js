@@ -1,4 +1,4 @@
-(function(orbium) {
+(function(orbium, undefined) {
 	orbium.Lane = function() {
 		var bars = null;
 		var timer = null;
@@ -40,8 +40,8 @@
 		};
 
 		this.injectMarble = function() {
-			// Check that there does not already exist a fresh marble in the lane
-			// This should never happen, but check for it anyway
+			// Check that there does not already exist a fresh marble in
+			// the lane. This should never happen, but check for it anyway
 			for (var i = 0, j = orbium.machine.marbles.length; i < j; i++) {
 				if (orbium.machine.marbles[i].fresh) {
 					return;
@@ -68,8 +68,11 @@
 		};
 
 		this.update = function(dt, marble) {
-			var idx1 = Math.floor(marble.xpos/orbium.Tile.size);
-			var idx2 = Math.floor((marble.xpos+orbium.Marble.size)/orbium.Tile.size);
+			var x1 = marble.xpos;
+			var x2 = marble.xpos+orbium.Marble.size;
+
+			var idx1 = Math.floor(x1/orbium.Tile.size);
+			var idx2 = Math.floor(x2/orbium.Tile.size);
 
 			if (idx1 >= 0 && idx1 < bars.length) {
 				var bar1 = bars[idx1];
@@ -81,8 +84,11 @@
 				bar2.invalidate();
 			}
 
-			var idx3 = Math.floor(timer.xpos/orbium.Tile.size);
-			var idx4 = Math.floor((timer.xpos+orbium.Tile.size)/orbium.Tile.size);
+			var x3 = timer.xpos;
+			var x4 = timer.xpos+orbium.Tile.size;
+
+			var idx3 = Math.floor(x3/orbium.Tile.size);
+			var idx4 = Math.floor(x4/orbium.Tile.size);
 
 			if (idx3 >= 0 && idx3 < bars.length) {
 				var bar3 = bars[idx3];
@@ -110,4 +116,4 @@
 
 		this.construct.apply(this, arguments);
 	};
-}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));
+})(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

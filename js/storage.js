@@ -1,4 +1,4 @@
-(function(orbium) {
+(function(orbium, undefined) {
 	orbium.Storage = function() {
 		var haveStorageAPI = null;
 
@@ -9,8 +9,10 @@
 				haveStorageAPI = true;
 			}
 
-			// Storage API disabled on these platforms becouse they did not support them
-			// They might now, but we must continue to use cookies if we started with it once
+			// Storage API disabled on these platforms becouse they did not
+			// support them when this code was written.
+			// They might now, but we must continue to use cookies if we
+			// started with it once, since data is already there
 			if (orbium.Util.isUA("webOS") || orbium.Util.isUA("MSIE")) {
 				haveStorageAPI = false;
 			}
@@ -74,4 +76,4 @@
 
 		this.construct.apply(this, arguments);
 	};
-}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));
+})(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

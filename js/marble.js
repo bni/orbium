@@ -1,4 +1,4 @@
-(function(orbium) {
+(function(orbium, undefined) {
 	orbium.Marble = function(xpos, ypos, color, frame, direction) {
 		this.color = null;
 		this.frame = null;
@@ -112,13 +112,8 @@
 		};
 
 		this.update = function(dt) {
-			// Sometimes there can be a scheduling delay resulting in a large
-			// movement of the marble, we want to filter those out
-			if (orbium.Marble.speed*dt > orbium.Marble.size/2) {
-				return;
-			}
-
-			// Guard against marble coming outside the screen, should never happen
+			// Guard against marble coming outside of the screen, should
+			// never happen
 			if (this.xpos < 0) {
 				this.direction = 1;
 				this.lastDockTry = null;
@@ -151,4 +146,4 @@
 
 		this.construct.apply(this, arguments);
 	}; orbium.Marble.prototype = new orbium.Sprite();
-}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));
+})(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

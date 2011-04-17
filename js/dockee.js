@@ -1,4 +1,4 @@
-(function(orbium) {
+(function(orbium, undefined) {
 	orbium.Dockee = function(parent, pos, color, frame) {
 		this.parent = null;
 		this.pos = null;
@@ -28,19 +28,23 @@
 			if (offset > 6) {
 				offset = 0;
 			}
+			
+			var o1 = 0.3450;
+			var o2 = 0.0382;
+			var o3 = 0.6520;
 
 			if (offset === 0 || offset === 4) {
-				this.xpos = Math.round(this.parent.xpos+orbium.Tile.size*0.3450);
-				this.ypos = Math.round(this.parent.ypos+orbium.Tile.size*0.0382);
+				this.xpos = Math.round(this.parent.xpos+orbium.Tile.size*o1);
+				this.ypos = Math.round(this.parent.ypos+orbium.Tile.size*o2);
 			} else if (offset === 1 || offset === 5) {
-				this.xpos = Math.round(this.parent.xpos+orbium.Tile.size*0.6520);
-				this.ypos = Math.round(this.parent.ypos+orbium.Tile.size*0.3450);
+				this.xpos = Math.round(this.parent.xpos+orbium.Tile.size*o3);
+				this.ypos = Math.round(this.parent.ypos+orbium.Tile.size*o1);
 			} else if (offset === 2 || offset === 6) {
-				this.xpos = Math.round(this.parent.xpos+orbium.Tile.size*0.3450);
-				this.ypos = Math.round(this.parent.ypos+orbium.Tile.size*0.6520);
+				this.xpos = Math.round(this.parent.xpos+orbium.Tile.size*o1);
+				this.ypos = Math.round(this.parent.ypos+orbium.Tile.size*o3);
 			} else if (offset === 3) {
-				this.xpos = Math.round(this.parent.xpos+orbium.Tile.size*0.0382);
-				this.ypos = Math.round(this.parent.ypos+orbium.Tile.size*0.3450);
+				this.xpos = Math.round(this.parent.xpos+orbium.Tile.size*o2);
+				this.ypos = Math.round(this.parent.ypos+orbium.Tile.size*o1);
 			}
 		};
 
@@ -184,4 +188,4 @@
 
 		this.construct.apply(this, arguments);
 	}; orbium.Dockee.prototype = new orbium.Sprite();
-}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));
+})(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

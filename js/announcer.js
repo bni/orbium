@@ -1,4 +1,4 @@
-(function(orbium) {
+(function(orbium, undefined) {
 	orbium.Announcer = function(count, xnr, ynr) {
 		this.construct = function() {
 			orbium.Tile.prototype.construct.call(this, ["announcer0"], count,
@@ -12,4 +12,4 @@
 
 		this.construct.apply(this, arguments);
 	}; orbium.Announcer.prototype = new orbium.Tile();
-}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));
+})(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

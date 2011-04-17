@@ -1,4 +1,4 @@
-(function(orbium) {
+(function(orbium, undefined) {
 	orbium.Teleporter = function(count, xnr, ynr, vari) {
 		this.construct = function() {
 			this.variant = vari;
@@ -39,7 +39,8 @@
 					var type = null;
 					if (marble.direction === 0 || marble.direction === 2) {
 						type = 0;
-					} else if (marble.direction === 1 || marble.direction === 3) {
+					} else if (marble.direction === 1 ||
+						marble.direction === 3) {
 						type = 1;
 					}
 
@@ -51,12 +52,14 @@
 
 				marble.lastTeleportDest = dest;
 
-				marble.xpos = dest.xpos+orbium.Tile.size/2-orbium.Marble.size/2;
-				marble.ypos = dest.ypos+orbium.Tile.size/2-orbium.Marble.size/2;
+				var offset = orbium.Tile.size/2-orbium.Marble.size/2;
+
+				marble.xpos = dest.xpos+offset;
+				marble.ypos = dest.ypos+offset;
 				dest.invalidate();
 			}
 		};
 
 		this.construct.apply(this, arguments);
 	}; orbium.Teleporter.prototype = new orbium.Tile();
-}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));
+})(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

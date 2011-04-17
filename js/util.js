@@ -1,9 +1,9 @@
-(function(orbium) {
+(function(orbium, undefined) {
 	orbium.Util = {};
 
-	orbium.Util.withinRect = function(xcheck, ycheck, xpos, ypos, width, height) {
-		if (xcheck >= xpos && xcheck <= xpos+width) {
-			if (ycheck >= ypos && ycheck <= ypos+height) {
+	orbium.Util.withinRect = function(xchk, ychk, xpos, ypos, width, height) {
+		if (xchk >= xpos && xchk <= xpos+width) {
+			if (ychk >= ypos && ychk <= ypos+height) {
 				return true;
 			}
 		}
@@ -65,7 +65,9 @@
 	};
 
 	orbium.Util.generateUniqeString = function() {
-		var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".split("");
+		var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"+
+			"abcdefghijklmnopqrstuvwxyz".split("");
+
 		var arr = [];
 
 		for (var i = 0; i < 6; i++) {
@@ -145,4 +147,4 @@
 
 		return false;
 	};
-}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));
+})(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

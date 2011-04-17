@@ -1,4 +1,4 @@
-(function(orbium) {
+(function(orbium, undefined) {
 	orbium.level_show = [
 		[
 			"R00", "R00", "H00", "H00", "T11", "D20", "R00", "R00",
@@ -37,4 +37,4 @@
 			73, 6, 9
 		]
 	];
-}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));
+})(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

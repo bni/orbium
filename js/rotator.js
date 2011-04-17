@@ -1,4 +1,4 @@
-(function(orbium) {
+(function(orbium, undefined) {
 	orbium.Rotator = function(count, xnr, ynr) {
 		this.orientation = null;
 		this.broken = null;
@@ -447,13 +447,17 @@
 				}
 			} else {
 				var within = false;
+				
+				var offset1 = orbium.Tile.size/2-orbium.Marble.size/2;
+				var offset2 = orbium.Tile.size-orbium.Marble.size-
+					orbium.Marble.size/6;
 
 				if (marble.direction === 0) {
 					if (orbium.Util.withinRect(
 						marble.xpos+orbium.Marble.size/2,
 						marble.ypos,
-						this.xpos+orbium.Tile.size/2-orbium.Marble.size/2,
-						this.ypos+orbium.Tile.size-orbium.Marble.size-orbium.Marble.size/6,
+						this.xpos+offset1,
+						this.ypos+offset2,
 						orbium.Marble.size,
 						orbium.Marble.size)) {
 							within = true;
@@ -463,7 +467,7 @@
 						marble.xpos+orbium.Marble.size,
 						marble.ypos+orbium.Marble.size/2,
 						this.xpos+orbium.Marble.size/6,
-						this.ypos+orbium.Tile.size/2-orbium.Marble.size/2,
+						this.ypos+offset1,
 						orbium.Marble.size,
 						orbium.Marble.size)) {
 							within = true;
@@ -472,7 +476,7 @@
 					if (orbium.Util.withinRect(
 						marble.xpos+orbium.Marble.size/2,
 						marble.ypos+orbium.Marble.size,
-						this.xpos+orbium.Tile.size/2-orbium.Marble.size/2,
+						this.xpos+offset1,
 						this.ypos+orbium.Marble.size/6,
 						orbium.Marble.size,
 						orbium.Marble.size)) {
@@ -482,8 +486,8 @@
 					if (orbium.Util.withinRect(
 						marble.xpos,
 						marble.ypos+orbium.Marble.size/2,
-						this.xpos+orbium.Tile.size-orbium.Marble.size-orbium.Marble.size/6,
-						this.ypos+orbium.Tile.size/2-orbium.Marble.size/2,
+						this.xpos+offset2,
+						this.ypos+offset1,
 						orbium.Marble.size,
 						orbium.Marble.size)) {
 							within = true;
@@ -698,4 +702,4 @@
 
 		var that = this; this.construct.apply(this, arguments);
 	}; orbium.Rotator.prototype = new orbium.Tile();
-}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));
+})(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

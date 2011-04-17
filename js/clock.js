@@ -1,4 +1,4 @@
-(function(orbium) {
+(function(orbium, undefined) {
 	orbium.Clock = function(count, xnr, ynr) {
 		var t = null;
 		var frame = null;
@@ -36,4 +36,4 @@
 
 		this.construct.apply(this, arguments);
 	}; orbium.Clock.prototype = new orbium.Tile();
-}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));
+})(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

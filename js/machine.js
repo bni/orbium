@@ -1,4 +1,4 @@
-(function(orbium) {
+(function(orbium, undefined) {
 	orbium.Machine = function() {
 		this.lane = null;
 		this.tiles = null;
@@ -193,10 +193,12 @@
 					orbium.storage.writeValue("reachedlevel", levnr);
 				}
 
+				var rl = orbium.level.length-1;
+
 				// If reached level is higher than available levels, write
 				// available levels as reached
-				if (reached !== null && reached > orbium.level.length-1) {
-					orbium.storage.writeValue("reachedlevel", orbium.level.length-1);
+				if (reached !== null && reached > rl) {
+					orbium.storage.writeValue("reachedlevel", rl);
 				}
 			}
 		};
@@ -515,12 +517,16 @@
 						that.tiles[idx].influence(marble);
 					}
 				} else {
-					var idx1 = Math.floor(marble.xpos/orbium.Tile.size);
-					var idy1 = Math.floor((marble.ypos-orbium.Bar.height)/orbium.Tile.size);
+					var x1 = marble.xpos;
+					var y1 = marble.ypos-orbium.Bar.height;
+					var idx1 = Math.floor(x1/orbium.Tile.size);
+					var idy1 = Math.floor(y1/orbium.Tile.size);
 					var count1 = idy1*orbium.Machine.horizTiles+idx1;
 
-					var idx2 = Math.floor((marble.xpos+orbium.Marble.size)/orbium.Tile.size);
-					var idy2 = Math.floor((marble.ypos+orbium.Marble.size-orbium.Bar.height)/orbium.Tile.size);
+					var x2 = marble.xpos+orbium.Marble.size;
+					var y2 = marble.ypos+orbium.Marble.size-orbium.Bar.height;
+					var idx2 = Math.floor(x2/orbium.Tile.size);
+					var idy2 = Math.floor(y2/orbium.Tile.size);
 					var count2 = idy2*orbium.Machine.horizTiles+idx2;
 
 					var tile1 = that.tiles[count1];
@@ -605,25 +611,32 @@
 
 				//orbium.ctx.clearRect(0, 0, orbium.width, orbium.height);
 
-				// Only update if not paused
-				if (!this.paused) {
-					updateTiles(dt);
-					updateMarbles(dt);
-					removeStaleMarbles();
-					updateSigns(dt);
-				}
+				// Sometimes there can be a scheduling delay resulting in a
+				// large delta time, we want to filter those ticks out.
+				// This also happens if browser supports requestAnimationFrame
+				// and the user swithces to another tab.
+				// It can also happen if the fps is very low. 100 ms (10 fps)
+				if (dt < 0.1) {
+					// Only update if not paused
+					if (!this.paused) {
+						updateTiles(dt);
+						updateMarbles(dt);
+						removeStaleMarbles();
+						updateSigns(dt);
+					}
 
-				drawLane();
-				drawTilesFirstPass();
-				drawMarbles();
-				drawTilesSecondPass();
+					drawLane();
+					drawTilesFirstPass();
+					drawMarbles();
+					drawTilesSecondPass();
 
-				if (this.first) {
-					this.first = false;
+					if (this.first) {
+						this.first = false;
 
-					this.hideProgress();
+						this.hideProgress();
 
-					orbium.menu.showMain();
+						orbium.menu.showMain();
+					}
 				}
 			} else {
 				var num = 0;
@@ -648,4 +661,4 @@
 
 		var that = this; this.construct.apply(this, arguments);
 	};
-}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));
+})(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

@@ -1,4 +1,4 @@
-(function(orbium) {
+(function(orbium, undefined) {
 	orbium.Player = function() {
 		var hasPhoneGapMedia = null; // PhoneGap Media support?
 		var hasSoundPlug = null; // SoundPlug plugin support?
@@ -20,7 +20,9 @@
 			} else 	if (!!document.createElement("audio").canPlayType) {
 				var a = document.createElement("audio");
 
-				if (!!(a.canPlayType && a.canPlayType('audio/wav; codecs="1"').replace(/no/, ''))) {
+				var wavStr = 'audio/wav; codecs="1"';
+				if (!!(a.canPlayType &&
+					a.canPlayType(wavStr).replace(/no/, ''))) {
 					hasNativeAudio = true;
 				}
 			}
@@ -56,4 +58,4 @@
 
 		this.construct.apply(this, arguments);
 	};
-}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));
+})(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

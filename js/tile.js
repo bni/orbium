@@ -1,4 +1,4 @@
-(function(orbium) {
+(function(orbium, undefined) {
 	orbium.Tile = function() {
 		this.count = null;
 		this.xnr = null;
@@ -165,4 +165,4 @@
 			// Default implementation does nothing
 		}; orbium.Tile.prototype.influence = this.influence;
 	}; orbium.Tile.prototype = new orbium.Sprite();
-}(typeof window != "undefined" ? window.orbium = window.orbium || {} : orbium));
+})(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);
