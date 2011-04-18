@@ -65,8 +65,10 @@
 	};
 
 	orbium.Util.generateUniqeString = function() {
-		var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"+
-			"abcdefghijklmnopqrstuvwxyz".split("");
+		var allowed = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"+
+			"abcdefghijklmnopqrstuvwxyz";
+
+		var chars = allowed.split("");
 
 		var arr = [];
 
