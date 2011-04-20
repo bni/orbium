@@ -7,8 +7,7 @@
 				xnr, ynr);
 
 			this.inducesSink = true;
-
-			this.inducesTopPath = true;
+			this.inducesPaths = [true, false, false, false];
 		};
 
 		this.fallMarble = function(marble) {

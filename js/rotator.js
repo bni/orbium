@@ -23,11 +23,7 @@
 				"rotator0"], count, xnr, ynr);
 
 			this.inducesSink = true;
-
-			this.inducesTopPath = true;
-			this.inducesRightPath = true;
-			this.inducesBottomPath = true;
-			this.inducesLeftPath = true;
+			this.inducesPaths = [true, true, true, true];
 		};
 
 		this.destruct = function() {
@@ -314,20 +310,20 @@
 
 			var proceed = false;
 
-			if (dir === 0 && that.hasTopPath &&
+			if (dir === 0 && that.hasPaths[0] &&
 				that.count >= orbium.Machine.horizTiles) {
 				proceed = true;
 			}
 
-			if (dir === 1 && that.hasRightPath) {
+			if (dir === 1 && that.hasPaths[1]) {
 				proceed = true;
 			}
 
-			if (dir === 2 && that.hasBottomPath) {
+			if (dir === 2 && that.hasPaths[2]) {
 				proceed = true;
 			}
 
-			if (dir === 3 && that.hasLeftPath) {
+			if (dir === 3 && that.hasPaths[3]) {
 				proceed = true;
 			}
 

@@ -9,10 +9,7 @@
 			orbium.Tile.prototype.construct.call(this, ["modtile0", null,
 				"inspector"+color], count, xnr, ynr);
 
-			this.inducesTopPath = true;
-			this.inducesRightPath = true;
-			this.inducesBottomPath = true;
-			this.inducesLeftPath = true;
+			this.inducesPaths = [true, true, true, true];
 		};
 
 		this.setBase = function() {

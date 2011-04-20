@@ -6,8 +6,7 @@
 			orbium.Tile.prototype.construct.call(this, ["horiztile"+x], count,
 				xnr, ynr);
 
-			this.inducesRightPath = true;
-			this.inducesLeftPath = true;
+			this.inducesPaths = [false, true, false, true];
 		};
 
 		this.construct.apply(this, arguments);

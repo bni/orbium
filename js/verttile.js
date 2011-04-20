@@ -6,8 +6,7 @@
 			orbium.Tile.prototype.construct.call(this, ["verttile"+x], count,
 				xnr, ynr);
 
-			this.inducesTopPath = true;
-			this.inducesBottomPath = true;
+			this.inducesPaths = [true, false, true, false];
 		};
 
 		this.construct.apply(this, arguments);
