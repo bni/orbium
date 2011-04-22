@@ -10,5 +10,8 @@
 		};
 
 		this.construct.apply(this, arguments);
-	}; orbium.HorizTile.prototype = new orbium.Tile();
+	};
+
+	orbium.HorizTile.prototype = new orbium.Tile();
+	orbium.HorizTile.prototype.constructor = orbium.HorizTile;
 })(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

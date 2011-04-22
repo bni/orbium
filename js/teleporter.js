@@ -58,5 +58,8 @@
 		};
 
 		this.construct.apply(this, arguments);
-	}; orbium.Teleporter.prototype = new orbium.Tile();
+	};
+
+	orbium.Teleporter.prototype = new orbium.Tile();
+	orbium.Teleporter.prototype.constructor = orbium.Teleporter;
 })(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

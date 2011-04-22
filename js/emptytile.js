@@ -8,5 +8,8 @@
 		};
 
 		this.construct.apply(this, arguments);
-	}; orbium.EmptyTile.prototype = new orbium.Tile();
+	};
+
+	orbium.EmptyTile.prototype = new orbium.Tile();
+	orbium.EmptyTile.prototype.constructor = orbium.EmptyTile;
 })(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

@@ -45,5 +45,8 @@
 		};
 
 		this.construct.apply(this, arguments);
-	}; orbium.Counter.prototype = new orbium.Tile();
+	};
+
+	orbium.Counter.prototype = new orbium.Tile();
+	orbium.Counter.prototype.constructor = orbium.Counter;
 })(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

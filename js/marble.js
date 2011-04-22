@@ -145,5 +145,8 @@
 		};
 
 		this.construct.apply(this, arguments);
-	}; orbium.Marble.prototype = new orbium.Sprite();
+	};
+
+	orbium.Marble.prototype = new orbium.Sprite();
+	orbium.Marble.prototype.constructor = orbium.Marble;
 })(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

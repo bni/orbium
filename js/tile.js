@@ -150,5 +150,8 @@
 		orbium.Tile.prototype.influence = function(marble) {
 			// Default implementation does nothing
 		};
-	}; orbium.Tile.prototype = new orbium.Sprite();
+	};
+
+	orbium.Tile.prototype = new orbium.Sprite();
+	orbium.Tile.prototype.constructor = orbium.Tile;
 })(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

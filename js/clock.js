@@ -35,5 +35,8 @@
 		};
 
 		this.construct.apply(this, arguments);
-	}; orbium.Clock.prototype = new orbium.Tile();
+	};
+
+	orbium.Clock.prototype = new orbium.Tile();
+	orbium.Clock.prototype.constructor = orbium.Clock;
 })(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

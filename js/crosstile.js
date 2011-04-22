@@ -10,5 +10,8 @@
 		};
 
 		this.construct.apply(this, arguments);
-	}; orbium.CrossTile.prototype = new orbium.Tile();
+	};
+
+	orbium.CrossTile.prototype = new orbium.Tile();
+	orbium.CrossTile.prototype.constructor = orbium.CrossTile;
 })(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

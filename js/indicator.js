@@ -14,5 +14,8 @@
 		};
 
 		this.construct.apply(this, arguments);
-	}; orbium.Indicator.prototype = new orbium.Sprite();
+	};
+
+	orbium.Indicator.prototype = new orbium.Sprite();
+	orbium.Indicator.prototype.constructor = orbium.Indicator;
 })(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

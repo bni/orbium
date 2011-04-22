@@ -187,5 +187,8 @@
 		}
 
 		this.construct.apply(this, arguments);
-	}; orbium.Dockee.prototype = new orbium.Sprite();
+	};
+
+	orbium.Dockee.prototype = new orbium.Sprite();
+	orbium.Dockee.prototype.constructor = orbium.Dockee;
 })(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

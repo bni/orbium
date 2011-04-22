@@ -124,5 +124,8 @@
 		};
 
 		var that = this; this.construct.apply(this, arguments);
-	}; orbium.Matcher.prototype = new orbium.Tile();
+	};
+
+	orbium.Matcher.prototype = new orbium.Tile();
+	orbium.Matcher.prototype.constructor = orbium.Matcher;
 })(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

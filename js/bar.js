@@ -41,5 +41,8 @@
 		};
 
 		this.construct.apply(this, arguments);
-	}; orbium.Bar.prototype = new orbium.Sprite();
+	};
+
+	orbium.Bar.prototype = new orbium.Sprite();
+	orbium.Bar.prototype.constructor = orbium.Bar;
 })(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

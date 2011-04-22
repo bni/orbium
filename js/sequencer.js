@@ -98,5 +98,8 @@
 		};
 
 		var that = this; this.construct.apply(this, arguments);
-	}; orbium.Sequencer.prototype = new orbium.Tile();
+	};
+
+	orbium.Sequencer.prototype = new orbium.Tile();
+	orbium.Sequencer.prototype.constructor = orbium.Sequencer;
 })(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

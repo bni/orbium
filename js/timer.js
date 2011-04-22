@@ -129,5 +129,8 @@
 		}
 
 		this.construct.apply(this, arguments);
-	}; orbium.Timer.prototype = new orbium.Sprite();
+	};
+
+	orbium.Timer.prototype = new orbium.Sprite();
+	orbium.Timer.prototype.constructor = orbium.Timer;
 })(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

@@ -697,5 +697,8 @@
 		};
 
 		var that = this; this.construct.apply(this, arguments);
-	}; orbium.Rotator.prototype = new orbium.Tile();
+	};
+
+	orbium.Rotator.prototype = new orbium.Tile();
+	orbium.Rotator.prototype.constructor = orbium.Rotator;
 })(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

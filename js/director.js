@@ -35,5 +35,8 @@
 		};
 
 		this.construct.apply(this, arguments);
-	}; orbium.Director.prototype = new orbium.Tile();
+	};
+
+	orbium.Director.prototype = new orbium.Tile();
+	orbium.Director.prototype.constructor = orbium.Director;
 })(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);
