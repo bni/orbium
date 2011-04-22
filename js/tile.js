@@ -11,7 +11,7 @@
 
 		this.hasPaths = null;
 
-		this.construct = function(images, count, xnr, ynr) {
+		orbium.Tile.prototype.construct = function(images, count, xnr, ynr) {
 			this.count = count;
 			this.xnr = xnr;
 			this.ynr = ynr;
@@ -26,9 +26,9 @@
 
 			orbium.Sprite.prototype.construct.call(this, images, xpos, ypos,
 				orbium.Tile.size, orbium.Tile.size, 3);
-		}; orbium.Tile.prototype.construct = this.construct;
+		};
 
-		this.setBase = function(baseName) {
+		orbium.Tile.prototype.setBase = function(baseName) {
 			if (baseName !== undefined) {
 				var idx = 0;
 
@@ -145,10 +145,10 @@
 
 				this.invalidate();
 			}
-		}; orbium.Tile.prototype.setBase = this.setBase;
+		};
 
-		this.influence = function(marble) {
+		orbium.Tile.prototype.influence = function(marble) {
 			// Default implementation does nothing
-		}; orbium.Tile.prototype.influence = this.influence;
+		};
 	}; orbium.Tile.prototype = new orbium.Sprite();
 })(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

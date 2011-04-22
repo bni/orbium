@@ -15,7 +15,8 @@
 		this.lastx = null;
 		this.lasty = null;
 
-		this.construct = function(images, xpos, ypos, width, height, zindex) {
+		orbium.Sprite.prototype.construct = function(images, xpos, ypos,
+			width, height, zindex) {
 			this.xpos = xpos;
 			this.ypos = ypos;
 			this.width = width;
@@ -34,9 +35,9 @@
 
 			this.lastx = this.xpos;
 			this.lasty = this.ypos;
-		}; orbium.Sprite.prototype.construct = this.construct;
+		};
 
-		this.destruct = function() {
+		orbium.Sprite.prototype.destruct = function() {
 			var len = 0;
 			if (orbium.has_canvas) {
 				len = this.images.length;
@@ -47,7 +48,7 @@
 			for (var i = 0; i < len; i++) {
 				this.setImage(i, null);
 			}
-		}; orbium.Sprite.prototype.destruct = this.destruct;
+		};
 
 		var makeElement = function(idx, image, x, y, w, h, z) {
 			var id = ""+image+"_"+orbium.Util.generateUniqeString();
@@ -77,7 +78,7 @@
 			return document.getElementById(id);
 		};
 
-		this.setImage = function(idx, image) {
+		orbium.Sprite.prototype.setImage = function(idx, image) {
 			if (orbium.has_canvas) {
 				if (image !== null) {
 					this.images[idx] = orbium.loader[image];
@@ -104,7 +105,7 @@
 			}
 		};
 
-		this.invalidate = function() {
+		orbium.Sprite.prototype.invalidate = function() {
 			// If we are running on canvas we need to invalidate for every
 			// change that modifies appearance. If we are rendering to DOM
 			// we only need to invalidate on movement.
@@ -118,7 +119,7 @@
 					this.lasty = this.ypos;
 				}
 			}
-		}; orbium.Sprite.prototype.invalidate = this.invalidate;
+		};
 
 		var lastEntry = function(idx, arr) {
 			var last = true;
@@ -133,11 +134,11 @@
 			return last;
 		};
 
-		this.update = function(dt) {
+		orbium.Sprite.prototype.update = function(dt) {
 			// Default implementation does nothing
-		}; orbium.Sprite.prototype.update = this.update;
+		};
 
-		this.draw = function(idx) {
+		orbium.Sprite.prototype.draw = function(idx) {
 			if (this.dirty) {
 				if (orbium.has_canvas) {
 					if (this.images[idx] !== undefined &&
@@ -172,6 +173,6 @@
 					}
 				}
 			}
-		}; orbium.Sprite.prototype.draw = this.draw;
+		};
 	};
 })(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);
