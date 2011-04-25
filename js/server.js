@@ -31,11 +31,6 @@ orbium = {};
 	require("./dockee.js");
 	require("./machine.js");
 
-	var server = net.createServer();
-	server.listen(1991);
-
-	var clients = [];
-
 	var handshake = function(client, data) {
 		var request = (""+data).split("\r\n");
 
@@ -79,31 +74,39 @@ orbium = {};
 			md5.digest("binary")];
 
 		client.socket.write(response.join("\r\n"), "binary");
-	}
+	};
 
 	var send = function(client, msg) {
 	    client.socket.write("\u0000", "binary");
 	    client.socket.write(msg, "utf8");
 	    client.socket.write("\uffff", "binary");
-	}
+	};
 
-	var broadcast = function(msg) {
-		for (var i = 0, j = clients.length; i < j; i++) {
-		    clients[i].socket.write("\u0000", "binary");
-		    clients[i].socket.write(msg, "utf8");
-		    clients[i].socket.write("\uffff", "binary");
-		}
-	}
+	orbium.Server = function() {
+		var clients = [];
+		
+		this.addClient = function(client) {
+			orbium.Util.addArrayElement(clients, client);			
+		};
 
-	var distribute = function(msg, exclude) {
-		for (var i = 0, j = clients.length; i < j; i++) {
-			if (clients[i] != exclude) {
-			    clients[i].socket.write("\u0000", "binary");
-			    clients[i].socket.write(msg, "utf8");
-			    clients[i].socket.write("\uffff", "binary");
+		this.removeClient = function(client) {
+			orbium.Util.removeArrayElement(clients, client);
+		};
+
+		this.broadcast = function(msg, exclude) {
+			//console.log("broadcasting (exluding "+exclude+"): "+msg);
+
+			for (var i = 0, j = clients.length; i < j; i++) {
+				var client = clients[i];
+
+				if (exclude === undefined || client !== exclude) {
+					send(client, msg);
+				}
 			}
-		}
-	}
+		};
+	};
+
+	orbium.server = new orbium.Server();
 
 	orbium.has_dom = false;
 	orbium.has_transform = false;
@@ -141,22 +144,22 @@ orbium = {};
 	orbium.machine.loaded = true;
 	orbium.machine.first = false;
 
-	var target_fps = 60;
-
-	setInterval(function() {orbium.machine.run();},
-		Math.round(1000/target_fps));
-
-	orbium.machine.startLevel();
-
-	server.on("connection", function (socket) {
-	    socket.setEncoding("binary");
+	setInterval(function() {orbium.machine.run();}, 1000/60);
 	
+	var levelStarted = false;
+
+	var listener = net.createServer();
+	listener.listen(1991);
+
+	listener.on("connection", function (socket) {
+	    socket.setEncoding("binary");
+
 		var handshakeComplete = false;
 
 		var client = {};
 		client.id = orbium.Util.generateUniqeString();
 		client.socket = socket;
-		orbium.Util.addArrayElement(clients, client);
+		orbium.server.addClient(client);
 
 		socket.on("data", function(data) {
 			if (!handshakeComplete) {
@@ -165,33 +168,37 @@ orbium = {};
 			    client.socket.setNoDelay(true);
 			    client.socket.setEncoding("utf8");
 
-				console.log(client.id+" connected, "+
-					clients.length+" clients connected");
+				console.log(client.id+" connected");
 
-				var state = orbium.machine.getStateString();
+				var state = orbium.machine.getState();
 				//console.log(state);
 
 				send(client, state);
 
 				handshakeComplete = true;
+
+				if (!levelStarted) {
+					levelStarted = true;
+
+					orbium.machine.startLevel();
+				}
 			} else {
 				// trim padding
 				var received = data.substring(1, data.length-1);
 
-				var command = received.split(":")[0];
-				var arg1 = parseInt(received.split(":")[1]);
+				var command = received.split(";")[0];
+				var count = parseInt(received.split(";")[1]);
 
 				if (command === "R") {
-					orbium.machine.rotateRotator(arg1);
-					distribute("R:"+arg1, client);
+					orbium.machine.rotateRotator(count);
+					orbium.server.broadcast("R;"+count, client);
 				}
 			}
 		});
 
 		socket.on("close", function(had_error) {
-			orbium.Util.removeArrayElement(clients, client);
-			console.log(client.id+" disconnected, "+
-				clients.length+" clients connected");
+			orbium.server.removeClient(client);
+			console.log(client.id+" disconnected");
 		});
 	});
 })(orbium);

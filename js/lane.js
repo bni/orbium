@@ -40,6 +40,11 @@
 		};
 
 		this.injectMarble = function() {
+			// Dont inject marble if we are connected to server
+			if (orbium.client !== undefined && orbium.client.connected()) {
+				return;
+			}
+			
 			// Check that there does not already exist a fresh marble in
 			// the lane. This should never happen, but check for it anyway
 			for (var i = 0, j = orbium.machine.marbles.length; i < j; i++) {

@@ -10,7 +10,7 @@
 		var stage = null;
 
 		this.construct = function() {
-			this.orientation = 0;
+			this.orientation = orbium.Util.generateRandomIndex(3);
 			this.broken = false;
 
 			dockees = [];
@@ -18,9 +18,13 @@
 			blockc = -1;
 			fullc = -1;
 			stage = 0;
+			
+			var offset = getOffsetFromOrientation();
 
 			orbium.Tile.prototype.construct.call(this, ["rotatile14",
-				"rotator0"], count, xnr, ynr);
+				"rotator"+offset], count, xnr, ynr);
+
+			//console.log(""+count+". orientation: "+this.orientation+" offset: "+offset);
 
 			this.inducesSink = true;
 			this.inducesPaths = [true, true, true, true];
@@ -174,6 +178,12 @@
 				orbium.player.play("dock");
 			}
 
+			if (orbium.server !== undefined) {
+				var state = orbium.machine.getState();
+
+				orbium.server.broadcast(state, undefined);
+			}
+
 			return true;
 		};
 
@@ -192,7 +202,7 @@
 		this.rotate = function(send) {
 			if (judderc === -1 && fullc === -1) {
 				if (orbium.client !== undefined && send) {
-					orbium.client.send("R:"+this.count);
+					orbium.client.send("R;"+this.count);
 				}
 
 				if (orbium.player !== undefined) {
@@ -492,7 +502,7 @@
 
 				// Check if marble should dock or bounce
 				if (within) {
-					var success = dockMarble(marble.direction,	marble.color,
+					var success = dockMarble(marble.direction, marble.color,
 						marble.frame, false);
 
 					if (success) {
@@ -524,20 +534,68 @@
 			}
 		};
 
-		this.getStateString = function() {
-			var state = "R:"+this.count+":"+this.orientation;
+		this.getState = function() {
+			var state = ""+this.count+":"+this.orientation;
 
 			if (dockees.length > 0) {
 				state += ":";
-			}
 
-			for (var i = 0, j = dockees.length; i < j; i++) {
-				state += dockees[i].getStateString();
+				for (var i = 0, j = dockees.length; i < j; i++) {
+					state += dockees[i].getState();
+
+					if (i < j-1) {
+						state += ":";
+					}
+				}
 			}
-			
-			state += ";";
 
 			return state;
+		}
+
+		this.setState = function(state) {
+			this.orientation = parseInt(state.split(":")[0]);
+
+			this.setImage(1, "rotator"+getOffsetFromOrientation());
+
+			for (var i = 0, j = dockees.length; i < j; i++) {
+				dockees[i].destruct();
+			}
+			dockees.length = 0;
+
+			var idx = 1;
+			var part = state.split(":")[idx];
+
+			while (part !== undefined && part !== "") {
+				var pos = parseInt(part.split(".")[0]);
+				var color = parseInt(part.split(".")[1]);
+				var frame = parseInt(part.split(".")[2]);
+				//console.log(this.count+". pos: "+pos+" color: "+color+" frame: "+frame);
+
+				var dockee = new orbium.Dockee(this, pos, color, frame);
+				orbium.Util.addArrayElement(dockees, dockee);
+
+				idx++;
+
+				part = state.split(":")[idx];
+			}
+
+			this.invalidate();
+		}
+
+		var getOffsetFromOrientation = function() {
+			var offset = 0;
+
+			if (that.orientation === 0) {
+				offset = 0;
+			} else if (that.orientation === 3) {
+				offset = 4;
+			} else if (that.orientation === 2) {
+				offset = 8;
+			} else if (that.orientation === 1) {
+				offset = 12;
+			}
+			
+			return offset;
 		}
 
 		this.update = function(dt) {
@@ -545,15 +603,7 @@
 			var offset = 0;
 
 			if (judderc !== -1 || fullc !== -1) {
-				if (this.orientation === 0) {
-					offset = 0;
-				} else if (this.orientation === 3) {
-					offset = 4;
-				} else if (this.orientation === 2) {
-					offset = 8;
-				} else if (this.orientation === 1) {
-					offset = 12;
-				}
+				offset = getOffsetFromOrientation();
 			}
 
 			if (judderc === 0 && stage === 0) {

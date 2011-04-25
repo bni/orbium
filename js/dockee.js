@@ -176,14 +176,8 @@
 			return false;
 		};
 
-		this.getStateString = function() {
-			var state = "";
-
-			state += this.pos+":";
-			state += this.color+":";
-			state += this.frame;
-
-			return state;
+		this.getState = function() {
+			return ""+this.pos+"."+this.color+"."+this.frame;
 		}
 
 		this.construct.apply(this, arguments);

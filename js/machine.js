@@ -476,26 +476,43 @@
 			var tile = this.tiles[count];
 
 			if (tile instanceof orbium.Rotator) {
-				this.tiles[count].rotate(false);
+				tile.rotate(false);
 			}
 		}
 
-		this.getStateString = function() {
-			var state = "STATE:";
+		this.getState = function() {
+			var state = "S;";
 
 			for (var i = 0, j = this.tiles.length; i < j; i++) {
 				var tile = this.tiles[i];
 
-				if (tile.getStateString != undefined) {
-					state += tile.getStateString();
+				if (tile.getState != undefined) {
+					state += tile.getState()+";";
 				}
 			}
-			
+
 			return state;
 		}
 
-		this.setStateString = function(state) {
-			console.log(state);
+		this.setState = function(state) {
+			//console.log("state: "+state);
+
+			var idx = 0;
+			var part = state.split(";")[idx];
+
+			while (part !== undefined && part !== "") {
+				var count = parseInt(part.split(":")[0]);
+
+				var tile = this.tiles[count];
+
+				if (tile instanceof orbium.Rotator) {
+					tile.setState(part.substring(part.indexOf(":")+1));
+				}
+
+				idx++;
+
+				part = state.split(";")[idx];
+			}
 		}
 
 		var updateTiles = function(dt) {
