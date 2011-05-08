@@ -78,7 +78,7 @@ orbium = {};
 
 	var send = function(client, msg) {
 	    client.socket.write("\u0000", "binary");
-	    client.socket.write(msg, "utf8");
+		client.socket.write(JSON.stringify(msg), "utf8");
 	    client.socket.write("\uffff", "binary");
 	};
 
@@ -94,8 +94,6 @@ orbium = {};
 		};
 
 		this.broadcast = function(msg, exclude) {
-			//console.log("broadcasting (exluding "+exclude+"): "+msg);
-
 			for (var i = 0, j = clients.length; i < j; i++) {
 				var client = clients[i];
 
@@ -171,7 +169,6 @@ orbium = {};
 				console.log(client.id+" connected");
 
 				var state = orbium.machine.getState();
-				//console.log(state);
 
 				send(client, state);
 
@@ -186,12 +183,13 @@ orbium = {};
 				// trim padding
 				var received = data.substring(1, data.length-1);
 
-				var command = received.split(";")[0];
-				var count = parseInt(received.split(";")[1]);
+				var msg = JSON.parse(received);
 
-				if (command === "R") {
-					orbium.machine.rotateRotator(count);
-					orbium.server.broadcast("R;"+count, client);
+				if (msg !== undefined && msg.rotate !== undefined) {
+					orbium.machine.rotateRotator(msg.rotate);
+
+					var message = {rotate: msg.rotate};
+					orbium.server.broadcast(message, client);
 				}
 			}
 		});

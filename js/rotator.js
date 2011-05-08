@@ -202,7 +202,9 @@
 		this.rotate = function(send) {
 			if (judderc === -1 && fullc === -1) {
 				if (orbium.client !== undefined && send) {
-					orbium.client.send("R;"+this.count);
+					var msg = {rotate: this.count};
+
+					orbium.client.send(msg);
 				}
 
 				if (orbium.player !== undefined) {
@@ -535,17 +537,18 @@
 		};
 
 		this.getState = function() {
-			var state = ""+this.count+":"+this.orientation;
+			var state = {
+				count: this.count,
+				orientation: this.orientation
+			};
 
 			if (dockees.length > 0) {
-				state += ":";
+				state.dockees = [];
 
 				for (var i = 0, j = dockees.length; i < j; i++) {
-					state += dockees[i].getState();
+					var dockeeState = dockees[i].getState();
 
-					if (i < j-1) {
-						state += ":";
-					}
+					orbium.Util.addArrayElement(state.dockees, dockeeState);
 				}
 			}
 
@@ -553,7 +556,7 @@
 		}
 
 		this.setState = function(state) {
-			this.orientation = parseInt(state.split(":")[0]);
+			this.orientation = state.orientation;
 
 			this.setImage(1, "rotator"+getOffsetFromOrientation());
 
@@ -562,21 +565,15 @@
 			}
 			dockees.length = 0;
 
-			var idx = 1;
-			var part = state.split(":")[idx];
+			if (state.dockees !== undefined) {
+				for (i = 0, j = state.dockees.length; i < j; i++) {
+					var dockee = state.dockees[i];
 
-			while (part !== undefined && part !== "") {
-				var pos = parseInt(part.split(".")[0]);
-				var color = parseInt(part.split(".")[1]);
-				var frame = parseInt(part.split(".")[2]);
-				//console.log(this.count+". pos: "+pos+" color: "+color+" frame: "+frame);
+					var dockee = new orbium.Dockee(this, dockee.pos,
+						dockee.color, dockee.frame);
 
-				var dockee = new orbium.Dockee(this, pos, color, frame);
-				orbium.Util.addArrayElement(dockees, dockee);
-
-				idx++;
-
-				part = state.split(":")[idx];
+					orbium.Util.addArrayElement(dockees, dockee);
+				}
 			}
 
 			this.invalidate();

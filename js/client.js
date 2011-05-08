@@ -19,23 +19,18 @@
 		};
 
 		this.send = function(msg) {
-		    socket.send(msg);
+			socket.send(JSON.stringify(msg));
 		};
 
-		this.received = function(msg) {
-			var received = msg.data;
-			//console.log("received: "+received);
+		this.received = function(e) {
+			var received = e.data;
 
-			var command = received.split(";")[0];
+			var msg = JSON.parse(received);
 
-			if (command === "S") {
-				var state = received.split("S;")[1];
-
-				orbium.machine.setState(state);
-			} else if (command === "R") {
-				var count = received.split(";")[1];
-
-				orbium.machine.rotateRotator(parseInt(count));
+			if (msg.rotators !== undefined) {
+				orbium.machine.setState(msg);
+			} else if (msg.rotate !== undefined) {
+				orbium.machine.rotateRotator(msg.rotate);
 			}
 		};
 

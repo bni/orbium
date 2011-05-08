@@ -481,37 +481,36 @@
 		}
 
 		this.getState = function() {
-			var state = "S;";
+			var state = {
+				rotators: []
+			};
 
+			// Rotators
 			for (var i = 0, j = this.tiles.length; i < j; i++) {
 				var tile = this.tiles[i];
 
-				if (tile.getState != undefined) {
-					state += tile.getState()+";";
+				if (tile.getState !== undefined) {
+					orbium.Util.addArrayElement(state.rotators, tile.getState());
 				}
 			}
+
+			//marbles: [],
+			//announcer: 0,
+			//sequencer: [],
+			//matcher: []
 
 			return state;
 		}
 
 		this.setState = function(state) {
-			//console.log("state: "+state);
+			for (var i = 0, j = state.rotators.length; i < j; i++) {
+				var rotator = state.rotators[i];
 
-			var idx = 0;
-			var part = state.split(";")[idx];
-
-			while (part !== undefined && part !== "") {
-				var count = parseInt(part.split(":")[0]);
-
-				var tile = this.tiles[count];
+				var tile = this.tiles[rotator.count];
 
 				if (tile instanceof orbium.Rotator) {
-					tile.setState(part.substring(part.indexOf(":")+1));
+					tile.setState(rotator);
 				}
-
-				idx++;
-
-				part = state.split(";")[idx];
 			}
 		}
 

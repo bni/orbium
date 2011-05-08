@@ -177,7 +177,13 @@
 		};
 
 		this.getState = function() {
-			return ""+this.pos+"."+this.color+"."+this.frame;
+			var state = {
+				pos: this.pos,
+				color: this.color,
+				frame: this.frame
+			};
+
+			return state;
 		}
 
 		this.construct.apply(this, arguments);
