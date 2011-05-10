@@ -185,11 +185,16 @@ orbium = {};
 
 				var msg = JSON.parse(received);
 
-				if (msg !== undefined && msg.rotate !== undefined) {
+				if (msg.rotate !== undefined) {
 					orbium.machine.rotateRotator(msg.rotate);
 
-					var message = {rotate: msg.rotate};
-					orbium.server.broadcast(message, client);
+					var dist = {rotate: msg.rotate};
+					orbium.server.broadcast(dist, client);
+				} else if (msg.launch !== undefined) {
+					orbium.machine.launchRotator(msg.launch, msg.dir);
+
+					var dist = {launch: msg.launch, dir: msg.dir};
+					orbium.server.broadcast(dist, client);
 				}
 			}
 		});

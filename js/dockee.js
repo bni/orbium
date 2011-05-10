@@ -184,7 +184,7 @@
 			};
 
 			return state;
-		}
+		};
 
 		this.construct.apply(this, arguments);
 	};

@@ -116,7 +116,9 @@
 		var dockMarble = function(dir, color, frame, fresh) {
 			if (blockc !== -1) {
 				if (!fresh) {
-					orbium.player.play("clank");
+					if (orbium.player !== undefined) {
+						orbium.player.play("clank");
+					}
 				}
 
 				return false;
@@ -165,7 +167,9 @@
 
 			if (!slotFree(pos)) {
 				if (!fresh) {
-					orbium.player.play("bounce");
+					if (orbium.player !== undefined) {
+						orbium.player.play("bounce");
+					}
 				}
 
 				return false;
@@ -176,12 +180,6 @@
 
 			if (orbium.player !== undefined) {
 				orbium.player.play("dock");
-			}
-
-			if (orbium.server !== undefined) {
-				var state = orbium.machine.getState();
-
-				orbium.server.broadcast(state, undefined);
 			}
 
 			return true;
@@ -202,9 +200,7 @@
 		this.rotate = function(send) {
 			if (judderc === -1 && fullc === -1) {
 				if (orbium.client !== undefined && send) {
-					var msg = {rotate: this.count};
-
-					orbium.client.send(msg);
+					orbium.client.send({rotate: this.count});
 				}
 
 				if (orbium.player !== undefined) {
@@ -281,7 +277,7 @@
 				var dockee = dockees[i];
 
 				if (dockee !== undefined && dockee.withinTrigger(xtap, ytap)) {
-					launched = launchPosition(dockee.pos);
+					launched = this.launchPosition(dockee.pos);
 				}
 			}
 
@@ -296,14 +292,14 @@
 				this.ypos,
 				orbium.Tile.size,
 				orbium.Tile.size)) {
-				return launchDirection(dir);
+				return this.launchDirection(dir, true);
 			}
 
 			return false;
 		}
 
-		var launchPosition = function(pos) {
-			var dir = pos + that.orientation;
+		this.launchPosition = function(pos) {
+			var dir = pos + this.orientation;
 			if (dir === 4) {
 				dir = 0;
 			} else if (dir === 5) {
@@ -312,30 +308,30 @@
 				dir = 2;
 			}
 
-			return launchDirection(dir);
+			return this.launchDirection(dir, true);
 		};
 
-		var launchDirection = function(dir) {
+		this.launchDirection = function(dir, send) {
 			if (judderc !== -1) {
 				return false;
 			}
 
 			var proceed = false;
 
-			if (dir === 0 && that.hasPaths[0] &&
-				that.count >= orbium.Machine.horizTiles) {
+			if (dir === 0 && this.hasPaths[0] &&
+				this.count >= orbium.Machine.horizTiles) {
 				proceed = true;
 			}
 
-			if (dir === 1 && that.hasPaths[1]) {
+			if (dir === 1 && this.hasPaths[1]) {
 				proceed = true;
 			}
 
-			if (dir === 2 && that.hasPaths[2]) {
+			if (dir === 2 && this.hasPaths[2]) {
 				proceed = true;
 			}
 
-			if (dir === 3 && that.hasPaths[3]) {
+			if (dir === 3 && this.hasPaths[3]) {
 				proceed = true;
 			}
 
@@ -346,7 +342,7 @@
 
 			var pos = -1;
 
-			if (that.orientation === 0) {
+			if (this.orientation === 0) {
 				if (dir === 0) {
 					pos = 0;
 				} else if (dir === 1) {
@@ -358,7 +354,7 @@
 				}
 			}
 
-			if (that.orientation === 3) {
+			if (this.orientation === 3) {
 				if (dir === 0) {
 					pos = 1;
 				} else if (dir === 1) {
@@ -370,7 +366,7 @@
 				}
 			}
 
-			if (that.orientation === 2) {
+			if (this.orientation === 2) {
 				if (dir === 0) {
 					pos = 2;
 				} else if (dir === 1) {
@@ -382,7 +378,7 @@
 				}
 			}
 
-			if (that.orientation === 1) {
+			if (this.orientation === 1) {
 				if (dir === 0) {
 					pos = 3;
 				} else if (dir === 1) {
@@ -408,6 +404,10 @@
 			}
 
 			if (orbium.machine.counter.isLaunchAllowed()) {
+				if (orbium.client !== undefined && send) {
+					orbium.client.send({launch: this.count, dir: dir});
+				}
+
 				dockee.destruct();
 				orbium.Util.removeArrayElement(dockees, dockee);
 
@@ -443,6 +443,7 @@
 					if (falldown) {
 						marble.fresh = false;
 						marble.stale = true;
+
 						this.invalidate();
 
 						orbium.machine.checkRotatorsFull();
@@ -553,7 +554,7 @@
 			}
 
 			return state;
-		}
+		};
 
 		this.setState = function(state) {
 			this.orientation = state.orientation;
@@ -577,7 +578,7 @@
 			}
 
 			this.invalidate();
-		}
+		};
 
 		var getOffsetFromOrientation = function() {
 			var offset = 0;
@@ -593,7 +594,7 @@
 			}
 			
 			return offset;
-		}
+		};
 
 		this.update = function(dt) {
 			var frame = 0;

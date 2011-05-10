@@ -478,11 +478,20 @@
 			if (tile instanceof orbium.Rotator) {
 				tile.rotate(false);
 			}
-		}
+		};
+
+		this.launchRotator = function(count, dir) {
+			var tile = this.tiles[count];
+
+			if (tile instanceof orbium.Rotator) {
+				tile.launchDirection(dir, false);
+			}
+		};
 
 		this.getState = function() {
 			var state = {
-				rotators: []
+				rotators: [],
+				marbles: []
 			};
 
 			// Rotators
@@ -490,11 +499,21 @@
 				var tile = this.tiles[i];
 
 				if (tile.getState !== undefined) {
-					orbium.Util.addArrayElement(state.rotators, tile.getState());
+					var dist = tile.getState();
+					orbium.Util.addArrayElement(state.rotators, dist);
 				}
 			}
 
-			//marbles: [],
+			// Marbles
+			for (i = 0, j = this.marbles.length; i < j; i++) {
+				var marble = this.marbles[i];
+
+				if (!marble.stale) {
+					var dist = marble.getState()
+					orbium.Util.addArrayElement(state.marbles, dist);
+				}
+			}
+
 			//announcer: 0,
 			//sequencer: [],
 			//matcher: []
@@ -503,7 +522,31 @@
 		}
 
 		this.setState = function(state) {
-			for (var i = 0, j = state.rotators.length; i < j; i++) {
+			// Marbles
+			for (var i = 0, j = this.marbles.length; i < j; i++) {
+				this.marbles[i].destruct();
+			}
+			this.marbles.length = 0;
+
+			for (i = 0, j = state.marbles.length; i < j; i++) {
+				var marb = state.marbles[i];
+				
+				var xp = marb.xpos*(orbium.Tile.size/128);
+				var yp = marb.ypos*(orbium.Tile.size/128);
+
+				var marble = new orbium.Marble(
+					xp,
+					yp,
+					marb.color,
+					marb.frame,
+					marb.direction,
+					marb.fresh);
+
+				orbium.Util.addArrayElement(this.marbles, marble);
+			}
+
+			// Rotators
+			for (i = 0, j = state.rotators.length; i < j; i++) {
 				var rotator = state.rotators[i];
 
 				var tile = this.tiles[rotator.count];
@@ -512,7 +555,7 @@
 					tile.setState(rotator);
 				}
 			}
-		}
+		};
 
 		var updateTiles = function(dt) {
 			for (var i = 0, j = that.tiles.length; i < j; i++) {
@@ -576,6 +619,13 @@
 					checkMarble.destruct();
 					orbium.Util.removeArrayElement(that.marbles, checkMarble);
 					that.counter.countActiveMarbles();
+
+					// Send full state to all clients here, after stale marbles
+					// has been removed
+					if (orbium.server !== undefined) {
+						var state = orbium.machine.getState();
+						orbium.server.broadcast(state, undefined);
+					}
 				}
 			}
 		};

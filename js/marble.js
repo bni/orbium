@@ -1,5 +1,5 @@
 (function(orbium, undefined) {
-	orbium.Marble = function(xpos, ypos, color, frame, direction) {
+	orbium.Marble = function(xpos, ypos, color, frame, direction, fresh) {
 		this.color = null;
 		this.frame = null;
 		this.direction = null;
@@ -11,12 +11,8 @@
 		this.framec = null;
 
 		this.construct = function() {
-			this.fresh = false;
-
 			if (xpos === undefined) {
 				xpos = orbium.width;
-
-				this.fresh = true; // It is a fresh marble if it didnt get xpos
 			}
 
 			if (ypos === undefined) {
@@ -37,6 +33,12 @@
 				this.direction = 3;
 			} else {
 				this.direction = direction;
+			}
+
+			if (fresh === undefined || fresh) {
+				this.fresh = true;
+			} else {
+				this.fresh = false;
 			}
 
 			this.lastDockTry = null;
@@ -142,6 +144,19 @@
 			this.animate();
 
 			this.framec += orbium.Marble.speed*dt;
+		};
+
+		this.getState = function() {
+			var state = {
+				xpos: Math.round(this.xpos*1000)/1000,
+				ypos: Math.round(this.ypos*1000)/1000,
+				color: this.color,
+				frame: this.frame,
+				direction: this.direction,
+				fresh: this.fresh
+			};
+
+			return state;
 		};
 
 		this.construct.apply(this, arguments);

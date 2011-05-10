@@ -31,6 +31,8 @@
 				orbium.machine.setState(msg);
 			} else if (msg.rotate !== undefined) {
 				orbium.machine.rotateRotator(msg.rotate);
+			} else if (msg.launch !== undefined) {
+				orbium.machine.launchRotator(msg.launch, msg.dir);
 			}
 		};
 
