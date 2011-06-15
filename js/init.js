@@ -41,13 +41,6 @@
 			orbium.has_touch_screen = true;
 		}
 
-		// Init for webOS
-		if (window.PalmSystem) {
-			window.PalmSystem.setWindowOrientation("left");
-			window.PalmSystem.enableFullScreenMode(true);
-			window.PalmSystem.stageReady();
-		}
-
 		// Determine the width and height we have avalable for disposal
 		var avail_width = 0;
 		var avail_height = 0;
@@ -209,8 +202,7 @@
 			orbium.Util.getDevicePixelRatio() === 2;
 
 		// Use translate3d on 4th gen iOS device and on iPad only
-		if (isRetina || orbium.Util.isUA("iPad") ||
-			orbium.Util.isUA("Safari")) {
+		if (isRetina || orbium.Util.isUA("iPad")) {
 			orbium.has_transform = true;
 
 			orbium.pane.style.webkitTransform = "translate3d("+
@@ -258,6 +250,12 @@
 			// events too
 			if ("ontouchstart" in window) {
 				orbium.has_touch_api = true;
+			}
+
+			// webOS 3.0 seems to lie that it supports touch API but it does
+			// not seem to work, so disable it
+			if (orbium.Util.isUA("webOS")) {
+				orbium.has_touch_api = false;
 			}
 
 			// Touch events if available, otherwise fall back on mouse events

@@ -754,16 +754,18 @@
 		};
 
 		this.pause = function() {
-			orbium.machine.paused = true;
+			if (!orbium.machine.paused) {
+				orbium.machine.paused = true;
 
-			orbium.sign.hide();
-			orbium.tutorial.hide();
+				orbium.sign.hide();
+				orbium.tutorial.hide();
 
-			if (orbium.Machine.editorMode) {
-				orbium.editor.edit();
-			} else {
-				this.updateResume();
-				this.showMain();
+				if (orbium.Machine.editorMode) {
+					orbium.editor.edit();
+				} else {
+					this.updateResume();
+					this.showMain();
+				}
 			}
 		};
 
