@@ -1,33 +1,34 @@
 (function(orbium, undefined) {
 	orbium.Player = function() {
-		var hasPhoneGapMedia = null; // PhoneGap Media support?
-		var hasSoundPlug = null; // SoundPlug plugin support?
-		var hasNativeAudio = null; // HTML5 native support?
+		var iOSSoundPlug = null; // iOS SoundPlug plugin support?
+		var webOSSoundPlug = null; // webOS SoundPlug plugin support?
+		var html5NativeAudio = null; // HTML5 native support?
 
 		this.audioSupported = null; // Audio supported flag
 		this.muted = null; // Muted flag
 
 		this.construct = function() {
-			hasPhoneGapMedia = false;
-			hasSoundPlug = false;
-			hasNativeAudio = false;
+			iOSSoundPlug = false;
+			webOSSoundPlug = false;
+			html5NativeAudio = false;
 
-			if ((orbium.Util.isUA("iPhone") || orbium.Util.isUA("iPad")) &&
-				orbium.Util.isPG()) {
-				hasSoundPlug = true;
-			} else if (orbium.Util.isPG()) {
-				hasPhoneGapMedia = true;
+			if (orbium.Util.isUA("iPhone") ||
+				orbium.Util.isUA("iPad")) {
+				iOSSoundPlug = true;
+			} else if (orbium.Util.isUA("webOS") ||
+				orbium.Util.isUA("wOSSystem")) {
+				webOSSoundPlug = true;
 			} else 	if (!!document.createElement("audio").canPlayType) {
 				var a = document.createElement("audio");
 
 				var wavStr = 'audio/wav; codecs="1"';
 				if (!!(a.canPlayType &&
 					a.canPlayType(wavStr).replace(/no/, ''))) {
-					hasNativeAudio = true;
+					html5NativeAudio = true;
 				}
 			}
 
-			if (hasPhoneGapMedia || hasSoundPlug || hasNativeAudio) {
+			if (iOSSoundPlug || webOSSoundPlug || html5NativeAudio) {
 				this.audioSupported = true;
 				this.muted = false;
 			} else {
@@ -37,21 +38,19 @@
 
 			// Disable sounds on certain devices and cases that are problematic
 			if (((orbium.Util.isUA("iPhone") || orbium.Util.isUA("iPad")) &&
-				!orbium.Util.isPG()) || orbium.Util.isUA("Android") ||
-				orbium.Util.isUA("webOS") || orbium.Util.isUA("wOSSystem")) {
-				this.audioSupported = false;
-				this.muted = true;
+				!orbium.Util.isPG()) || orbium.Util.isUA("Android")) {
+					this.audioSupported = false;
+					this.muted = true;
 			}
 		};
 
 		this.play = function(sound) {
 			if (this.audioSupported && !this.muted) {
-				if (hasPhoneGapMedia) {
-					// Disabled for now since it doesnt work
-					//new Media("/android_asset/"+sound+".wav").play();
-				} else if (hasSoundPlug) {
+				if (iOSSoundPlug) {
 					PhoneGap.exec("SoundPlug.play", sound+".wav");
-				} else if (hasNativeAudio) {
+				} else if (webOSSoundPlug) {
+					document.getElementById("soundPlug").play("snd/wav/"+sound+".wav");
+				} else if (html5NativeAudio) {
 					new Audio("snd/wav/"+sound+".wav").play();
 				}
 			}

@@ -252,12 +252,6 @@
 				orbium.has_touch_api = true;
 			}
 
-			// webOS 3.0 seems to lie that it supports touch API but it does
-			// not seem to work, so disable it
-			if (orbium.Util.isUA("webOS")) {
-				orbium.has_touch_api = false;
-			}
-
 			// Touch events if available, otherwise fall back on mouse events
 			if (orbium.has_touch_api) {
 				// Prevent the viewport from being panned. To do this we
