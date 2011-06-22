@@ -83,7 +83,8 @@
 			}
 
 			// Android ldpi
-			if (screen.height === 240) {
+			if (orbium.Util.isUA("Android") &&
+				orbium.Util.getDevicePixelRatio() === 0.75) {
 				avail_width = 320;
 				avail_height = 240;
 			}
