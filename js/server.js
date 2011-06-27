@@ -51,16 +51,16 @@ orbium = {};
 		var md5 = crypto.createHash("md5");
 
 		md5.update(String.fromCharCode(
-		        n1 >> 24 & 0xFF,
-		        n1 >> 16 & 0xFF,
-		        n1 >> 8 & 0xFF,
-		        n1 & 0xFF));
+			n1 >> 24 & 0xFF,
+			n1 >> 16 & 0xFF,
+			n1 >> 8 & 0xFF,
+			n1 & 0xFF));
 
 		md5.update(String.fromCharCode(
-		        n2 >> 24 & 0xFF,
-		        n2 >> 16 & 0xFF,
-		        n2 >> 8 & 0xFF,
-		        n2 & 0xFF));
+			n2 >> 24 & 0xFF,
+			n2 >> 16 & 0xFF,
+			n2 >> 8 & 0xFF,
+			n2 & 0xFF));
 
 		md5.update(head);
 
@@ -77,9 +77,9 @@ orbium = {};
 	};
 
 	var send = function(client, msg) {
-	    client.socket.write("\u0000", "binary");
+		client.socket.write("\u0000", "binary");
 		client.socket.write(JSON.stringify(msg), "utf8");
-	    client.socket.write("\uffff", "binary");
+		client.socket.write("\uffff", "binary");
 	};
 
 	orbium.Server = function() {
@@ -150,7 +150,7 @@ orbium = {};
 	listener.listen(1991);
 
 	listener.on("connection", function (socket) {
-	    socket.setEncoding("binary");
+		socket.setEncoding("binary");
 
 		var handshakeComplete = false;
 
@@ -163,8 +163,8 @@ orbium = {};
 			if (!handshakeComplete) {
 				handshake(client, data);
 
-			    client.socket.setNoDelay(true);
-			    client.socket.setEncoding("utf8");
+				client.socket.setNoDelay(true);
+				client.socket.setEncoding("utf8");
 
 				console.log(client.id+" connected");
 

@@ -1,7 +1,7 @@
 (function(orbium, undefined) {
 	orbium.Client = function(url) {
 		var socket = null;
-		
+
 		var connected = null;
 
 		this.construct = function() {
@@ -37,7 +37,7 @@
 		};
 
 		this.connected = function() {
-		    return connected;
+			return connected;
 		};
 
 		var that = this; this.construct.apply(this, arguments);

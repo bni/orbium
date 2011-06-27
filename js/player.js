@@ -18,7 +18,7 @@
 			} else if (orbium.Util.isUA("webOS") ||
 				orbium.Util.isUA("wOSSystem")) {
 				webOSSoundPlug = true;
-			} else 	if (!!document.createElement("audio").canPlayType) {
+			} else if (!!document.createElement("audio").canPlayType) {
 				var a = document.createElement("audio");
 
 				var wavStr = 'audio/wav; codecs="1"';

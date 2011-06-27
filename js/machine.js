@@ -307,8 +307,6 @@
 			var idy = Math.floor((ytap-orbium.Bar.height)/orbium.Tile.size);
 			var count = idy*orbium.Machine.horizTiles+idx;
 
-			//console.log("idx: "+idx+" idy: "+idy+" count: "+count);
-
 			var target = this.tiles[count];
 
 			if (!this.paused) {
