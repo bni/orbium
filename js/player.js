@@ -49,7 +49,10 @@
 				if (iOSSoundPlug) {
 					PhoneGap.exec("SoundPlug.play", sound+".wav");
 				} else if (webOSSoundPlug) {
-					document.getElementById("soundPlug").play("snd/wav/"+sound+".wav");
+					var soundPlug = document.getElementById("soundPlug");
+					if (soundPlug.play !== undefined) {
+						soundPlug.play("snd/wav/"+sound+".wav");
+					}
 				} else if (html5NativeAudio) {
 					new Audio("snd/wav/"+sound+".wav").play();
 				}
