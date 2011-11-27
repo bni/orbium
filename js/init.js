@@ -199,15 +199,9 @@
 		orbium.pane.style.width = ""+orbium.width+"px";
 		orbium.pane.style.height = ""+orbium.height+"px";
 
-		var isRetina = orbium.Util.isUA("iPhone") &&
-			orbium.Util.getDevicePixelRatio() === 2;
-
-		// FIXME: Use translate3d on 4th gen iOS device and on iPad only.
-		// translate3d seems to have regressed in various subtle ways in
-		// iOS 5 (performance/artefacts). Since canvas is so much faster
-		// in iOS 5 we can use canvas instead. This means that currently
-		// no platform use CSS3 transforms :-(
-		if (false) {
+		// Use translate3d on iPad only since CSS3 transforms seems to have
+		// regressed for retina devices on iOS 5 (performance/artefacts)
+		if (orbium.Util.isUA("iPad")) {
 			orbium.has_transform = true;
 
 			orbium.pane.style.webkitTransform = "translate3d("+
