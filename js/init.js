@@ -124,8 +124,10 @@
 
 		var vp_user_scalable = "user-scalable=no, ";
 
+		// Only support retina on the iPhone, since we dont have graphic assets for
+		// retina iPads :-(
 		var scale = "1.0";
-		if (orbium.Util.getDevicePixelRatio() === 2) {
+		if (orbium.Util.getDevicePixelRatio() === 2 && orbium.Util.isUA("iPhone")) {
 			scale = "0.5";
 		}
 
@@ -199,9 +201,9 @@
 		orbium.pane.style.width = ""+orbium.width+"px";
 		orbium.pane.style.height = ""+orbium.height+"px";
 
-		// Use translate3d on iPad only since CSS3 transforms seems to have
+		// Use translate3d on iPad 1 and 2 only since CSS3 transforms seems to have
 		// regressed for retina devices on iOS 5 (performance/artefacts)
-		if (orbium.Util.isUA("iPad")) {
+		if (orbium.Util.isUA("iPad") && orbium.Util.getDevicePixelRatio() < 2) {
 			orbium.has_transform = true;
 
 			orbium.pane.style.webkitTransform = "translate3d("+
