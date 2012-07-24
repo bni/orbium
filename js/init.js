@@ -249,7 +249,8 @@
 			// Check if device has touch API. Note that having this API is not
 			// required for detecting "swipes", as we can do that with mouse
 			// events too
-			if ("ontouchstart" in window) {
+			// webOS touch API is broken so never use it.
+			if ("ontouchstart" in window && !orbium.Util.isUA("webOS")) {
 				orbium.has_touch_api = true;
 			}
 
