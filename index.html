@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" manifest="orbium.appcache">
 <head>
 	<title>Orbium</title>
 
@@ -17,16 +17,21 @@
 
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 
+	<script>
+		if (window.applicationCache) {
+			applicationCache.addEventListener('updateready', function() {
+				window.location.reload();
+			});
+		}
+	</script>
+
 	<script src="js/344x234.js"></script>
 	<script src="js/424x289.js"></script>
 	<script src="js/464x316.js"></script>
 	<script src="js/704x479.js"></script>
 	<script src="js/936x637.js"></script>
 	<script src="js/1024x697.js"></script>
-	<script src="js/level_free.js"></script>
-	<script src="js/level_lite.js"></script>
 	<script src="js/level_full.js"></script>
-	<script src="js/level_show.js"></script>
 
 	<script src="js/util.js"></script>
 	<script src="js/sprite.js"></script>
