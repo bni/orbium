@@ -112,41 +112,4 @@
 
 		return getRequestParameters()[name];
 	};
-
-	orbium.Util.hasDrawImageScalingBug = function() {
-		if (!orbium.Util.isUA("Android")) {
-			return false;
-		}
-
-		var iw = 1;
-		var ih = 1;
-
-		var img = document.createElement("canvas");
-		img.width = iw;
-		img.height = ih;
-
-		var ictx = img.getContext("2d");
-		ictx.fillStyle = "#ffffff";
-		ictx.fillRect(0, 0, iw, ih);
-
-		var bw = 100;
-		var bh = 100;
-
-		var buffer = document.createElement("canvas");
-		buffer.width = bw;
-		buffer.height = bh;
-
-		var bctx = buffer.getContext("2d");
-		bctx.clearRect(0, 0, bw, bh);
-		bctx.drawImage(img, bw/2, bh/2);
-
-		var imageData = bctx.getImageData(0, 0, bw, bh);
-		var sample = imageData.data[bw/2*bw*4+bh/2*4];
-
-		if (sample === 0) {
-			return true;
-		}
-
-		return false;
-	};
 })(typeof window == "object" ? window.orbium = window.orbium || {} : orbium);

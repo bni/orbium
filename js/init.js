@@ -81,13 +81,6 @@
 				avail_width = 400;
 				avail_height = 320;
 			}
-
-			// Android ldpi
-			if (orbium.Util.isUA("Android") &&
-				orbium.Util.getDevicePixelRatio() === 0.75) {
-				avail_width = 320;
-				avail_height = 240;
-			}
 		}
 
 		var dimensions = null;
@@ -208,8 +201,7 @@
 
 			// Try to create a canvas element to determine if device has
 			// canvas capability
-			if (!!document.createElement("canvas").getContext &&
-				!orbium.Util.hasDrawImageScalingBug()) {
+			if (!!document.createElement("canvas").getContext) {
 				orbium.has_canvas = true;
 
 				orbium.canv = document.getElementById("canv");
