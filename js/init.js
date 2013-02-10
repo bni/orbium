@@ -59,13 +59,17 @@
 				avail_height = document.documentElement.clientHeight;
 			}
 		} else { // Device with touch screen
-			if (screen.width > 854 || screen.height > 854) {
-				avail_width = 1024;
-				avail_height = 768;
-			} else if (screen.width > 480 || screen.height > 480) {
-				avail_width = 800;
-				avail_height = 480;
+			// Width and height is dependent on rotation. Use the largest value as width.
+			if (screen.width > screen.height) {
+				avail_width = screen.width;
+				avail_height = screen.height;
 			} else {
+				avail_width = screen.height;
+				avail_height = screen.width;
+			}
+
+			// Special casing for iPhone to handle retina
+			if (orbium.Util.isUA("iPhone")) {
 				if (orbium.Util.getDevicePixelRatio() === 2) {
 					avail_width = 960;
 					avail_height = 640;
@@ -75,12 +79,16 @@
 				}
 			}
 
-			// Palm pixi special case
-			if ((screen.width === 400 && screen.height === 320) ||
-				(screen.width === 320 && screen.height === 400)) {
-				avail_width = 400;
-				avail_height = 320;
+			// Always use 1024x768 on iPad as we dont have graphics large
+			// enough for retina iPad :-(
+			if (orbium.Util.isUA("iPad")) {
+				avail_width = 1024;
+				avail_height = 768;
 			}
+
+			// DEBUG
+			//alert("screen.width: " + screen.width + ", screen.height: " + screen.height);
+			//alert("avail_width: " + avail_width + ", avail_height: " + avail_height);
 		}
 
 		var dimensions = null;

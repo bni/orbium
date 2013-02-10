@@ -12,8 +12,8 @@
 			webOSSoundPlug = false;
 			html5NativeAudio = false;
 
-			if (orbium.Util.isUA("iPhone") ||
-				orbium.Util.isUA("iPad")) {
+			if ((orbium.Util.isUA("iPhone") || orbium.Util.isUA("iPad")) &&
+				orbium.Util.isPG()) {
 				iOSSoundPlug = true;
 			} else if (orbium.Util.isUA("webOS") ||
 				orbium.Util.isUA("wOSSystem")) {
@@ -36,11 +36,19 @@
 				this.muted = true;
 			}
 
-			// Disable sounds on certain devices and cases that are problematic
-			if (((orbium.Util.isUA("iPhone") || orbium.Util.isUA("iPad")) &&
-				!orbium.Util.isPG()) || orbium.Util.isUA("Android")) {
+			// Disable audio on iOS when running without SoundPlug
+			// Although Mobile Safari supports HTML5 audio, it is useless for games
+			if ((orbium.Util.isUA("iPhone") || orbium.Util.isUA("iPad")) &&
+				!orbium.Util.isPG()) {
 					this.audioSupported = false;
 					this.muted = true;
+			}
+
+			// No way to play audio in Android browser/webview yet, so disable it
+			// It might work in Chrome, so only mute
+			// Let user enable it as an experimental feature
+			if (orbium.Util.isUA("Android")) {
+				this.muted = true;
 			}
 		};
 
