@@ -17,15 +17,7 @@
 
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 
-	<script>
-		if (top.location !== self.location) { top.location = self.location; }
-
-		if (window.applicationCache) {
-			applicationCache.addEventListener('updateready', function() {
-				window.location.reload();
-			});
-		}
-	</script>
+	<script src="js/start.js"></script>
 
 	<script src="js/344x234.js"></script>
 	<script src="js/424x289.js"></script>
@@ -74,7 +66,7 @@
 	<script src="cordova-2.4.0.js"></script>
 	<script src="/usr/palm/frameworks/mojo/mojo.js" x-mojo-version="1"></script>
 </head>
-<body onload="orbium.init();">
+<body>
 	<div id="pane">
 		<canvas id="canv" style="position: absolute; visibility: hidden;"></canvas>
 	</div>
