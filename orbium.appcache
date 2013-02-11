@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# 2013-02-10:v2
+# 2013-02-11:v1
 
 CACHE:
 css/style.css
@@ -37,6 +37,7 @@ js/rotator.js
 js/sequencer.js
 js/sign.js
 js/sprite.js
+js/start.js
 js/storage.js
 js/teleporter.js
 js/tile.js
