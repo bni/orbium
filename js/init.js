@@ -68,15 +68,10 @@
 				avail_height = screen.width;
 			}
 
-			// Special casing for iPhone to handle retina
+			// iPhone1-3: 1x, iPhone4-6: 2x, iPhone6+: 3x
 			if (orbium.Util.isUA("iPhone")) {
-				if (orbium.Util.getDevicePixelRatio() === 2) {
-					avail_width = 960;
-					avail_height = 640;
-				} else {
-					avail_width = 480;
-					avail_height = 320;
-				}
+				avail_width = avail_width * orbium.Util.getDevicePixelRatio();
+				avail_height = avail_height * orbium.Util.getDevicePixelRatio();
 			}
 
 			// Always use 1024x768 on iPad as we dont have graphics large
@@ -85,14 +80,13 @@
 				avail_width = 1024;
 				avail_height = 768;
 			}
-
-			// DEBUG
-			//alert("screen.width: " + screen.width + ", screen.height: " + screen.height);
-			//alert("avail_width: " + avail_width + ", avail_height: " + avail_height);
 		}
 
 		var dimensions = null;
-		if (avail_width >= 1024 && avail_height >= 697 &&
+		if (avail_width >= 1096 && avail_height >= 746 &&
+			orbium.dimensions_1096x746 !== undefined) {
+			dimensions = orbium.dimensions_1096x746;
+		} else if (avail_width >= 1024 && avail_height >= 697 &&
 			orbium.dimensions_1024x697 !== undefined) {
 			dimensions = orbium.dimensions_1024x697;
 		} else if (avail_width >= 936 && avail_height >= 637 &&
