@@ -3,13 +3,14 @@ CACHE MANIFEST
 
 CACHE:
 css/style.css
-js/1096x746.js
-js/1024x697.js
 js/344x234.js
 js/424x289.js
 js/464x316.js
 js/704x479.js
 js/936x637.js
+js/1024x697.js
+js/1096x746.js
+js/1152x784.js
 js/announcer.js
 js/bar.js
 js/client.js

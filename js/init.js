@@ -83,7 +83,10 @@
 		}
 
 		var dimensions = null;
-		if (avail_width >= 1096 && avail_height >= 746 &&
+		if (avail_width >= 1152 && avail_height >= 784 &&
+			orbium.dimensions_1152x784 !== undefined) {
+			dimensions = orbium.dimensions_1152x784;
+		} else if (avail_width >= 1096 && avail_height >= 746 &&
 			orbium.dimensions_1096x746 !== undefined) {
 			dimensions = orbium.dimensions_1096x746;
 		} else if (avail_width >= 1024 && avail_height >= 697 &&
