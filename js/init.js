@@ -136,16 +136,6 @@
 		vp.attributes.content.value = vp_width+vp_droid_dpi+vp_user_scalable+
 			vp_initial_scale+vp_minimum_scale+vp_maximum_scale;
 
-		// Apple touch icon
-		var ai = document.getElementById("ai");
-		if (avail_width >= 1024) {
-			ai.attributes.href.value = "ico/app_72x72.png";
-		} else if (avail_width >= 936) {
-			ai.attributes.href.value = "ico/app_114x114.png";
-		} else {
-			ai.attributes.href.value = "ico/app_57x57.png";
-		}
-
 		orbium.Machine.timeLimits = true;
 		orbium.Machine.editorMode = false;
 		orbium.Machine.horizTiles = 8;
