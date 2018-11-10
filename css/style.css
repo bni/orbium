@@ -1,67 +1,66 @@
 body {
-	font-family: sans-serif;
-	font-weight: bold;
-	background-color: black;
-	margin: 0px;
-	padding: 0px;
-	overflow: hidden;
-	-webkit-user-select: none;
-	-moz-user-select: none;
+  font-family: sans-serif;
+  font-weight: bold;
+  background-color: black;
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  user-select: none;
 }
 
 #pane {
-	position: absolute;
-	visibility: hidden;
-	cursor: pointer;
-	margin: 0px;
-	padding: 0px;
-	z-index: 2;
+  position: absolute;
+  visibility: hidden;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  z-index: 2;
 }
 
 #menu {
-	position: absolute;
-	visibility: hidden;
-	background-color: black;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	color: #cccccc;
-	-webkit-text-stroke-color: white;
-	-webkit-text-stroke-width: thin;
-	z-index: 16;
+  position: absolute;
+  visibility: hidden;
+  background-color: black;
+  border-radius: 5px;
+  color: #cccccc;
+  -webkit-text-stroke-color: white;
+  -webkit-text-stroke-width: thin;
+  z-index: 16;
 }
 
 #menu a {
-	color: white;
+  color: white;
 }
 
 #sign0 {
-	position: absolute;
-	background-color: black;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	visibility: hidden;
-	color: #cccccc;
-	text-align: center;
-	-webkit-text-stroke-color: white;
-	-webkit-text-stroke-width: thin;
-	z-index: 14;
+  position: absolute;
+  background-color: black;
+  border-radius: 3px;
+  visibility: hidden;
+  color: #cccccc;
+  text-align: center;
+  -webkit-text-stroke-color: white;
+  -webkit-text-stroke-width: thin;
+  z-index: 14;
 }
 
 #tutorial0 {
-	position: absolute;
-	background-color: black;
-	visibility: hidden;
-	color: white;
-	text-align: center;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	z-index: 15;
+  position: absolute;
+  background-color: black;
+  visibility: hidden;
+  color: white;
+  text-align: center;
+  border-radius: 3px;
+  z-index: 15;
 }
 
 #perf0 {
-	position: absolute;
-	background-color: black;
-	visibility: hidden;
-	color: #cccccc;
-	z-index: 20;
+  position: absolute;
+  background-color: black;
+  visibility: hidden;
+  color: #cccccc;
+  z-index: 20;
 }

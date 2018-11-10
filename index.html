@@ -1,174 +1,161 @@
 <!DOCTYPE html>
-<html lang="en" manifest="orbium.appcache">
+<html lang="en">
 <head>
-	<title>Orbium</title>
+  <title>Orbium</title>
 
-	<meta charset="utf-8"/>
-	<meta name="apple-mobile-web-app-capable" content="yes"/>
-	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-	<meta id="vp" name="viewport" content=""/>
+  <meta charset="utf-8"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta id="vp" name="viewport" content=""/>
 
-	<link rel="icon" type="image/png" href="ico/app_16x16.png" sizes="32x32"/>
-	<link rel="icon" type="image/png" href="ico/app_32x32.png" sizes="32x32"/>
-	<link rel="icon" type="image/png" href="ico/app_48x48.png" sizes="48x48"/>
-	<link rel="icon" type="image/png" href="ico/app_128x128.png" sizes="128x128"/>
-	<link rel="apple-touch-icon" href="ico/app_76x76.png" sizes="76x76">
-	<link rel="apple-touch-icon" href="ico/app_120x120.png" sizes="120x120">
+  <link rel="icon" href="ico/app_16x16.png" sizes="16x16"/>
+  <link rel="icon" href="ico/app_32x32.png" sizes="32x32"/>
+  <link rel="icon" href="ico/app_128x128.png" sizes="128x128"/>
+  <link rel="apple-touch-icon" href="ico/app_120x120.png" sizes="120x120">
 
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
 
-	<script src="js/start.js"></script>
+  <script src="js/start.js"></script>
 
-	<script src="js/344x234.js"></script>
-	<script src="js/424x289.js"></script>
-	<script src="js/464x316.js"></script>
-	<script src="js/704x479.js"></script>
-	<script src="js/936x637.js"></script>
-	<script src="js/1024x697.js"></script>
-	<script src="js/1096x746.js"></script>
-	<script src="js/1152x784.js"></script>
-	<script src="js/level_full.js"></script>
+  <script src="js/1152x784.js"></script>
+  <script src="js/levels.js"></script>
 
-	<script src="js/util.js"></script>
-	<script src="js/sprite.js"></script>
-	<script src="js/tile.js"></script>
-	<script src="js/emptytile.js"></script>
-	<script src="js/rotator.js"></script>
-	<script src="js/horiztile.js"></script>
-	<script src="js/verttile.js"></script>
-	<script src="js/crosstile.js"></script>
-	<script src="js/counter.js"></script>
-	<script src="js/announcer.js"></script>
-	<script src="js/timer.js"></script>
-	<script src="js/clock.js"></script>
-	<script src="js/teleporter.js"></script>
-	<script src="js/inspector.js"></script>
-	<script src="js/transformer.js"></script>
-	<script src="js/director.js"></script>
-	<script src="js/matcher.js"></script>
-	<script src="js/sequencer.js"></script>
-	<script src="js/indicator.js"></script>
-	<script src="js/falltile.js"></script>
-	<script src="js/lane.js"></script>
-	<script src="js/bar.js"></script>
-	<script src="js/marble.js"></script>
-	<script src="js/dockee.js"></script>
-	<script src="js/loader.js"></script>
-	<script src="js/player.js"></script>
-	<script src="js/storage.js"></script>
-	<script src="js/menu.js"></script>
-	<script src="js/editor.js"></script>
-	<script src="js/sign.js"></script>
-	<script src="js/perf.js"></script>
-	<script src="js/client.js"></script>
-	<script src="js/tutorial.js"></script>
-	<script src="js/machine.js"></script>
-	<script src="js/init.js"></script>
-
-	<!--script src="cordova-2.4.0.js"></script>
-	<script src="/usr/palm/frameworks/mojo/mojo.js" x-mojo-version="1"></script-->
+  <script src="js/util.js"></script>
+  <script src="js/sprite.js"></script>
+  <script src="js/tile.js"></script>
+  <script src="js/emptytile.js"></script>
+  <script src="js/rotator.js"></script>
+  <script src="js/horiztile.js"></script>
+  <script src="js/verttile.js"></script>
+  <script src="js/crosstile.js"></script>
+  <script src="js/counter.js"></script>
+  <script src="js/announcer.js"></script>
+  <script src="js/timer.js"></script>
+  <script src="js/clock.js"></script>
+  <script src="js/teleporter.js"></script>
+  <script src="js/inspector.js"></script>
+  <script src="js/transformer.js"></script>
+  <script src="js/director.js"></script>
+  <script src="js/matcher.js"></script>
+  <script src="js/sequencer.js"></script>
+  <script src="js/indicator.js"></script>
+  <script src="js/falltile.js"></script>
+  <script src="js/lane.js"></script>
+  <script src="js/bar.js"></script>
+  <script src="js/marble.js"></script>
+  <script src="js/dockee.js"></script>
+  <script src="js/loader.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/menu.js"></script>
+  <script src="js/editor.js"></script>
+  <script src="js/sign.js"></script>
+  <script src="js/perf.js"></script>
+  <script src="js/client.js"></script>
+  <script src="js/tutorial.js"></script>
+  <script src="js/machine.js"></script>
+  <script src="js/init.js"></script>
 </head>
 <body>
-	<div id="pane">
-		<canvas id="canv" style="position: absolute; visibility: hidden;"></canvas>
-	</div>
+<div id="pane">
+  <canvas id="canv" style="position: absolute; visibility: hidden;"></canvas>
+</div>
 
-	<div id="menu">
-		<div id="main" style="position: absolute; top: 0px; width: 100%; visibility: hidden;">
-			<div id="start" style="cursor: pointer;" align="center">&nbsp;</div>
-			<div id="select" style="cursor: pointer;" align="center">SELECT LVL</div>
-			<div id="settings" style="cursor: pointer;" align="center">SETTINGS</div>
-			<div id="about" style="cursor: pointer;" align="center">ABOUT</div>
-		</div>
+<div id="menu">
+  <div id="main" style="position: absolute; top: 0; width: 100%; visibility: hidden;">
+    <div id="start" style="cursor: pointer;" align="center">&nbsp;</div>
+    <div id="select" style="cursor: pointer;" align="center">SELECT LVL</div>
+    <div id="settings" style="cursor: pointer;" align="center">SETTINGS</div>
+    <div id="about" style="cursor: pointer;" align="center">ABOUT</div>
+  </div>
 
-		<div id="lvl" style="position: absolute; top: 0px; width: 100%; visibility: hidden;">
-				<div id="pack" style="position: absolute; left: 5%; cursor: pointer;">LEVELS: X</div>
-				<div id="nr" style="position: absolute; left: 79%;">&nbsp;</div>
-				<div id="testfill0">&nbsp;</div>
-				<div id="testfill1">&nbsp;</div>
-				<div id="edit" style="position: absolute; left: 82%; cursor: pointer;">EDIT</div>
-				<div id="testfill2">&nbsp;</div>
-				<div id="prev" style="position: absolute; left: 5%; cursor: pointer;" align="center">PREV</div>
-				<div id="next" style="position: absolute; left: 30%; cursor: pointer;" align="center">NEXT</div>
-				<div id="play" style="position: absolute; left: 54%; cursor: pointer;" align="center">PLAY</div>
-				<div id="lvlb" style="position: absolute; left: 78%; cursor: pointer;" align="center">MENU</div>
-		</div>
+  <div id="lvl" style="position: absolute; top: 0; width: 100%; visibility: hidden;">
+    <div id="pack" style="position: absolute; left: 5%; cursor: pointer;">LEVELS: X</div>
+    <div id="nr" style="position: absolute; left: 79%;">&nbsp;</div>
+    <div id="testfill0">&nbsp;</div>
+    <div id="testfill1">&nbsp;</div>
+    <div id="edit" style="position: absolute; left: 82%; cursor: pointer;">EDIT</div>
+    <div id="testfill2">&nbsp;</div>
+    <div id="prev" style="position: absolute; left: 5%; cursor: pointer;" align="center">PREV</div>
+    <div id="next" style="position: absolute; left: 30%; cursor: pointer;" align="center">NEXT</div>
+    <div id="play" style="position: absolute; left: 54%; cursor: pointer;" align="center">PLAY</div>
+    <div id="lvlb" style="position: absolute; left: 78%; cursor: pointer;" align="center">MENU</div>
+  </div>
 
-		<div id="sett" style="position: absolute; top: 0px; width: 100%; visibility: hidden;">
-				<div id="sound" style="cursor: pointer;" align="center">&nbsp;</div>
-				<div id="tutorial" style="cursor: pointer;" align="center">&nbsp;</div>
-				<div id="limits" style="cursor: pointer;" align="center">&nbsp;</div>
-				<div id="filler0" align="center">&nbsp;</div>
-				<div id="settb" style="cursor: pointer;" align="center">BACK</div>
-				<div id="debug" style="position: absolute; left: 1%; width: 16%; height: 38%;" align="center">&nbsp;</div>
-				<div id="logo" style="position: absolute; left: 83%; width: 16%; height: 38%;" align="center">&nbsp;</div>
-		</div>
+  <div id="sett" style="position: absolute; top: 0; width: 100%; visibility: hidden;">
+    <div id="sound" style="cursor: pointer;" align="center">&nbsp;</div>
+    <div id="tutorial" style="cursor: pointer;" align="center">&nbsp;</div>
+    <div id="limits" style="cursor: pointer;" align="center">&nbsp;</div>
+    <div id="filler0" align="center">&nbsp;</div>
+    <div id="settb" style="cursor: pointer;" align="center">BACK</div>
+    <div id="debug" style="position: absolute; left: 1%; width: 16%; height: 38%;" align="center">&nbsp;</div>
+    <div id="logo" style="position: absolute; left: 83%; width: 16%; height: 38%;" align="center">&nbsp;</div>
+  </div>
 
-		<div id="abo" style="position: absolute; top: 0px; width: 100%; visibility: hidden;">
-				<div id="copy" align="center">(C) 2010 BJÖRN NILSSON</div>
-				<div id="filler6" align="center">&nbsp;</div>
-				<div id="support" style="cursor: pointer;" align="center">&nbsp;</div>
-				<div id="credits" style="cursor: pointer;" align="center">CREDITS</div>
-				<div id="filler5" align="center">&nbsp;</div>
-				<div id="abob" style="cursor: pointer;" align="center">BACK</div>
-		</div>
+  <div id="abo" style="position: absolute; top: 0; width: 100%; visibility: hidden;">
+    <div id="copy" align="center">(C) 2018 BJÖRN NILSSON</div>
+    <div id="filler6" align="center">&nbsp;</div>
+    <div id="support" style="cursor: pointer;" align="center">&nbsp;</div>
+    <div id="credits" style="cursor: pointer;" align="center">CREDITS</div>
+    <div id="filler5" align="center">&nbsp;</div>
+    <div id="abob" style="cursor: pointer;" align="center">BACK</div>
+  </div>
 
-		<div id="dbg" style="position: absolute; top: 0px; width: 100%; visibility: hidden;">
-				<div id="reset" style="cursor: pointer;" align="center">RESET ALL PROGRESS</div>
-				<div id="unlock" style="cursor: pointer;" align="center">UNLOCK ALL LEVELS</div>
-				<div id="editoron" style="cursor: pointer;" align="center">ENABLE LEVEL EDITOR</div>
-				<div id="perfon" style="cursor: pointer;" align="center">ENABLE PERF MONITOR</div>
-				<div id="connecton" style="cursor: pointer;" align="center">CONNECT TO SERVER</div>
-		</div>
+  <div id="dbg" style="position: absolute; top: 0; width: 100%; visibility: hidden;">
+    <div id="reset" style="cursor: pointer;" align="center">RESET ALL PROGRESS</div>
+    <div id="unlock" style="cursor: pointer;" align="center">UNLOCK ALL LEVELS</div>
+    <div id="editoron" style="cursor: pointer;" align="center">ENABLE LEVEL EDITOR</div>
+    <div id="perfon" style="cursor: pointer;" align="center">ENABLE PERF MONITOR</div>
+    <div id="connecton" style="cursor: pointer;" align="center">CONNECT TO SERVER</div>
+  </div>
 
-		<div id="lgo" style="position: absolute; top: 0px; width: 100%; visibility: hidden;">
-				<div id="lgob" style="position: absolute;">ORBIUM</div>
-				<div id="filler1" align="center">&nbsp;</div>
-				<div id="loading" style="position: absolute;">LOADING...</div>
-				<div id="copyright" style="position: absolute;">COPYRIGHT 2010 BJÖRN NILSSON</div>
-		</div>
+  <div id="lgo" style="position: absolute; top: 0; width: 100%; visibility: hidden;">
+    <div id="lgob" style="position: absolute;">ORBIUM</div>
+    <div id="filler1" align="center">&nbsp;</div>
+    <div id="loading" style="position: absolute;">LOADING...</div>
+    <div id="copyright" style="position: absolute;">COPYRIGHT 2018 BJÖRN NILSSON</div>
+  </div>
 
-		<div id="creds" style="position: absolute; top: 0px; width: 100%; visibility: hidden;">
-			<div id="info" align="center">
-				<p>
-					<span>DEVELOPMENT</span><br>
-					<span>BJÖRN NILSSON</span><br>
-					<span><a id="contact" style="cursor: pointer; text-decoration: underline;">BNI@JSWAY.SE</a></span>
-				</p>
-				<p>
-					<span>GRAPHICS</span><br>
-					<span>VINCENT MACCIOLI</span><br>
-					<span><a id="gfx" style="cursor: pointer; text-decoration: underline;">THEAIRTIGHTGARAGE.NET</a></span>
-				</p>
-			</div>
-			<div id="credb" style="cursor: pointer;" align="center">BACK</div>
-		</div>
+  <div id="creds" style="position: absolute; top: 0; width: 100%; visibility: hidden;">
+    <div id="info" align="center">
+      <p>
+        <span>DEVELOPMENT</span><br>
+        <span>BJÖRN NILSSON</span><br>
+        <span><a id="contact" style="cursor: pointer; text-decoration: underline;">BNILSSON@ME.COM</a></span>
+      </p>
+      <p>
+        <span>GRAPHICS</span><br>
+        <span>VINCENT MACCIOLI</span><br>
+        <span><a id="gfx" style="cursor: pointer; text-decoration: underline;">THEAIRTIGHTGARAGE.NET</a></span>
+      </p>
+    </div>
+    <div id="credb" style="cursor: pointer;" align="center">BACK</div>
+  </div>
 
-		<div id="edt" style="position: absolute; top: 0px; width: 100%; visibility: hidden;">
-			<div id="sav" style="position: absolute; cursor: pointer;">SAVE</div>
-			<div id="tst" style="position: absolute; cursor: pointer;">TEST</div>
-		</div>
+  <div id="edt" style="position: absolute; top: 0; width: 100%; visibility: hidden;">
+    <div id="sav" style="position: absolute; cursor: pointer;">SAVE</div>
+    <div id="tst" style="position: absolute; cursor: pointer;">TEST</div>
+  </div>
 
-		<div id="fail" style="position: absolute; top: 0px; width: 100%; visibility: hidden;">
-			<div id="fai" align="center">&nbsp;</div>
-			<div id="filler3" align="center">&nbsp;</div>
-			<div id="retry" style="position: absolute; left: 28%; cursor: pointer;" align="center">RETRY</div>
-			<div id="failb" style="position: absolute; left: 58%; cursor: pointer;" align="center">MENU</div>
-		</div>
+  <div id="fail" style="position: absolute; top: 0; width: 100%; visibility: hidden;">
+    <div id="fai" align="center">&nbsp;</div>
+    <div id="filler3" align="center">&nbsp;</div>
+    <div id="retry" style="position: absolute; left: 28%; cursor: pointer;" align="center">RETRY</div>
+    <div id="failb" style="position: absolute; left: 58%; cursor: pointer;" align="center">MENU</div>
+  </div>
 
-		<div id="compl" style="position: absolute; top: 0px; width: 100%; visibility: hidden;">
-			<div id="comp" align="center">&nbsp;</div>
-			<div id="filler4" align="center">&nbsp;</div>
-			<div id="nextl" style="position: absolute; left: 28%; cursor: pointer;" align="center">&nbsp;</div>
-			<div id="compb" style="position: absolute; left: 58%; cursor: pointer;" align="center">MENU</div>
-		</div>
-	</div>
+  <div id="compl" style="position: absolute; top: 0; width: 100%; visibility: hidden;">
+    <div id="comp" align="center">&nbsp;</div>
+    <div id="filler4" align="center">&nbsp;</div>
+    <div id="nextl" style="position: absolute; left: 28%; cursor: pointer;" align="center">&nbsp;</div>
+    <div id="compb" style="position: absolute; left: 58%; cursor: pointer;" align="center">MENU</div>
+  </div>
+</div>
 
-	<div id="sign0" style="position: absolute; visibility: hidden;">&nbsp;</div>
-	<div id="tutorial0" style="position: absolute; visibility: hidden;">&nbsp;</div>
-	<div id="perf0" style="position: absolute; visibility: hidden;">&nbsp;</div>
+<div id="sign0" style="position: absolute; visibility: hidden;">&nbsp;</div>
+<div id="tutorial0" style="position: absolute; visibility: hidden;">&nbsp;</div>
+<div id="perf0" style="position: absolute; visibility: hidden;">&nbsp;</div>
 
-	<div id="progress0" style="position: absolute; visibility: hidden; background: #808080; z-index: 100;"></div>
-	<div id="progress1" style="position: absolute; visibility: hidden; background: #ffffff; z-index: 101;"></div>
+<div id="progress0" style="position: absolute; visibility: hidden; background: #808080; z-index: 100;"></div>
+<div id="progress1" style="position: absolute; visibility: hidden; background: #ffffff; z-index: 101;"></div>
 </body>
 </html>
